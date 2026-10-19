@@ -1,0 +1,14 @@
+{
+  "name": "Basehor Park Pass 2027",
+  "short_name": "Park Pass",
+  "description": "Basehor Parks & Rec digital Park Pass — check in, crack lockboxes, collect stamps and grow your WELL flower.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF9EE",
+  "theme_color": "#0E2650",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
