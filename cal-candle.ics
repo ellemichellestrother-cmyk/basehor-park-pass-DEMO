@@ -26,7 +26,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:candle-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;VALUE=DATE:20271104
 DTEND;VALUE=DATE:20271105
 SUMMARY:🕯️ Candlelight Concert — Basehor Park Pass
@@ -37,7 +37,7 @@ DESCRIPTION:A calm\, glowing evening of music. Breathe slow\, listen close
 LOCATION:Basehor\, KS
 URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
 BEGIN:VALARM
-TRIGGER:-PT2H
+TRIGGER:PT9H
 ACTION:DISPLAY
 DESCRIPTION:Candlelight Concert today!
 END:VALARM

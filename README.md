@@ -72,6 +72,7 @@ It shows a yellow **“Oops — the Park Pass didn’t load all the way”** box
   - **Build & download upload files (.zip)** → unzip it → on GitHub, **Add file → Upload files**, drop in everything from the folder, commit. That replaces `index.html` and every calendar file, and the demo codes stop working.
   - Edited events locally and not uploaded yet? Click **📂 Use a different index.html** first so the codes match.
 - [ ] **Print** (admin tab 2): event QR posters, challenge signs, secret-word cards for inside the boxes, lockbox tags. Enter your live site address first so the QR codes point to it. In the print dialog, turn on **Background graphics** for full color.
+- [ ] **Prizes** — once chosen, type them into `prizes` in the EDIT section (`box`, `golden`, `bloom`). Blank ones stay hidden; filled ones show in “How it works”, on the box screens and in the stamp celebration.
 - [ ] Set `onlyCheckInFromEventDay: true` (same EDIT section) so event codes can't be used early.
 - [ ] **Changed an event's date, time or place?** Run the admin build again (it re-makes the calendar files from your latest index.html) and upload the zip, so calendars match.
 - [ ] After changing files, bump `VERSION` in `sw.js` (e.g. `bpp27-v5`) so phones that installed the app get the update right away.
@@ -122,6 +123,31 @@ Codes ignore capitals, spaces and dashes. A QR code is just your site link with 
 
 ---
 
+## 🗓️ Season rollout (keeps families coming back)
+
+- **One new challenge a month.** Each challenge has an `opens` date in the EDIT section. Before that date its word won't work and the app shows "Opens June 1" instead.
+
+  | Opens | Challenge | Word comes from |
+  |---|---|---|
+  | Feb 12 | Safety Scout | Staff (out loud) |
+  | May 1 | Park Protector | Green sign in a park |
+  | Jun 1 | Dream Big Goal | Staff at the Goal Board |
+  | Jul 1 | Move-It Mile | Orange Mile Marker sign |
+  | Aug 1 | Kindness Quest | Staff at the front desk |
+  | Sep 1 | Quiet Spot Quest | Teal Listen Here sign |
+
+  **Post each sign on its opening day, not before.** The staff key sheet lists the dates.
+- **Earn the combo first.** A lockbox's secret word only stamps the pass once that child has unlocked the box's combo (from an event or the challenge). A photo of a word card can't be used to skip the trail.
+- **Golden Seed finale opens Oct 1** (`finale.opens`). Kids can collect all six words any time, but the finale combo appears in their pass on that date, with a celebration.
+- **Reminders:** the Home screen announces each new challenge and counts down to the next one. The pass shows a **season streak** (one Park Pass thing per month lights that month up). The subscribable season calendar includes every challenge drop and the finale, so families get a phone reminder each month.
+- **Test mode:** set `testMode: true` to ignore every date while staff try things out. A red "Test mode is on" banner shows on Home. **Set it back to `false` before launch.**
+
+## 🖐️ Stamps: what you need
+
+- **Rubber stamps: 7**, one inside each lockbox (6 petal boxes + Golden Seed), plus spare ink pads. That's the only place physical stamps are used.
+- **Events: no rubber stamp.** Scanning the QR gives a digital event stamp. Kids using a paper pass ask the check-in staffer to initial that event on page 1.
+- **Challenges: no stamp.** They give +1 petal point and the box combo.
+
 ## What's in the folder
 
 Upload **everything** to the top level of your GitHub repo (no folders):
@@ -147,4 +173,6 @@ README.md             these notes
 - **Paper pass:** "Print a paper Park Pass" prints 2 pages — page 1 has stamp circles + the event checklist; page 2 is a big WELL flower with 5 stripes per petal to color in (earned stripes print pre-colored).
 - **Calendar:** families can add one event or the whole season to their phone calendar.
 - **The map** is an illustrated trail map built into the page — no map service, no API key, nothing to break. Pins are placed from each box's real coordinates (so they sit in the right spots relative to each other), and tapping a pin opens that box with **Google Maps directions**. “Open full route in Maps” opens every box as stops; “Closest box to me” uses the phone's location.
+- **Changing a lock's combo mid-season** (leaked, box replaced): set the new combo on the lock, enter it in the staff tool, build and upload the zip. Keep the codes and words the same. Kids who already unlocked that box see the new combo automatically next time they open the pass.
+- **What each thing earns** (also shown to families under “How it works”): event check-in = +1 to each of its 2 petals, an event stamp and a box combo · challenge = +1 to its box's petal and that box's combo · lockbox = +2 to its petal, a lockbox stamp and a Golden Seed word · Golden Seed Box = finale stamp · 30 points = full bloom (Basehor WELL Star).
 - **Calendar buttons** open the phone's own calendar: iPhone/iPad/Mac → Apple Calendar's “Add” screen (season → “Subscribe”, which auto-updates); Android → Google Calendar, pre-filled (season → subscribe); computers → a calendar file Outlook/Calendar opens. Each event also has an “or use Google Calendar” link.

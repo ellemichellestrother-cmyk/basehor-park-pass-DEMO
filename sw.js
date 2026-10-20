@@ -1,6 +1,6 @@
 /* Basehor Park Pass — offline helper.
    Bump VERSION whenever you change files so phones get the update. */
-const VERSION = 'bpp27-v4';
+const VERSION = 'bpp27-v6';
 const SHELL = ['./', './index.html'];
 
 self.addEventListener('install', e => {

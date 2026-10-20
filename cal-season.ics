@@ -26,7 +26,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:bear-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270212T180000
 DTEND;TZID=America/Chicago:20270212T200000
 SUMMARY:🧸 Build-a-Bear Night — Basehor Park Pass
@@ -43,8 +43,25 @@ DESCRIPTION:Build-a-Bear Night today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:drop-shield-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20270212
+DTEND;VALUE=DATE:20270213
+SUMMARY:⭐ New Park Pass challenge: Safety Scout
+DESCRIPTION:A new challenge just opened! Finish it to unlock the Shield Box
+  combo and grow your WELL flower.\nOpen your Basehor Park Pass to see it!\
+ nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:New Park Pass challenge: Safety Scout today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:flick1-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270423T201500
 DTEND;TZID=America/Chicago:20270423T221500
 SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
@@ -62,7 +79,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:bloom-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;VALUE=DATE:20270501
 DTEND;VALUE=DATE:20270502
 SUMMARY:🌷 Basehor's Blooming — Basehor Park Pass
@@ -74,14 +91,31 @@ DESCRIPTION:Kick off the Park Pass season by helping Basehor bloom! Plant\,
 LOCATION:Basehor\, KS
 URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
 BEGIN:VALARM
-TRIGGER:-PT2H
+TRIGGER:PT9H
 ACTION:DISPLAY
 DESCRIPTION:Basehor's Blooming today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:drop-sprout-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
+SUMMARY:⭐ New Park Pass challenge: Park Protector
+DESCRIPTION:A new challenge just opened! Finish it to unlock the Sprout Box
+  combo and grow your WELL flower.\nOpen your Basehor Park Pass to see it!\
+ nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:New Park Pass challenge: Park Protector today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:golfish-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270513T173000
 DTEND;TZID=America/Chicago:20270513T193000
 SUMMARY:🐟 Golfish — Basehor Park Pass
@@ -99,7 +133,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:concert5-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270520T183000
 DTEND;TZID=America/Chicago:20270520T203000
 SUMMARY:🎸 3rd Thursday Concert — Basehor Park Pass
@@ -117,7 +151,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:flick2-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270521T203000
 DTEND;TZID=America/Chicago:20270521T223000
 SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
@@ -134,8 +168,25 @@ DESCRIPTION:Friday Night Flicks today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:drop-goal-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20270601
+DTEND;VALUE=DATE:20270602
+SUMMARY:⭐ New Park Pass challenge: Dream Big Goal
+DESCRIPTION:A new challenge just opened! Finish it to unlock the Goal Box c
+ ombo and grow your WELL flower.\nOpen your Basehor Park Pass to see it!\nh
+ ttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:New Park Pass challenge: Dream Big Goal today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:whales-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270605T080000
 DTEND;TZID=America/Chicago:20270605T100000
 SUMMARY:🐳 Whales & Scales — Basehor Park Pass
@@ -153,7 +204,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:water1-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270611T160000
 DTEND;TZID=America/Chicago:20270611T190000
 SUMMARY:💦 Water Day — Basehor Park Pass
@@ -171,7 +222,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:concert6-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270617T183000
 DTEND;TZID=America/Chicago:20270617T203000
 SUMMARY:🎺 3rd Thursday Concert — Basehor Park Pass
@@ -188,8 +239,25 @@ DESCRIPTION:3rd Thursday Concert today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:drop-wiggle-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20270701
+DTEND;VALUE=DATE:20270702
+SUMMARY:⭐ New Park Pass challenge: Move-It Mile
+DESCRIPTION:A new challenge just opened! Finish it to unlock the Wiggle Box
+  combo and grow your WELL flower.\nOpen your Basehor Park Pass to see it!\
+ nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:New Park Pass challenge: Move-It Mile today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:water2-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270709T160000
 DTEND;TZID=America/Chicago:20270709T190000
 SUMMARY:💦 Water Day — Basehor Park Pass
@@ -207,7 +275,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:concert7-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270715T183000
 DTEND;TZID=America/Chicago:20270715T203000
 SUMMARY:🥁 3rd Thursday Concert — Basehor Park Pass
@@ -224,8 +292,25 @@ DESCRIPTION:3rd Thursday Concert today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:drop-buddy-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20270801
+DTEND;VALUE=DATE:20270802
+SUMMARY:⭐ New Park Pass challenge: Kindness Quest
+DESCRIPTION:A new challenge just opened! Finish it to unlock the Buddy Box 
+ combo and grow your WELL flower.\nOpen your Basehor Park Pass to see it!\n
+ https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:New Park Pass challenge: Kindness Quest today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:water3-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270806T160000
 DTEND;TZID=America/Chicago:20270806T190000
 SUMMARY:💦 Water Day — Basehor Park Pass
@@ -242,7 +327,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:concert8-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270819T183000
 DTEND;TZID=America/Chicago:20270819T203000
 SUMMARY:🎤 3rd Thursday Concert — Basehor Park Pass
@@ -258,8 +343,25 @@ DESCRIPTION:3rd Thursday Concert today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:drop-brainy-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20270901
+DTEND;VALUE=DATE:20270902
+SUMMARY:⭐ New Park Pass challenge: Quiet Spot Quest
+DESCRIPTION:A new challenge just opened! Finish it to unlock the Brainy Box
+  combo and grow your WELL flower.\nOpen your Basehor Park Pass to see it!\
+ nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:New Park Pass challenge: Quiet Spot Quest today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:flick3-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270910T194500
 DTEND;TZID=America/Chicago:20270910T214500
 SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
@@ -277,7 +379,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:talent-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20270918T170000
 DTEND;TZID=America/Chicago:20270918T190000
 SUMMARY:🌟 Basehor's Got Talent — Basehor Park Pass
@@ -294,8 +396,25 @@ DESCRIPTION:Basehor's Got Talent today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:golden-open-2027@basehor-park-pass
+DTSTAMP:20261020T155517Z
+DTSTART;VALUE=DATE:20271001
+DTEND;VALUE=DATE:20271002
+SUMMARY:🌻 The Golden Seed Box opens!
+DESCRIPTION:Collected all six secret words? Your Golden Seed combo is now i
+ n your Park Pass. Time for the finale!\nOpen your Basehor Park Pass to see
+  it!\nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:15940 Leavenworth Rd\, Basehor\, KS 66007
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:PT9H
+ACTION:DISPLAY
+DESCRIPTION:The Golden Seed Box opens! today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:market10-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20271002T090000
 DTEND;TZID=America/Chicago:20271002T110000
 SUMMARY:🍎 Fall Market Morning — Basehor Park Pass
@@ -313,7 +432,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:flick4-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20271008T190000
 DTEND;TZID=America/Chicago:20271008T210000
 SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
@@ -331,7 +450,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:ruck-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;VALUE=DATE:20271016
 DTEND;VALUE=DATE:20271017
 SUMMARY:💀 Skeleton Ruck — Basehor Park Pass
@@ -342,14 +461,14 @@ DESCRIPTION:Pack up and march with your crew! A bone-rattling walk for ever
 LOCATION:Basehor\, KS
 URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
 BEGIN:VALARM
-TRIGGER:-PT2H
+TRIGGER:PT9H
 ACTION:DISPLAY
 DESCRIPTION:Skeleton Ruck today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:candle-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;VALUE=DATE:20271104
 DTEND;VALUE=DATE:20271105
 SUMMARY:🕯️ Candlelight Concert — Basehor Park Pass
@@ -360,14 +479,14 @@ DESCRIPTION:A calm\, glowing evening of music. Breathe slow\, listen close
 LOCATION:Basehor\, KS
 URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
 BEGIN:VALARM
-TRIGGER:-PT2H
+TRIGGER:PT9H
 ACTION:DISPLAY
 DESCRIPTION:Candlelight Concert today!
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:market11-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;TZID=America/Chicago:20271113T090000
 DTEND;TZID=America/Chicago:20271113T110000
 SUMMARY:🥧 Fall Market Morning — Basehor Park Pass

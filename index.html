@@ -228,6 +228,27 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
   background: #FFF4D6; border: 3px dashed var(--purpose);
 }
 .nudge p { margin: 0; flex: 1; font-size: 15px; }
+#dropBanner { display: grid; gap: 10px; margin-top: 16px; }
+#dropBanner:empty { display: none; }
+#dropBanner .nudge { margin-top: 0; }
+.drop-card { display: flex; gap: 12px; align-items: center; text-align: left; width: 100%; font-size: 15px; line-height: 1.35;
+  background: #fff; border: 3px solid var(--navy); border-radius: 18px; padding: 12px 14px; box-shadow: var(--pop); color: var(--navy); }
+.drop-card.new { background: #FFF4D6; border-color: var(--rust); box-shadow: 4px 4px 0 var(--rust); animation: dropPulse 2.4s ease-in-out infinite; }
+.drop-card.gold { background: #FFF8E4; border-color: var(--gold); box-shadow: 4px 4px 0 var(--gold); }
+.drop-card.streak-card { background: #FFEDE4; border-color: var(--body-deep); box-shadow: 4px 4px 0 var(--body-deep); }
+.drop-em { font-size: 30px; flex: none; }
+@keyframes dropPulse { 50% { transform: translateY(-2px); } }
+.streak { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+@media (min-width: 620px) { .streak { grid-template-columns: repeat(10, 1fr); } }
+.streak .month { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px; border-radius: 14px; background: #fff; border: 3px solid #E6DECF; font-size: 20px; }
+.streak .month b { font-size: 12px; font-family: var(--font-tag); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.streak .month.on { border-color: var(--body); background: #FFEDE4; }
+.streak .month.on b { color: var(--navy); }
+.streak .month.now { border-style: dashed; border-color: var(--navy); }
+.streak .month.missed { opacity: .5; }
+.streak .month.future { opacity: .7; }
+.streak-total { grid-column: 1 / -1; margin: 4px 0 0; text-align: center; font-weight: 900; }
+.box-card.locked { opacity: .85; background: repeating-linear-gradient(135deg, #fff 0 14px, #FBF6EC 14px 28px); }
 .nudge .btn { min-height: 40px; padding: 6px 12px; font-size: 14px; }
 
 /* ---------------- Event cards ---------------- */
@@ -476,6 +497,12 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .how-step { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; background: #fff; border-radius: 16px; padding: 10px; }
 .how-step .hi { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 26px; background: var(--c); }
 .how-step p { margin: 0; font-size: 15px; }
+.earn-table { display: grid; gap: 6px; font-size: 14px; }
+.earn-row { display: grid; grid-template-columns: 1.15fr 1.2fr 1fr 1.2fr; gap: 8px; background: #fff; border-radius: 12px; padding: 9px 10px; align-items: center; }
+.earn-row.head { background: none; padding: 0 10px; font-family: var(--font-tag); text-transform: uppercase; letter-spacing: .06em; font-size: 12px; color: var(--muted); }
+.earn-row > b { font-size: 14px; color: var(--navy); }
+.prize-line { background: #FFF4D6; border: 2px dashed var(--purpose); border-radius: 12px; padding: 8px 12px; }
+@media (max-width: 480px) { .earn-row { grid-template-columns: 1fr 1fr; } .earn-row.head { display: none; } .earn-row > b { grid-column: 1 / -1; } .earn-row span::before { display: block; font: 600 11px var(--font-tag); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); } .earn-row span:nth-of-type(1)::before { content: 'Flower points'; } .earn-row span:nth-of-type(2)::before { content: 'Stamp'; } .earn-row span:nth-of-type(3)::before { content: 'Unlocks'; } }
 .how-step b { font-family: var(--font-display); font-weight: 900; color: var(--navy); }
 
 /* ---------------- Toast + confetti ---------------- */
@@ -606,6 +633,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 
       <div class="petal-legend" id="petalLegend"></div>
 
+      <div id="dropBanner"></div>
       <div class="stats" id="stats"></div>
 
       <div id="backupNudge"></div>
@@ -632,12 +660,16 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
         </div>
       </div>
 
+      <h2 class="section-title"><span>Season streak</span></h2>
+      <p class="section-sub">Do at least one Park Pass thing each month (an event, a challenge or a lockbox) to light up that month!</p>
+      <div class="streak" id="streak"></div>
+
       <h2 class="section-title"><span>Lockbox stamps</span></h2>
-      <p class="section-sub">Crack each box, find the secret word inside, and stamp your pass!</p>
+      <p class="section-sub">Crack each box, type the secret word inside for your digital stamp, and use the rubber stamp in the box on your paper pass!</p>
       <div class="stamp-grid" id="boxStamps"></div>
 
       <h2 class="section-title"><span>Event stamps</span></h2>
-      <p class="section-sub">Scan the QR code at each event to check in.</p>
+      <p class="section-sub">Scan the QR code at each event to check in. Event stamps are digital (paper passes get a staff initial).</p>
       <div class="stamp-grid small" id="eventStamps"></div>
 
       <div class="center-row">
@@ -849,6 +881,19 @@ window.PARK = {
      Leave OFF while you test the site. */
   onlyCheckInFromEventDay: false,
 
+  /* TEST MODE — true ignores every date (challenge release dates, the
+     Golden Seed opening, event-day check-ins) so staff can try everything.
+     ⚠️ Keep this false on the live site. */
+  testMode: false,
+
+  /* Prizes — leave a line blank ('') to hide it. When filled in, the app
+     shows it in "How it works", on the box screens and in the celebrations. */
+  prizes: {
+    box: '',      // e.g. 'a sticker' — kids take one from each petal lockbox they crack
+    golden: '',   // e.g. 'a Basehor WELL pin' — inside the Golden Seed Box
+    bloom: ''     // e.g. 'a free swim pass' — at the front desk for a full bloom (all six petals)
+  },
+
   petalGoal: 5,
   points: { event: 1, challenge: 1, box: 2 },
 
@@ -864,6 +909,11 @@ window.PARK = {
   ],
 
   /* ---------------- LOCKBOX TRAIL ----------------
+     Each challenge has an "opens" date: one new challenge drops each
+     month so families keep coming back (its word won't work before then).
+     spoken: true = staff say the word out loud instead of a public sign.
+     A box's secret word only stamps once a child has earned that box's
+     combo (from an event or the challenge).
      One box per petal + the Golden Seed finale box.
      ⚠️ Only Basehor City Park's pin is a real address. Set the
      others with the map picker in admin.html (click → copy lat/lng). */
@@ -874,7 +924,7 @@ window.PARK = {
       lat: 39.1484, lng: -94.9415,
       hint: 'Look for the pink petal tag near something that keeps people safe.',
       challenge: {
-        title: 'Safety Scout',
+        title: 'Safety Scout', opens: '2027-02-12', spoken: true,
         steps: [
           'Learn your home address and a grown-up’s phone number by heart.',
           'Practice your family’s meeting spot if there’s ever a fire drill at home.',
@@ -889,13 +939,13 @@ window.PARK = {
       lat: 39.14508, lng: -94.94736,
       hint: 'Near the playground — find the navy petal tag.',
       challenge: {
-        title: 'Kindness Quest',
+        title: 'Kindness Quest', opens: '2027-08-01', spoken: true,
         steps: [
           'Make a thank-you card for a helper: a firefighter, librarian, teacher or park worker.',
-          'Deliver it (or drop it in the Kindness Mailbox at City Hall).',
-          'The secret word is printed on the Kindness Mailbox!'
+          'Bring it to the Basehor Parks & Rec front desk (we’ll deliver it to the Kindness Mailbox).',
+          'A staff member will tell you the secret word!'
         ],
-        where: 'Kindness Mailbox at City Hall'
+        where: 'Basehor Parks & Rec front desk (staff tell you the word)'
       }
     },
     {
@@ -904,7 +954,7 @@ window.PARK = {
       lat: 39.1402, lng: -94.9362,
       hint: 'Where the trail meets the fitness stop — orange petal tag.',
       challenge: {
-        title: 'Move-It Mile',
+        title: 'Move-It Mile', opens: '2027-07-01',
         steps: [
           'Walk, run, skip or bike one whole mile on a Basehor park trail.',
           'Try 10 jumping jacks at every bench you pass!',
@@ -919,13 +969,13 @@ window.PARK = {
       lat: 39.1338, lng: -94.9441,
       hint: 'Find the yellow petal tag where people come together to help.',
       challenge: {
-        title: 'Dream Big Goal',
+        title: 'Dream Big Goal', opens: '2027-06-01', spoken: true,
         steps: [
           'Pick one goal for this summer (learn to swim, read 10 books, help a neighbor…).',
           'Write or draw it on a Goal Star card.',
-          'Pin it to the Goal Board — the secret word is at the top of the board.'
+          'Pin it to the Goal Board at Parks & Rec and show a staff member — they’ll tell you the secret word!'
         ],
-        where: 'Goal Board at Basehor Parks & Rec'
+        where: 'Goal Board at Basehor Parks & Rec (staff tell you the word)'
       }
     },
     {
@@ -934,7 +984,7 @@ window.PARK = {
       lat: 39.1371, lng: -94.9528,
       hint: 'Close to the trees and flowers — green petal tag.',
       challenge: {
-        title: 'Park Protector',
+        title: 'Park Protector', opens: '2027-05-01',
         steps: [
           'With a grown-up, pick up one bag of litter at any Basehor park (gloves on!).',
           'Spot 3 different kinds of trees or birds while you’re there.',
@@ -949,7 +999,7 @@ window.PARK = {
       lat: 39.1446, lng: -94.9318,
       hint: 'A quiet, cozy reading spot — teal petal tag.',
       challenge: {
-        title: 'Quiet Spot Quest',
+        title: 'Quiet Spot Quest', opens: '2027-09-01',
         steps: [
           'Find a quiet place outside and sit still for 2 whole minutes.',
           'Count every sound you hear. Birds? Wind? Cars? A dog?',
@@ -967,7 +1017,8 @@ window.PARK = {
     id: 'golden', num: 7, category: null, name: 'Golden Seed Box', emoji: '🌻',
     place: 'Basehor City Park', address: '15940 Leavenworth Rd, Basehor, KS 66007',
     lat: 39.14535, lng: -94.94695,
-    hint: 'Stamp all six petal boxes. The secret words you find inside them build the Golden Seed combo!'
+    hint: 'Stamp all six petal boxes. The secret words you find inside them build the Golden Seed combo!',
+    opens: '2027-10-01'   // the finale combo is revealed from this date (words can be collected any time)
   },
 
   /* ---------------- 2027 EVENT LINEUP ----------------
@@ -1814,6 +1865,7 @@ window.PARK_SECRETS = {
     return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   }
   function details(e, P, siteUrl) {
+    if (e.kind) return `${e.blurb || ''}\nOpen your Basehor Park Pass to see it!` + (siteUrl ? `\n${siteUrl}` : '');
     const names = (e.cats || []).map(c => (P.categories.find(x => x.id === c) || {}).name).filter(Boolean);
     return `${e.blurb || ''}\nPetals: ${names.join(', ')}` +
       (e.rain ? `\nMake-up date: ${longDate(e.rain)}` : '') +
@@ -1846,11 +1898,11 @@ window.PARK_SECRETS = {
       L.push('BEGIN:VEVENT', `UID:${e.id}-${P.season}@basehor-park-pass`, `DTSTAMP:${stamp}`);
       if (t.allDay) L.push(`DTSTART;VALUE=DATE:${t.start}`, `DTEND;VALUE=DATE:${t.end}`);
       else L.push(`DTSTART;TZID=${TZ}:${t.start}`, `DTEND;TZID=${TZ}:${t.end}`);
-      L.push(`SUMMARY:${esc(`${e.emoji} ${e.title} — Basehor Park Pass`)}`,
+      L.push(`SUMMARY:${esc(e.kind ? `${e.emoji} ${e.title}` : `${e.emoji} ${e.title} — Basehor Park Pass`)}`,
         `DESCRIPTION:${esc(details(e, P, opts.siteUrl))}`,
         `LOCATION:${esc(e.place || 'Basehor, KS')}`);
       if (opts.siteUrl) L.push(`URL:${opts.siteUrl}`);
-      L.push('BEGIN:VALARM', 'TRIGGER:-PT2H', 'ACTION:DISPLAY', `DESCRIPTION:${esc(e.title + ' today!')}`, 'END:VALARM', 'END:VEVENT');
+      L.push('BEGIN:VALARM', t.allDay ? 'TRIGGER:PT9H' : 'TRIGGER:-PT2H', 'ACTION:DISPLAY', `DESCRIPTION:${esc(e.title + ' today!')}`, 'END:VALARM', 'END:VEVENT');
     }
     L.push('END:VCALENDAR');
     return L.map(fold).join('\r\n') + '\r\n';
@@ -1864,6 +1916,20 @@ window.PARK_SECRETS = {
     return 'https://calendar.google.com/calendar/render?' + q.toString();
   }
 
+  // the whole season: every event + each monthly challenge drop + the Golden Seed opening
+  function seasonItems(P) {
+    const items = [...P.events];
+    for (const b of P.boxes) if (b.challenge && b.challenge.opens) items.push({
+      id: 'drop-' + b.id, kind: 'drop', date: b.challenge.opens, time: null, emoji: '⭐', place: '', cats: [b.category],
+      title: `New Park Pass challenge: ${b.challenge.title}`,
+      blurb: `A new challenge just opened! Finish it to unlock the ${b.name} combo and grow your WELL flower.` });
+    if (P.finale && P.finale.opens) items.push({
+      id: 'golden-open', kind: 'finale', date: P.finale.opens, time: null, emoji: '🌻', place: P.finale.address || P.finale.place || '', cats: [],
+      title: 'The Golden Seed Box opens!',
+      blurb: 'Collected all six secret words? Your Golden Seed combo is now in your Park Pass. Time for the finale!' });
+    return items.sort((a, b) => a.date.localeCompare(b.date));
+  }
+
   const fileFor = id => `cal-${id}.ics`;
   const SEASON = 'cal-season.ics';
 
@@ -1874,7 +1940,7 @@ window.PARK_SECRETS = {
   }
   const hosted = () => global.location && /^https?:$/.test(location.protocol);
 
-  global.ParkCal = { ics, google, times, fileFor, SEASON, device, hosted };
+  global.ParkCal = { ics, google, times, fileFor, SEASON, device, hosted, seasonItems };
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
@@ -1899,6 +1965,7 @@ window.PARK_SECRETS = {
   const toDate = iso => { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); };
   const pad2 = n => String(n).padStart(2, '0');
   const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`; };
+  const isOpen = iso => !iso || !!(window.PARK && window.PARK.testMode) || todayISO() >= iso;   // release dates (test mode ignores them)
   const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const fmtLong = iso => toDate(iso).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   const fmtShort = iso => toDate(iso).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
@@ -1908,6 +1975,11 @@ window.PARK_SECRETS = {
   const catTag = id => `<span class="cat-tag${LIGHT.has(id) ? ' light' : ''}" style="--c:${CAT[id].color}">${CAT[id].emoji} ${CAT[id].name}</span>`;
   const daysBetween = (a, b) => Math.round((toDate(b) - toDate(a)) / 864e5);
   const me = () => Store.active();
+  const chOpen = b => !b.challenge || isOpen(b.challenge.opens);
+  const goldenOpen = () => isOpen(P.finale.opens);
+  const allWords = x => BOXES.every(b => x.boxes[b.id] && x.boxes[b.id].word);
+  const fmtMD = iso => toDate(iso).toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+  const unlockEvents = b => EVENTS.filter(e => e.cats[0] === b.category);
 
   /* ---------------- scoring ---------------- */
   function scores(x) {
@@ -2055,6 +2127,8 @@ window.PARK_SECRETS = {
       <div class="nudge"><span style="font-size:28px">💾</span><p><b>Keep your stamps safe!</b> Save a backup so you never lose your pass or photos.</p>
       <button class="btn btn-navy" data-action="backup">Save</button></div>` : '';
 
+    // monthly drops, finale countdown, streak, test-mode warning
+    $('#dropBanner').innerHTML = dropBannerHTML(x);
     // next up
     const t = todayISO();
     const up = EVENTS.filter(e => e.date >= t || (e.rain && e.rain >= t)).slice(0, 2);
@@ -2067,6 +2141,58 @@ window.PARK_SECRETS = {
     html += up.length ? up.map(eventCard).join('') : `<div class="empty"><span class="big">🌻</span>That’s a wrap on 2027 — thanks for growing with us!</div>`;
     $('#nextUp').innerHTML = html;
     bindEventCards($('#nextUp'));
+  }
+
+  /* ---------------- season rollout: banners + streak ---------------- */
+  const SEASON_MONTHS = (() => {
+    const first = toDate(EVENTS[0].date), last = toDate(EVENTS[EVENTS.length - 1].date), out = [];
+    for (let d = new Date(first.getFullYear(), first.getMonth(), 1); d <= last; d.setMonth(d.getMonth() + 1)) out.push(`${d.getFullYear()}-${pad2(d.getMonth() + 1)}`);
+    return out;
+  })();
+  function activeMonths(x) {
+    const set = new Set();
+    for (const v of [...Object.values(x.events), ...Object.values(x.challenges), ...Object.values(x.boxes)]) if (v && v.at) {
+      const d = new Date(v.at); set.add(`${d.getFullYear()}-${pad2(d.getMonth() + 1)}`);
+    }
+    return set;
+  }
+  function streakInfo(x) {
+    const act = activeMonths(x), now = todayISO().slice(0, 7);
+    let run = 0;
+    for (let i = SEASON_MONTHS.length - 1; i >= 0; i--) {
+      const m = SEASON_MONTHS[i];
+      if (m > now) continue;
+      if (act.has(m)) run++; else if (m === now) continue; else break;
+    }
+    return { act, run, total: SEASON_MONTHS.filter(m => act.has(m)).length };
+  }
+  function dropBannerHTML(x) {
+    let html = '';
+    if (P.testMode) html += `<div class="nudge" style="background:#FDE8E8;border-color:#D24C4C"><span style="font-size:26px">🧪</span><p><b>Test mode is on.</b> Release dates are being ignored. Staff: turn <code>testMode</code> off before launch.</p></div>`;
+    const t = todayISO();
+    const sorted = BOXES.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens));
+    const latest = sorted.filter(b => chOpen(b) && !P.testMode).pop();
+    const next = sorted.find(b => !isOpen(b.challenge.opens));
+    if (latest && daysBetween(latest.challenge.opens, t) <= 31 && !x.challenges[latest.id]) {
+      html += `<button class="drop-card new" data-action="challenges"><span class="drop-em">🆕</span><span><b>New challenge: ${esc(latest.challenge.title)}!</b><br>Open since ${fmtMD(latest.challenge.opens)}. Finish it to unlock the ${latest.emoji} ${latest.name}.</span></button>`;
+    } else if (next) {
+      const n = daysBetween(t, next.challenge.opens);
+      html += `<button class="drop-card" data-action="challenges"><span class="drop-em">⭐</span><span><b>Next challenge drops ${fmtMD(next.challenge.opens)}</b><br>${n === 1 ? 'Tomorrow!' : `${n} days to go`}. A new one opens every month!</span></button>`;
+    }
+    if (allWords(x) && !goldenOpen()) {
+      html += `<div class="drop-card gold"><span class="drop-em">🌻</span><span><b>All six secret words collected!</b><br>The Golden Seed Box opens ${fmtMD(P.finale.opens)} (${daysBetween(t, P.finale.opens)} days).</span></div>`;
+    }
+    const st = streakInfo(x);
+    if (st.run >= 2) html += `<div class="drop-card streak-card"><span class="drop-em">🔥</span><span><b>${st.run}-month streak!</b><br>Do one Park Pass thing this month to keep it going.</span></div>`;
+    return html;
+  }
+  function renderStreak(x) {
+    const st = streakInfo(x), now = todayISO().slice(0, 7);
+    $('#streak').innerHTML = SEASON_MONTHS.map(m => {
+      const [y, mo] = m.split('-').map(Number), label = MONTHS[mo - 1].slice(0, 3);
+      const cls = st.act.has(m) ? 'on' : m === now ? 'now' : m < now ? 'missed' : 'future';
+      return `<span class="month ${cls}" title="${MONTHS[mo - 1]} ${y}">${st.act.has(m) ? '🌸' : m === now ? '⭐' : '·'}<b>${label}</b></span>`;
+    }).join('') + `<p class="streak-total">${st.total} of ${SEASON_MONTHS.length} months${st.run >= 2 ? ` · 🔥 ${st.run} in a row` : ''}</p>`;
   }
 
   /* ---------------- event cards + list ---------------- */
@@ -2205,7 +2331,7 @@ window.PARK_SECRETS = {
       <div class="box-status ${x.boxes[box.id] ? 'done' : x.combos[box.id] ? 'ready' : ''}">
         ${box.emoji} <b>${box.name}</b> stamp · +${P.points.box} ${x.boxes[box.id] ? '✅' : ''}
       </div>
-      <div class="box-status ${x.challenges[box.id] ? 'done' : ''}">⭐ <b>${box.challenge.title}</b> challenge · +${P.points.challenge} ${x.challenges[box.id] ? '✅' : ''}</div>
+      <div class="box-status ${x.challenges[box.id] ? 'done' : ''}">⭐ <b>${box.challenge.title}</b> challenge · +${P.points.challenge} ${x.challenges[box.id] ? '✅' : chOpen(box) ? '' : `· opens ${fmtMD(box.challenge.opens)}`}</div>
       ${evs.map(e => `<div class="box-status ${x.events[e.id] ? 'done' : ''}" role="button" tabindex="0" data-ev="${e.id}" style="cursor:pointer">${e.emoji} <b>${esc(e.title)}</b> · ${fmtShort(e.date)} · +${P.points.event} ${x.events[e.id] ? '✅' : ''}</div>`).join('')}
       <div class="btn-col" style="margin-top:12px"><button class="btn btn-navy" id="pBox">${box.emoji} Open the ${box.name}</button></div>`,
       { onMount: root => { bindEventCards(root); $('#pBox', root).addEventListener('click', () => openBox(box.id)); } });
@@ -2215,6 +2341,7 @@ window.PARK_SECRETS = {
   async function renderPass() {
     const x = me(); if (!x) return;
     $('#passOwner').textContent = x.name;
+    renderStreak(x);
     $('#boxStamps').innerHTML = ALLBOXES.map((b, i) => {
       const done = x.boxes[b.id], combo = x.combos[b.id];
       return `<button class="stamp-slot${done ? ' done' : ''}${combo && !done ? ' has-combo' : ''}" style="--c:${boxColor(b)}" data-box="${b.id}">
@@ -2240,10 +2367,11 @@ window.PARK_SECRETS = {
     if (combo) return `<div class="box-status ready">🔑 Your combo: <span class="combo-big">${combo.combo}</span></div>`;
     if (b.id === 'golden') {
       const n = BOXES.filter(bb => x.boxes[bb.id]).length;
-      return `<div class="box-status">🔒 ${n}/6 petal boxes stamped — the secret words inside them unlock this one!</div>`;
+      if (n === 6 && !goldenOpen()) return `<div class="box-status ready">🌻 All six secret words collected! The combo appears here on <b>${fmtMD(P.finale.opens)}</b>.</div>`;
+      return `<div class="box-status">🔒 ${n}/6 petal boxes stamped. Their secret words unlock this box${goldenOpen() ? '' : ` (opens ${fmtMD(P.finale.opens)})`}.</div>`;
     }
-    const evs = EVENTS.filter(e => e.cats[0] === b.category);
-    return `<div class="box-status">🔒 Combo hidden. Check in at ${evs.length ? esc(evs[0].title) + (evs.length > 1 ? ` (or ${evs.length - 1} other event${evs.length > 2 ? 's' : ''})` : '') : 'an event'} <b>or</b> finish the ⭐ ${esc(b.challenge.title)} challenge.</div>`;
+    const evs = unlockEvents(b);
+    return `<div class="box-status">🔒 Combo hidden. Check in at ${evs.length ? esc(evs[0].title) + (evs.length > 1 ? ` (or ${evs.length - 1} other event${evs.length > 2 ? 's' : ''})` : '') : 'an event'} <b>or</b> finish the ⭐ ${esc(b.challenge.title)} challenge${chOpen(b) ? '' : ` (opens ${fmtMD(b.challenge.opens)})`}.</div>`;
   }
   const dirURL = b => `https://www.google.com/maps/dir/?api=1&destination=${b.lat},${b.lng}`;
 
@@ -2280,6 +2408,7 @@ window.PARK_SECRETS = {
       ${boxStatusHTML(b, x)}
       ${done ? `<div style="width:170px;margin:0 auto">${stampSVG({ color: stampDeep(b), emoji: b.emoji, title: b.name, sub: fmtStamp(done.at) })}</div><div id="boxPhoto"></div>` : ''}
       <p>💡 ${esc(b.hint)}</p>
+      ${prizeFor(b) ? `<p class="prize-line">🎁 Inside: <b>${esc(prizeFor(b))}</b> — take one when you crack it!</p>` : ''}
       ${!done && combo ? `
         <h3>You found it? Open it up!</h3>
         <ol class="steps" style="--c:${c}">
@@ -2292,7 +2421,10 @@ window.PARK_SECRETS = {
         <div id="wordMsg"></div>
         <button class="btn btn-navy btn-block" id="wordGo">🌸 Stamp my pass!</button>
         <p class="muted" style="font-size:13px">Please close the box and spin the dial when you’re done so the next explorer gets a turn!</p>` : ''}
-      ${!done && !combo && ch ? `
+      ${!done && !combo && ch && !chOpen(b) ? `
+        <h3>⭐ Challenge: ${esc(ch.title)}</h3>
+        <div class="box-status">🔒 This challenge opens <b>${fmtMD(ch.opens)}</b>. Until then, unlock this box by checking in at ${esc((unlockEvents(b)[0] || {}).title || 'a Park Pass event')}.</div>` : ''}
+      ${!done && !combo && ch && chOpen(b) ? `
         <h3>⭐ Challenge: ${esc(ch.title)}</h3>
         <ol class="steps" style="--c:${c}">${ch.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
         <p class="muted">Where to find the secret word: <b>${esc(ch.where)}</b></p>
@@ -2326,6 +2458,8 @@ window.PARK_SECRETS = {
       }
     });
   }
+
+  const prizeFor = b => P.prizes ? (b.id === 'golden' ? P.prizes.golden : P.prizes.box) || '' : '';
 
   /* ---------------- illustrated town map ---------------- */
   let youAt = null, focusBox = null;
@@ -2436,9 +2570,22 @@ window.PARK_SECRETS = {
     if (!code) return onError('Type a code first! 🙂');
     const entry = SEC.codes[S.hashCode(code)];
     if (!entry) return onError('Hmm, that code isn’t in our garden. 🌱 Check the spelling and try again!');
-    if (entry.t === 'event' && P.onlyCheckInFromEventDay) {
+    if (entry.t === 'event' && P.onlyCheckInFromEventDay && !P.testMode) {
       const e = EV[entry.id];
       if (e && todayISO() < e.date) return onError(`That’s the code for ${esc(e.title)} on ${fmtShort(e.date)} — come back on event day to check in!`);
+    }
+    if (entry.t === 'challenge') {
+      const b = BOX[entry.box];
+      if (!chOpen(b)) return onError(`⭐ The <b>${esc(b.challenge.title)}</b> challenge opens <b>${fmtMD(b.challenge.opens)}</b>. Save that word and come back then!`);
+    }
+    if (entry.t === 'word') {
+      const b = BOX[entry.box];
+      if (b.id === 'golden' && !goldenOpen()) return onError(`🌻 The Golden Seed Box opens <b>${fmtMD(P.finale.opens)}</b>. Keep collecting your six secret words!`);
+      if (!Store.explorers().some(x => x.combos[b.id])) {
+        const how = b.id === 'golden' ? 'Stamp all six petal boxes first.' :
+          `Check in at ${esc(unlockEvents(b)[0] ? unlockEvents(b)[0].title : 'a Park Pass event')}${unlockEvents(b).length > 1 ? ' (or another event)' : ''} or finish the ⭐ ${esc(b.challenge.title)} challenge${chOpen(b) ? '' : ` (opens ${fmtMD(b.challenge.opens)})`}.`;
+        return onError(`🔑 First unlock the <b>${b.name}</b> combo, then its secret word will stamp your pass. ${how}`);
+      }
     }
     pickWho(entry, code);
   }
@@ -2470,30 +2617,38 @@ window.PARK_SECRETS = {
           if (x.challenges[entry.box]) r.already = true; else x.challenges[entry.box] = { at: now };
         }
         if ((entry.t === 'event' || entry.t === 'challenge') && !x.combos[entry.box]) {
-          x.combos[entry.box] = { combo: S.unmaskCombo(entry.m, code), via: entry.t, at: now };
+          x.combos[entry.box] = { combo: S.unmaskCombo(entry.m, code), via: entry.t, at: now, code: S.normalize(code) };
           r.newCombo = entry.box;
         }
         if (entry.t === 'word') {
+          if (!x.combos[entry.box]) { r.locked = true; return; }   // must earn this box's combo first
           if (x.boxes[entry.box]) r.already = true;
           else x.boxes[entry.box] = { at: now, word: S.normalize(code), photo: null };
-          // all six petal boxes → golden seed combo
-          if (!x.combos.golden && BOXES.every(b => x.boxes[b.id] && x.boxes[b.id].word)) {
-            const key = BOXES.map(b => x.boxes[b.id].word).join('');
-            x.combos.golden = { combo: S.unmaskCombo(SEC.finale.m, key), via: 'words', at: now };
-            r.finale = x.combos.golden.combo;
+          // all six petal boxes → golden seed combo (revealed from the finale date)
+          if (!x.combos.golden && allWords(x)) {
+            if (goldenOpen()) {
+              const key = BOXES.map(b => x.boxes[b.id].word).join('');
+              x.combos.golden = { combo: S.unmaskCombo(SEC.finale.m, key), via: 'words', at: now };
+              r.finale = x.combos.golden.combo;
+            } else r.goldenWait = true;
           }
         }
       });
       return r;
     });
     renderAll();
-    celebrate(entry, ids, results);
+    const ok = results.filter(r => !r.locked);
+    if (!ok.length) {
+      openSheet(`<h2 id="sheetTitle">Almost!</h2><p>🔑 ${results.map(r => esc(r.x.name)).join(' & ')} need to unlock the <b>${BOX[entry.box].name}</b> combo first, then this word will stamp the pass.</p><button class="btn btn-navy btn-block" data-action="close">OK</button>`);
+      return;
+    }
+    celebrate(entry, ok.map(r => r.x.id), ok, results.filter(r => r.locked));
   }
 
-  function celebrate(entry, ids, results) {
+  function celebrate(entry, ids, results, skipped = []) {
     const allAlready = results.every(r => r.already);
     const names = results.map(r => esc(r.x.name)).join(' & ');
-    const newCombo = results.find(r => r.newCombo), finale = results.find(r => r.finale);
+    const newCombo = results.find(r => r.newCombo), finale = results.find(r => r.finale), goldenWait = results.find(r => r.goldenWait);
     let head = '', pts = [];
     if (entry.t === 'event') {
       const e = EV[entry.id];
@@ -2509,7 +2664,7 @@ window.PARK_SECRETS = {
       const b = BOX[entry.box];
       head = `<div class="stamp-slam">${stampSVG({ color: stampDeep(b), emoji: b.emoji, title: b.name, sub: fmtStamp(new Date().toISOString()) })}</div>
         <h2 id="sheetTitle" style="margin-right:0">${allAlready ? 'Already stamped!' : b.id === 'golden' ? 'GOLDEN SEED FOUND!' : 'STAMPED!'}</h2>
-        <p class="lead">${names} ${allAlready ? 'already stamped' : 'cracked'} the <b>${b.name}</b>!</p>`;
+        <p class="lead">${names} ${allAlready ? 'already stamped' : 'cracked'} the <b>${b.name}</b>!</p>${!allAlready && prizeFor(b) ? `<p class="prize-line">🎁 Take <b>${esc(prizeFor(b))}</b> from the box!</p>` : ''}`;
       if (b.category) pts = [[b.category, P.points.box]];
     }
     const ptsHTML = !allAlready && pts.length ? `<div class="points-row">${pts.map(([c, n], i) => `<span class="cat-tag${LIGHT.has(c) ? ' light' : ''}" style="--c:${CAT[c].color};animation-delay:${.3 + i * .15}s">+${n} ${CAT[c].emoji} ${CAT[c].name}</span>`).join('')}</div>` : '';
@@ -2528,6 +2683,12 @@ window.PARK_SECRETS = {
         <div class="combo-show">${finale.finale.split('').map(d => `<span>${d}</span>`).join('')}</div>
         <p class="muted" style="margin:0">Head to ${esc(P.finale.place)} for the grand finale!</p></div>`;
     }
+    if (goldenWait && !finale) {
+      comboHTML += `<div class="card" style="padding:14px;margin-top:14px;border-color:${GOLD};background:#FFF8E4">
+        <p style="margin:0;font-size:18px"><b>🌻 ALL SIX SECRET WORDS COLLECTED!</b></p>
+        <p style="margin:8px 0 0">The Golden Seed Box opens <b>${fmtMD(P.finale.opens)}</b>. Your combo will appear in your pass that day. Get ready for the finale!</p></div>`;
+    }
+    if (skipped.length) comboHTML += `<p class="muted" style="margin-top:10px">🔑 ${skipped.map(r => esc(r.x.name)).join(' & ')} still need${skipped.length > 1 ? '' : 's'} this box’s combo before the word counts.</p>`;
     const canPhoto = !allAlready && entry.t !== 'challenge';
     const kind = entry.t === 'event' ? 'event' : 'box', ref = entry.t === 'event' ? entry.id : entry.box;
     openSheet(`<div class="unlock-reveal">${head}${ptsHTML}${comboHTML}</div>
@@ -2669,6 +2830,7 @@ window.PARK_SECRETS = {
     if (Store.explorers().length && !confirm('Restoring replaces the Park Pass on this device with the one in the backup file. Keep going?')) return;
     try {
       const r = await Store.importBackup(file);
+      refreshCombos();
       closeSheet(true); renderAll(); confetti();
       toast(`🎉 Restored ${r.explorers} explorer${r.explorers > 1 ? 's' : ''} and ${r.photos} photo${r.photos === 1 ? '' : 's'}!`);
       if (!Store.explorers().length) onboarding(after); else if (after) after();
@@ -2703,7 +2865,7 @@ window.PARK_SECRETS = {
     const dev = Cal.device(), url = await hostedFile(Cal.SEASON);
     if (url && dev.apple) { location.href = url.replace(/^https?:/, 'webcal:'); toast('📅 Tap “Subscribe” — new events show up on their own!'); return; }
     if (url && dev.android) { window.open('https://calendar.google.com/calendar/render?cid=' + encodeURIComponent(url.replace(/^https?:/, 'webcal:')), '_blank', 'noopener'); toast('📅 Tap “Add” in Google Calendar!'); return; }
-    saveICS(EVENTS, `basehor-park-pass-${P.season}.ics`);
+    saveICS(Cal.seasonItems(P), `basehor-park-pass-${P.season}.ics`);
   }
 
   /* ---------------- print paper pass ---------------- */
@@ -2713,8 +2875,8 @@ window.PARK_SECRETS = {
     const sc = scores(x);
     host.innerHTML = `<section class="pp-page">
         <div class="pp-head"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAC/VBMVEVnJAIAAACEMwnk3dL9/PwEAwLn4dWVRSZSGQLa1s3u6uUwFQmQQB2ALgRXIgkXFhV4Mw8oKCY3NjTOxLl4dnO3trDNycVXVlOYlpFqaWbMuKxlHACKiIQoDAFJSEaqqaV+AABVAACqpJl3Qy+wh3NxOiWvmIuSVTdiIgGUZ1DHp5hhIgFhIgGlZ0uIgntiIgGOeW1hIQCpfGZoY1yrdFlGQjxiIwBVVVUoIRxVVQA/AABGOzT/AACMW0RmW1JoJQBODAA/PwFbHADDm4hYJwF2OgGEPiJ/fwBaIwShSyl7PjxmGwBcIgM+Pj5WNDp/f3+bcVxcJAVxQTa3kXxXNjhvOCpZNTdpOjNtPS7hzcNcNzhzQjJzQjTe4eJOKTViHgBlO0RPOEpuNBRpOTNqPDhkOkFwQjaqVQDFraFPLSFdNzd1RDIqJSRdIQJTKzhoNRVqMxheHgBcNxpXODZrORtvMxNrOTJuRkSqVVXix7sAAP8bHiA+QURTKTNmO0BoRU19gIKhWTwAAFUeICI4PkFeHgBdKQxUJTJcOBpTSS1JTjVWQ1Z/AH9hHwBqPEB1RTJoTECdoaKhXkKsjoEQJz0MJDgPJDIA/wA/AD8/Gj8wKyUhJSgtW1RdJAZbOhpSND5VRydBUT1BWEFbXmFgHwBgHwByWjlpXFFpUUeanqC7wsSq///Cj3fAkH3/fwD//wAAAH8XIiwAP/8AfwAahngAkdoAqv8A//8qAFU/Hx8gHyA/H188KSAlKCg/KlUqKn89Xksqbl0zZlI/fz8mcmYzmZlVAFVEESJFF0VYLjVGKkZVOBxbOh1bMxRfN0FaPGlcQB5bQR1cRSJRUTlMVTpPUjNBUDxfX39EY0RcYGFhHwBiJzpjLEJqNRpkP1FqP0FiTidnQkVtREJxREBqQEB1UT5qaj9mZmZ/f19tkZGAQB6BTkGfYD+Af4CeoJ+qAACqAFWiYTu8v8DQsJ//AP////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACMou8VAAAA/3RSTlP+AP7//////v/////+/v7//v///////////////////wID//z/+///0P//j67//1D/b/////8wA/8DBP8B//8Q/wQN/xAF/wIt/wURTwQvAv9vsv9Ph3Nt0/+wa9L/FCcwE7NRsFCRA///z0uGiStRYi/yj5rJMi4D/wH//3p5FP//A///b7NUzSxsEQJmqDD/////EC1CAQQKDmwT3K0YXWJE/0qVCxQl//8D//8CAQJhBAITBwMEBgj/CDdfDAY2HigEFAUDDwvJEgk9fTMRf5GFFjlKiAgp/6gNFzAcmQ1Rh7/Z/wwKCAd//////wMD////AQIAAAAAAAAAAABawfIIAABG9UlEQVR42uV9d3wcV37f253Zt1Ows7O974ILYNFBECAoUCApUiLVqC7fSbqTrumqL2efr/vuEvvcUuy4JrHjuCSxHceOS3rvvffee+/l/7ze5s3sLACS0nk+dxSwaDvf+ZXvrz5QeMDXteWrX3j66Y9cy/ymC3fufOTq8rUH/V7BA/zbyw89/QT/+It/459//vMf//i70fUOdr3yyU++8uabn/vcN33n7xY/cecjT/zSA+t5Lkt/4v2f//i7P/zhl159dW0tLmoX+TRG12c/+4HPvOOVj3/PN/0D+sNXb134pQLWtSe+8BHywTe970Pvfun1skSnAlKumIAG4s9+4D8jyKhiXr3wVQ/W8tO/gP/znZ//+IdfWltjGOEL5LuwoH3gM5/8o7+O/LJby1+1YF179iEK1Ls/+OpamQMFKlywQF7E0LXxHS8+88P3HbD7BdbzD2HL/EfehxVvqZi4kGwVKwuARa7vePFJLGHLV5/4qgLrIfz43/+hD7++RpE5H7DQ9aOfeOY5LLQfufZVAtaz+MG/782XVh5PQYrBdSq00LXz7t+O/8yttz9YD2E79f5XPrhCjFQKUEX+NXDK6wMErwsX3tZgYUP1x//VSyvl4vwLixw4/fWBN38aU7C3K1jXnsbq969fx1BVcqMVnxqu+DOf+x2Fwp3ltyFYWKje/6GX8iLFWftZ0ALgs6/8NPaObzOwMFTv+xWEni8AFSbqFczVz3Btfw+S6atvI7CwUX/fh4lQLQQVlS0E2FnQAh/4+L0yXvcArC8UCt9C9a+4MFRYts6miYTff/1/QMbrbQDWQ4gefiif/0uH66xogY1P/qd7IF3nDNby8wiqf7OydBqZUsE6M1pIuv5j4dryWxisa8hYvQ9LVeVUWImfikHl7GghuBCTWH6rgoWh+uCCXCGdQZwLXIjWX3srgoWgeu5fnNZWibBQYRDgHK6df3aepuu8wLr2XYW/+CtOBxUYYIzK6+ub19fLAi5wPmiB7afPTxfBuYnVm6+vnEYBK8XLq7OtfsOBgetCZ2uXwBUXz4FBcMf4/woX3kJgPf9E4XPfvXI6WwWKjqtewVYRME0sWoVrcQh3rhTOB67zAOvpwre8cnoXWGy4+tWnaNllKx4cOFuXF01PbP+2c7FcZwfruwqFv/7BlVM7vkqxb4DlzgDlEXHFxiC2sPg1ri/uF68+eLCeLRSwYa/kRMby2hZVv3a7HVCw3jgBWLiQg0yAFYMy1drLgwXVcftfnl0VzwjW8nLhuZfyMSvMC5aKA+7u5OuPkbufVKvVcZui1SlxjlpJaOEm+Q544vGXBoOcwnXxzG4RnNUJvpJPrABYX0Uur9Hf2lWqXwSTVXL73RK66m+Qj4clL7WK8TKFtlQakU9njccul3PihSzXrQcH1tOFH89nrSqVy42AmyRntahKF7jMb780CiccOCBkq6JpYZEKXxN9N/p8nXwGG7P1fMJ1pfDwAwILBc0fej2XWFWKW5oFb6wraIFd8lqrhMVpi0lWKaKAEk2MVZNFDdy4VApB/LJ4AKs5LdfZVBGcRQVzWnZQNtkBujn51XXySrtaiirF17jceEUpW8VYgnXAv7nkrYvf2lrxFiD0D99/sJ4t/NPvzkcYKkuvuW46WkxY/CqyQtR8uWMBFqsnStnqcz2trgoai3WyNMqJF1LFC/cbrKcLn/u3eQmDJFKBRGuzIsAK6C33ukxUkEYisCqSblRYWI1MFmTucix+aXtcImBFILcqftfyfQXrWl4viMA44HfVq9dq4xb7zF8TYOnxjhvUS9hmVRRyJsCi9q1dawrYh1WClbcA5bp0WsN1KrCeLyy/Y2UpJ0VfYlg06V2Vvpnf5YhrqREcdvB3AbMPIhb0HQHdMsQqXDBYvHM6Og9OZdr/yXfnjm+4HWpSqMKwtM9Eq+bZgsNJnXybKrUULKSDABjW7xRiRQ3Xk6cy8+A0pv3rXi3nzzD0hf9CyoUFBjCe3islbBp51RAsqYnIcQbqt55OrM7AuMApsHrf6/mTfJV1KDAIWdPoLpMhZJjIRXVrIjBEbtHakSSkNI9YDebQ+ounsFtgcR18M9O0G19hJhmzgZJosG0wPaSiVaERTK/OxKY3stcyEFiqDLapE0zBYrDZX8+G65nFZQssTBnezEweg3J/1RLMYA8XiRcf46/FilXrlnoMhoOK/SFwv9kKhCNIEyv8O4NZnGnMXlxYtsCicvWhLDcIigeBG6xXEmBhyRKCVRGvRXpwuMfQ2gdW2WLf6Nd9RsdSxWqNiqCzOY9C3EuwvoDo1VKGaV8nb7IRJ8FCYiDvW6hmqHzaqpa8rSy0RDKn1GQ/P7JnTAfXORmB5UxN3P6dy/cOrKcL78zEqvJ/6Hvc8xLANCkwhHhVhGqqYCF/6YmA+wULWmCpwTxALWCo2RPy0g20j7NZxfa9k6z/Wfjla5mZ9souvYvgRN7rusPMccjVd6m4yg38SPkp9GkoaESQQKvCI25s/ob0u77NIlqDWPECk3kcbPuL9wishwhW2Qz0ZfZEw0Rk2CkJrJb6IoFH8YRS0Jj0ILQqCbBWubqWVlzmE5K3f12NB7rp7pKjtfx77gVYPzQfK8EK3KEndI4phV+NyhiopXLxQHB6Km1U+ChYFR4pBtdNEsJgH2LOytS1lhCtVY22NudT1u0FkhC5wVrGWKUnjQUHZW+2A5Z0PXQnUbGMoFoq7kKhThispSLDZ0x8QGV90h02e51OPTJJScBdRcjZmylasUgytvn3zg2FFkArL1gPF35lqlxVwOXLAi0mNv7HGFpLwmi3ruPPy48FQkVK9HvKjzW2ED5V5jDBiIaRauZB0tt2jSS7qJQFtVARrcH6ayIY7/Ln4eVIQjx8vmA9i7FKgwrBoXArZqO6HjdRXLTcoLH12Jb4BN10qYg1E6FVLlJ4KOeIQ4YW0HOIq31Ic/VAMJKhKloHXAXb9RKRLJ+EoznQWj5PsB5CWMVpOriL779huj+3F2EcsI26HCQzpVhDSmEZKSa60Pdp6IAw9KIIGFUz9GlUH44pWKBhipZUwUm1VPV5FjFPWP3tOWUL5MPq61Kx4nrHudUST/a9cVIkUCCxOUiiRZILcRl9leIVYXiiee6DilyI8zWGaA1ERj7AHoAysclcZyjixOXzk6z3fG2qcee29o0jwEw85zmtcImChWTL16HySYIvKpcJVhQuKmFzkmORFxLBEv0k/rciA4aoqZRerKelTl5nyK4nc1n5XGD9hb+UQRo4Yf5Zyq0OoHTcXpldxfJQFa5urUSVkF15cNIq27h5a33Lp4DgT5VSW4DThz+Q5gzT7P2VPLKVA6yHLrxrLS+3WlILhMEYCLRArUlbGQK/Wy/pWC2AFzVjMbFTxZP6sB34Nc8stQV71FkmnaEHDlLg2nikcO0cwHq28OmV7HEuzq3G3q6e9m0hasUvgAzJuNns1DkvKJtgLeWVLJyAADhxin7NtzZrpaRJpOXvoGqANUAgTlNE6x/nGLoG87F658q8IIcpYnufv+tJiwubgkfE+RNJmpbLp0WLl10RWh6x+FNuCXtDPe1c1ZnDgAjczEsjp7fOCtbzhefW4rlBjt5iFfRKdUHkJRxPleOI3FwYJaBa2HKR/hqcEES/cnTZYeyqVJ+4Whg9soTYe16aS7x1Vsl6z9fmKOSUoap8WNN6nMgXyypc5cfX1h7H/7WCVVwQLMrEsJAhmZ7QlHynLZP0mjOU6YhDL80lLp8JrGeX32VXQj1Tw3OfSs2LKeLPeOXc11J+VVSbkbB8jeo9Vr0YhaIA21HBGsQN+Q5BmpE/C1ipBgtcflnvstqSkQYtT32FCVsTPLUQXPnB0lqRPF7picGo9n30T6vOUMEKZ2jtaP3UHNEC2cz9a+wECzPRxzS0eGZlSN/04yIR8zNhubwIWrltvN4VWMRwMWvuhW0efXoWrPxaKlf9tdncFJzGYNFi55aeJHVlzYtYdSpsw6pJEs5HtJLrWJTPaDbRl85wsNZWbGpGYfYbMmULZArWu+xYMTHS0GL1LfQWw8fpjaOImtaMwb2QLUMRNTol2uN44LjSVouzGQX/jUdPCVaawRJtLz8R2oh812NGqnh5Ftr453mBlYZWPFjloIwYVr6Z70gNEj+RpYhZkvWc1WCJRo5eqaSh9RVeUY6ESfcWFqyFCETa1owt8f4IVqKniRZG6gxEzypeP5mBVjpYy3aDJZr8CUXwJJq8aOP6J5JbjUpcKe8RWJV0sFgYLbHqTlST5R1s2tDauL28OFiprGFLdXvg8pIEi8PYknq3llcFl4pL82w841S6R7SqYnEVijBaYjWs+TydjV73Vt3gurdY2JMG1hOFr7OmGiqPKVmjUvRzbl+yB1bTwtwqF0BSAIvrl1d3y8WiAlZ59/Ku8rAqAL+yXlSzp7RZxGriy0PCECJVrkp1kXYkWLkpaF1MVcQ0sK4+a1VCXhhskdiC/MUG6xPBCWSuiGExB1Y/7ziPER19fLcPAzeA/V0uZUX6irNVrnCnsuUgi4O+B3eFq41uKVu3Sl/GnYZgIAoAQxaCkaISGLzM6m2W8v7GhQUl6yG7EvIiIGFTJY8GOe11DhbjVojFz2WixV3sJraewr7gMRGBrxKQZTzgBrRsBHYd+T3AcIp2I098y4DLOrEaE96pFIIZDzi8RYpjdrD+L1bCSsYEF+73uckCQn+FFE9JOh0Lfbc6ly4Uyz8f0PmvtXJZ7VA7wGgVH1Ne2RUkONkVTrbXpG7M8Eqj61ANWH1uPzyBVc3KuNLSpiClW8ZOR5VRid6INzbgSjLFCnMrp2PJg5rXLk+u4u8jN9TtkUpfPy4z0xcMe0QS+oCngILukETngegKT4yr6HzLWwtUrGgRo6kkwHAN0kbmNx65mh8sFBOmJPxARTx1VgHEkyGEbzEcvkJTVpmEQYgOBmuXa8l/J3EbYFFlk+lNOyxWSC2a/CHS6tzQnGJWHWJL7VPd5yZrpmJljXxSYkQ7WOlJrArYT9b/SqXy1q6w6eFczp4Ea1yqEvuLXBgDC0PTJDbGKwo8aT0wCIHqELM218wkVrT5y2emKxMrAB6xrtsFadY9PYm8GSSai5GeQIFWHMbluWA5E6GGAUWC5OYQY3y8+P3qKxN0OwciO0UTeLiyqkSIcTZaPNPVpgXYrpJ0To2ot62N8lbJek9mu4yCVkDfCKlEBZeLeVl68TFnvSbAImLW3f9GhghgPpW9MsbMl7fDVWi1sKbNFGSPmE/pW4zACrGNQy5XrWpmW7g1awpsgvXp7EwyuO4rqSF0M0yrNpfyovX9XwESrHJfG1mKka/UXglpF5tfH1UozfOrpM4qWk2zN0iNKFYD1pCaDyuwcyEXWM/baYOGlgjjcVQKfo79/VqcOyn6lAJWcZdLqoNjXOJT1USdxxIawWy1wXMvC4CFGRf+d6YV6arzxg1sPD4J1kN//l1zSxRAJIjeGHur0gbEuePleEWApfSf+WP8K4rqK3UMzK7ZJwGKeU08ximSw3d5sQIbj+aQrIcKz+Uo51RiPmsUsH4rqpG50eIeLixTKWpRDuWvF3lCejJsi+mxikpccQYU5MnUaJc6e5YDKyxaV+eC9fwP2QSrMjBbPONpcu6tlL+UI8CiKoZ5ASkzzBDcDcazqsQYzwb47636qmCFWfnllImLBbECG3cT9AEkMjM2PgqKq6tm+3A81Noa5tP2FMlyeGfbGIto6xgQE0YEdUwkjHTpgo/1mrTejOuD0cJgeVI2J9V841GXElYrabO+dsk65BysJxYy7BnUdD5WuMJqgPX9kIEVEUbiV0eXmQUMvU1qzukcBuWoBMWREYPlUcN+GlYevfJYLZCj+AXWaW9fAq39BbGK0Det2SQLKV30VJ+pCI1+eyVAW8AnTOloR0UwTg7Y5dqc25fd3lrBwltb3frobDO2wPXtpmgZYD3/w6+uJLGCert2gp5S3jc/fxzKdIS0WawpflUM3sf8lW/ksxlAzrX0tPnpBcBihcOJjtUAzOgtOAfJqahEhRok2kASQ3Dcj7SPk0/0+hsiwzzfEZ6Q71szJGtX7ZPA8RrYDXQvj8cP2YtDGrVXiotbeFI6NOVKIRTtNW9ePA2MZvd3rSXeSF/M44ZG1zvuzfLZG8hBGkIleSPBUvtzMcctiWI2Ry/ETwyKtSJgXrk1Ba0VP6mDKiVpgMEcqwUMjpUUrP8aSF338Nsq7l6W006V9b28WH0MfdsRFy0JVrm8OeOtszWqp8XrXR7tkFe4dBOfD4rgVGCBAXurniJtWj/XzAORybUeTgXreUtUKObW6Nxo8XLfCVxnS8IF8tYGkWDVcd/IMUsA7h7VQwJWEdQ6zW6zQ1MmSzgJ79U7e93muEafEHqA6+vrK/Wqzbjn56XAG+k66B3o6aajmwZaG3rvJNCWNTy3lsyNviZa/JHLPuA82BFTAktxvprzWglPX+5Jq1WUShnJlsDHSXa6GIpXPCY6N9nUhTWBm/eQgpGWRmbzja1Ox2faY8qWvl4EGOOERSttoEp4c/0b5VOA66JgGOcqDiJA6g23UZPQRmEYRqzLDX2M9xjErLqDfil+Ab3CJQl9ji4vpaWmknMVYBQNVmbomr5AwOpzQaDDsegjA6ztVLAK73k1+T6otSDD8/qkRFvWovNg9TjSoY4PnRsojGEk4yl8yabAuCgKrmL9Zu7+o9x7EynTdbc8ARbJAu6xopUpWu9NUUMrIWVgoV9Y2zJagg8HohadUwuH0IeYQB+ftoAfpy76zn0xsH7gpgZWuMKYycgASyOmClhXC++KLQ+NTaJOoNk//X3c2C4t5TTvSLAc2JznOxfrLV2UnTKwSL8pS8tjbjfwbZOvkc4egDqgYyvpAEOggkmHNW2iMI6DtZSLN+y5DnQg5lLheUIVY2GI5EVsW+owmHedMyEE1pRZqhEXslJCD59RREsF69O2DKmx0qQ1Fq3IJLubFywsWE4AoeO72aK1OFigZLvS0PLo/SDKFvLsaV2A1cIQ6j+5o7AHRQ1/46v2/lGFjNC9XqzLHScG8pr4GFssJFgILKg6RGs/zYJXuBBYg5g3nCpglSJvc3X/sFO3jJG9V5YuwNxmW2UDzITNkhxynhrmNVqYN7SRxXIc34G9rKh7YcmKSwuBxRHC8fnNmVgEB7ybN237WiJ10BVI9v7BctpY73W80CRodRhvZNFnTyaW5qGFXWGPYIXQgrOsXohTaWG92ewdNveazf3udDpt3cB/oJJt4YNxaUB1j4KFrtCaFNxYtqjhj6fXdCpe9cvjqnhkq3IgPCdY+IamAixnLGj8mbECxYg0L0AXGUR0BdxYEKOPTL0FLt78utlX+uUjnAbE/iGjgxkoWpixusgT4QjgTVjdUn6wCG9w+BXggDg6FyUEFWyy/nCD+FlxHWaqo7dp+Pda0gfaWwE5WM9/y7uyFqcUuYyKQVW/pkRqc8DCWtjEgsWEi1it+Px8YR0REvJ7If2no4BlEa2BPpdFmpAEWJGly/QXdbCWU1qTFepMmjXXtwK1yUEEPNns4bhUqrUhFyxE41vHVq61yMhATPbr0zGzjusoF/SPVEtvya6vOWZri5drJhjIJqPK/H3S4LKrprKjfGBhqzJGDxxS0cL0wc618mIVE+IZCs4wZGBhyYJcsqq18V7HLlreiqPPEGTP6H/CAGsZhToVQDrxsyPWhtp/q6yMzACL5F/qDhRKiESrUbWIVl7Big1mNfb5b6b/wFbzsNdtQOj2q3YS4YlxOjKrP2dGf+O2YbPes4IbgueeFsDaK7rmjooM0aJ31oTybvDzx5rysVPOsuqU/ajrQwilEkJh6gNIc/Y2ahrt45HtNpvXnrNWhLdNAtnqR7vM52liX/B4LbeUChaRq9o+e/jMyvskCSjqYgvadgLW8XGtfjRuDqcoiNIeA+SfYrwcXCQJPc8Lw+NQg+Rm+OVep1rKtY+S81LAEg7vIIv95+/TBLsB4/F6Hi5VtDBYvZby6DHV8tkIZ3g66x7i0n6j4aNoAAaO5giVPwKxvjdTWf1glOECjP4jXQ1xXIjBQg5vHmBlYMEqE6xqC3l2SBXEYSEPBbz6+GnmyQkP7bpQ1z4TLOYZxwpYpuUKyQLrHNtq7ipgEeJABo4ByJGWDG258DS08I11mBmR94ArXFWlR2lpsT0Y1L1SrZOmKoEUQatXpVfOvTQps+YXBFhPF95JwMK52TjOXFSHhK8IRp4lZZmC1uMhES1HBQsRrWqpho1rdBqsCEOutgLB2KVQqYhBZsf8RqPRbzSTfhGZspznX2wrYP1C4aUlwJeIVzIqTcXy+u7l9TglNW5HKyL5ZA0sBNfhYQOOGVhLC2JVJMFXM3CgYtGTgsWsPBVqdz8J1ubm+krMG0O8HJ1t1Gb95VeLYta4YqlbFhFGq4/hQ6qcwF1NkzwrWE+tqcQBSgdPmiKjU2BFI6/SBCqYCD8r2ZainpDZLt3Axw03cNr9j05nq/ub62sCNXxF1n5cQCbAnltTkSFA0V1Yu6sv83O8xJW+ANcG1lqoZBwcNeaZ0nA6P1YRoQAUquqebq0g1JRQlzPsF+sJiqDV7gOEW6OPYSvHqR2mgLCsV9a0hpMi2NzawhDZtoS18Qhoqmgt2bDqJL2U4wc0ms6/g0bl7XViBYVtgqZ9T3xGYnedJLBsfOJCvK3RN7pEtgVYVwsflGURsnc9cX6XvqGxBIo50SJY1dsWg+LgCK5aXGBhj4Sq2mkrAEnDZbu44erXTKblrfnpd3mgm/6NW9e4zXr/qxIs4u7W038LTpWN4gxNVPEiWI0bSVOC9fAENzYsyNsxUuPmlKVkVJzSwBLfhrW+FGpoTdPvsq9b/IgYLUB7Z/SpWXCQ/lvIKS5ZN6XA9TiRK58lm4xbIomUeAHLTtTwsNXwcdlDpaJpWHEeRuGkAa2KlrfZ9q2WhswH6SeIEKNFwHoz1rHSthYFQeDT3zgcj+ukkyWaCxaFC99freE6hmRBmQEMFy151X0XRUs6k0oBC6r6iSOjZiIOjNdqdbYYqdXy/UDLcmnZ00u40RvQwFAHSywt8nsIH0R+u3IyqKRuwZ8DFwULmryBJVIa9Xm4W9FqQ1833WmWSuNePn88GloDT+wHHKOIolYfT2SaS6sg7jA1vFb4oOktRQsImUotfakt8zKjtFYWC1xLJO1nVxGH5ktL8aJktN4wI8JsW6WSsE5CtrxwdOzLbQIdfuOtmp7kIv2l2MC/fy02bBYQc9iEzN2QY+tx/ptbKi5hQnrcCBzHwrF9H+7lVUQQeZHIjHYozRTyCnVOKiQX6lgiruXQLZYGWRftIaPjrpY+VfUwwjktgKPolcRiBFCcyAHuwUwsB1qolrBEbDLLY0KeV4YSLEqrF6RYJOlqYwfqyzr34sYLuYZ6suJDyWlQK628pk8GakYLx9KAFMFMsPC6BDES0Kc9bBP9xojTt/uyKIyk/1K0BjY6nb6MppHNbdRyoeVpqdEmTKNTVsMlwUL/utNkrs+jC9N740DfAeYZCcBbCKynC68kCD5Ox4PDN7QTvprSwCyplzXbFHGsqhOFZ3dlXZreRzAtZVBc7TeWjmvoqneaXR8qUZOJiaN/TZMs9HOTWlINB3TGNdBHMMzvwrOtWLI+bIJFEjHKnJyYZNKdnR0tUk7AR+yQW+zKsMSByBJ0dN+ejz/gAcujBk6NIjdtkHVosog0HcVYEWKayC9E2iji0H5O284dYuD/4OtxUrCKFRQhxjP9mBtPYkVSK9ZMVMQaZbGjr3bV2DYJlkNNLsihh4ivEUB8ZtWtfBTqTpIbS5b1oq3hYVrLlnJSmS0r/wgB6z1ryTg7xiftaqP2fH27Ef4lhIvVqUJiaLo8Q05Tfsj7HeoP3Yft4zkRAWdYncCS2RNYOIm8jLT6kFV8hilrHLxYqGA7vdqD3CFYNoMdAZYxDo0Pg1myZGGW9MQBD+FwrbgDeQxHwWrqNoveTz0HWBHdUgCdJMPiYMGUpAPPaNsIPDfwjWxzJdwheKLwNdb+VZZcBivieLxvjlJSVppkYY2hi6aJzvlquaWXcGUkwTzXHwK20kFJIkPJphye4E+LFAlroL4kWXL1vE2obw0NgbVL5EUE1kOFd9rBYvnlilhy4zZ27clQVbLiEeawrACFXKEKlnOoFVsFgHNsFmVZVVrOgRbRcZL5rIR990WdJ9TzpfL2pLmK7EX8O+DppDME+lovIFYmN+z9kCpYtErVP+ZkWzEmPo429s0AcR7VZRtIaxNpm2AiXE7KkqmuiNT5+7ym6tmMe3tOcXqn8LAVrDjWdqCBG4xDDO17sVSwaOjs9JjlUhKaiIUisPYMmj2cw0oZea83AiPbx4HoHbVcqKRNdcmTUQ/6OGjxIqKULo931NAoeJTeqIVCaXC18JJVstQYsLLWEqejZfegxYRhU0tUPRYJZZYmGRtgOaQJMARz6GipesiCQK1hAmMXtNDDaQVGjceIdKTrdaasYq+gNZ1vrniFB/ziF1+3g6VFzESzSXSYDVaEA2cEFsT6X2VzAgKsE1IUU8FqZ2shkatqr0FwYvgIoAhYU5pe1JJX3P0JVqE0Q8BJr64xU2+fpwvIi+nl6Y1HEM96/6s5wEKG6w1CtaJMPcQkq4eje5bPKdVVi4KtQlcHixRdIpDZiXzkuoIxqf+jSIxZtKhRCFn4gVqEjSGkC5QkWOUA52PmYoWJFgJrLeWLRp31e9s/kdrtrwhWtU+fIzWXe4HCIBv1UnWm+zHYZY2qWSF0h5tp/h8FCLeBhe/QJFqOyt21L/mko1Wx41H/ozzAye56eC8C69enf4ueb1kJU+dIuGiFuAeB3BANsWpCeyDVueo0MNz6MBMtat87KlhqFOOwPAJ6KEq8riGlkwr8LuhxwhGtpoZh6YTs9gnBHKyIZNnBikU/Df6gQtBCShZldvpTLSTPnmZfulAyRgMsHr7BTjZawqmaDQ0cBmKbqy2X2qlJ37BYUM8AMlnWLsxOcpyufBGB9RsiYKMOzGSBpfXd1d31Mpk5KRprxNaiaE1VQ6yFU26CkS/uiYZrzqloxgaqpRe/Wc1AK8ZfrPkCAcmrJJPoESMf4JRPlzaMOJLpCz3koteqGliFUXQUaS0inrUN6ZIdrMEAFBG3xZbqgMZNr+0S4SovmR2QdLnfkiBZR/JNdodQ80jYWJB+GkcLUSBNnEQZ3GHmKoZaNd7MhB2xSi7EvSY3XIW+QpgoacBpzQDL23Qbm/KIGc+L18BNzxLvgMLvSoBVPJh9tL+1is9NWlWWYiYCw4+xldzcYsVkTE7cUeCKB4v/70uwjP4zbf7AgtXQhbZWGa5tTOWPcPJmzBq3hDhpmWz2J/0pPhTwEF29G0SoMS/tbzKb5V2fNZz+bDPRV7ONwPpNJlj8yJ/XNrW9VYnA8HG61KVIDi3kWoiZtkqkJTPyyYFnfZjwVyhsq6VkHojFUlydZq2hdB2kTnSIPuiQFL0mWVBNP1LsyIw3buQh66VGLA91HbN3j68QcT+65iXB+mOmXIn8aFBWBzMn0dKSFhtG/LShOIpiJlg9VyqZo7WaIbCmGExucaRFIV+wgkWbdxuqMMp2erVIQdN6iKfgLYq+muFKcAcNRmLAQrbvDYeMkZI1dVa8pGQZ9mrVPBhJbH0KyypYGJsxdsPYB3rs1lqukZ6EMmuJMQkb0Pgq/lJKtpTkEWstk1Uq5lskRGk9ZoYTBzUfOqoaJoRLuci+86OAx3KIT6iLRftRAqxflr7BjKX9fJ7tiZcUVcRK50+VInXIRgOgyp3FXVEBOm4Yxh3/AE65hSmp99LU9eU0gN6NBUWUQ0078rWHDCwxzSH+EHQsaBGZ3heHOJQ8fVCl5+mRtAnWYNOEqlOrNQN5FLRo+qDW5IY4EjSmM4VQazJLA0uzW2lpeALWCe6VUHmARriEPlKuGdZYpCjpvsJejKIiDi33SEZJHE7J1Ypp1P/W6FcCrJgdljEc85ORetQfsTWrSywHv0Qs1oy5fWLnAavlOAZY/BlbwIKC+HjpvrA2VcRDmiLDTdAWJhGOqoqXqMAqwHf4Mu+A1sgcdqTgmFbHvlSKsiSLkgXsy7+1Lfce3mAvAlHdwXJ0gjsW8AFdGNAo4rZYpgCgku9FYM3odzhavjNdsESGZtxwBd8XHF7NvZBUKFvlV6rBtCKsAS/+94ifPYXdYsjUqs036CFxCzPB2hIb/IZiQwRdXtVlzJGUc2hzNfp703q9FbDZ6Z50ggm1gSQTUWvrdXUW20XZ+aw6NCqneG7VrKk6bEqmFiixUVqXKX+edSFZuMjEBhFJeomv6/LmgUXE6eaqOLyGnmA45NrC2mOaLrlvXPns8pS7OemQAMuHRv6c6Hk0J1M6gXqvs9PtKq5E2HJavzFK0UaArSfna2Lheb0U3tyUS5cjCVakgPVpLZ1FZ8sm3W/eW6XNJfX6yXqZtCDtS5+FIzaic0yQqLLWlZqLFm+kgUVyLCQOBtmNDuy5iJ/s8RjdkeYJj4Fh4AmVExk/JIMpXfLEjuL3LU6JZz2m+A2N1viHOlh/3wKWSq9IGxj/SaVjcV992uSZTiU+UE/wUpvFwDI4eKOmHorsJTKBmG3dcNWkMrnHDtQDJ0pD6hQsWRhrHHY1kdTBwvOII7a4sN11RNNsyXtBnmOngvVrYssewZQ2ZU9iVfPVmrB/WK0OtTxTonKcBIvZjUZdZB2AjcrjvI+ra+EJFmNLlBh0eZEEisZV0ZqSKI/xnho/MTI9oltqgpoK1nYSrNeywIqkGem6Kk+EiLpqbNSBeqaO5QM5xDKjjl7v86wD/c0gabV6rsoXSDtJ3axP8/oFFnD2rT7EaAwD3yz5cLDIsWFqzMK29oflQPR3aGD9Fr371kkFC73DKI48NpnqQnPEQUtMwuF4qrsiabOg2sABIXvAItPn6ZPsgJBszezg51YzHAVNMk8UsNioAE50UDval5RU/p5SNIgdo4kmjFf6Ad/zqYU7ucHq0AYGWh7W4wdHLxBQs1JraKkRqYYatSQT08cUrLCUzJqSALGlZw7wb6IY6CzTcTXJ8kk95Ih/eVgdBhqbh/iWqpG26IEMfzc3b3rrM8evJcD6rXpxZ31z80an12wOu91Jq9X2Zac4PnuLjSWbiRYlOaWkAWQKOd3Ak6zDkMoToOUzXQ89zjNldp2K4hQmKxNkU2c3cLgWTpgjwkWdrhjlE610/FhI2e7QpYnZTQ94o1pdHzW/lARrMJBNiXimkfTb1evjDl72SCTrqAsDo4HTiNkcmo5paS1AaWA5JArACOHQfM8oJHrMPqqS7ASTklaBFIFVgH9VU2x5IFrIkkKkQaYbKJk2h62/IHXp/ZYf+BPa7XAC928CQE9yVirUGKw/+SkzU2rfsURsL67Ok9YfaD5XzYSqwECRtpppYEmIm8xQkay01igSe6y440N1bJho2540TUqAiMDqBbzpBEvOmCokiWF7ECopQIdMtbP0qFeiw65YmGJn9SY/5sgoWPzpT6UtXvSi7pAMreFrxOsgVR/ach56JxHWrDo0wJpawMKBdI3aKRKJuw01rCbRThUFb2q6hS2zabqJpDEFayw7SEVsT6LsDtSLRFA9FtLj8+XeADizm5ZlK7gU9qc+lV43DCAfbGUveJz0KZEX1NK40s+cKDklnikVW1aUVscmIw4hCc1V0QJsBqw5bODeJfFMiLb1XHVAmpERDMoRf384WGTvtlMSCim0EBon2SKxGI1CZK2AL8DSBzRB4ff+qvRSmeMUeRlRPupJYGn6kWBRBtMjG2Jk2UpL0eihf10K1tCli9s8c2qO5kvlMyFVHDm6KqTUHwvJcsiIP1nrQhpXq11dCI02bylDGWBd+wNZYAVLavMDYHekVWegBhb//xjvb1NpYBIsNfKPaKJVrJvkohWOmCGp+2qlMDhUKLyWujlinTukN5nvziN2e+I6xrx+z2jHiuj/08C6WwAXCj+WDlY7KKtNSDFJXt4IDAttgsVsR9PVXKYJlvhpujzEK/Fq9kxLQ3yKOeZGoFa4mnpMLjMPHSJZ9BvHhKGxhRtDV7NYTAuti2rsYG3cLoA7hc9kredfVwv6dLVX3YeJR2qW9HCSd+gq/VIKWGbJwufrrqqk3EFiRUlMYzESrRZaqTVKNEfC4AaxWQ6v3OCeEsKdmtCcdiX8w7ZYxVMMvJZVfgLcKvztOOMUt8saWGRpHE76qTnKZPrDh/0Q11octVXP59UdaOzXcXzWgjpmD31fxjyAZoOaLT2aIqZbWRYh3gK2lfWAClaP7hVpsrSk2VBJvmBrcfAEdUi0SV41Imkjx7w60L5aiaTRgskcg3jCE1Z8VhpDfMwBRZEVajW8KVkPNmS8myRtAFtPgsHqua4CFqQxOfv9+l93m6IWhi1BrUHTpx1j6FxQYVtPg7cG9z3bIow74InC30sHa9fdGhhTrrT0K8BqtxyYnPrDtlUpjkK9Ig0TO1ECp9UcN7l6B1K0KFgdqLfzsXjHTQo1WQPcoPQc/yDN4Y59LR/pCBJmXW/krQS2Q5MvkT74f5gOVtntD+IEvadGi7nqatO2YIim29XgF5KKgqI7GpeFgRoH+PIIlEp8jE/k0TI/bLCk68qGSRUs1k6HtXBCgpwOVBOtPM7cS2tN9v6Lu275wk8WlkGh8GfTWWnsNkyeGvHCJy7tmBGM+GCP1+/UrIMEy1EmEC38w6UOka7zqpHWHKXHBMeAWFObbnLqF/9hku0jQfKYyFXND4yZFfKLUlf9obB6zbOPoxQKvy+LaMGyOQNFU+JK1qWd7NrAxnPs6LU70XLkWHM76jQz3ShM1rwXN0Pe66F2GWGDc8OihsTy4xwN0b8aySG0Ak3u+aBm3TL6xVbk+raXbxfIJOuPZXGHzQGw6iHN5yEROE6CRTaFdoxwm4I1ganFPGX0W4BV+V83FEYKRdcy/gbG97Rf4hLJCnxazidy1Q+SOzKgdUpTjAH37TQLgXWr8DdBfndI9ZClOih1akOlNZ29lw4daVIjSBtY0MLYHAZWGFeKlaUj3nSk5WIJF+tAU2JoAI/BChpyeaKvO0L6i9zDVC1Mo1nLBKzfnA7WuvsYsOkha2zHbICCpVcpeMe7MvQNSS0F3YjeQmt0y7LPMFjHWLJY2sHQIqqGHUYdVBUm1m4a+GzEEueT1OZK8QuIh0gRrLUUZ4jHfp8o/N2MUwHdRmxJd7EhcQIW9dSTidrk6usd78xwK2BpRMDI36P/9KtUDWkk3XWNQoMEy4gcaN921/VpIZPZK2MrHFk0eZi62NvbDGz2/SIZKC8UfiTjhK22WzbP0vB4my0FiyRBplVGIRxuUqpT00zg5aSsWxkmWoo1Ew5ZlZqmIXnbtmYACVjJ7nfiJhFtp8cRHTWgbRcZ9qZhOlhTJ+3UcrK457PpaL3s7ppMi/JSyQbwOzqUISNpW6yaBQXerayBpSfD5Gd79DwkOhTbTHaUorvt8OZRI3TAYO2xI6LrfuBDC2Vmg5opCzc9Z8t2ft+dAluv8rfSj4zaTBgtooeUL3CwyFs8VCSrpabaYA6w1FVYNFSMmMHqBI6TCIJJJqGeBlaPbkHFSyyh1evC1FCHjKfYTBZfr3I1y8KXoZMwWh6PDzlYuMeAsBtlJwGBU9srR25kGjj6XkNdFXGcSJy+V6GDhrWGbZyQLIVFZNOMsujfaE4ov3KNwU2BLOUNKWDNAmCNDPninl+dMVewpWRpFD2sUzUkATNxLR3lMWNqOIbQNBUNWqdyUkw7reV3WKGV6uBJAzow2dNNY8CWm/By5G90TkpsWp8TM204GIGVsajba/c963jFw2zZ2I9spOshYlqJIVePhbF+QME61MJaSMDSAn15I7wYBR2z5Q2fEuDvsfmsCrXtYxhYO/1ohnDqOuZiV7aAjeXGZOMqVHqTiKdJ1cJ1dzPNvhOwLhQ+kMG0AgfYRGvMA9pqC//tnrpCBwpOCtWn3uaSpTXPin5i1++OeUk60nPJyWYTFGvX+lofszI/wOgGNParcNpMD/Oy3+7NGbRpIT1Ek+78e2eGHjaSelhki1qRC8ZgyRwvby+q0xOJ5oKl9MpDl42JoLug5cJqsw3VJCFU0v5Iqof9wNJZSv0gKyratuLCbMFC9N2zzvzKBYlfA7L0cMsMD0kKcI+DNUVydEMLc2GNd9locw6itg6Tu2thu8On/vi4/Qw6xtIPdRYHupYeZObneKSfXPjg8HxDmHp0yopnHXLiYF0r/J04g5dCGNvYQ72BbBYid1V8bspQ3VRIHt3UNWcHSIVA9mbo5Y5WnW1dQLyduUHXmC1MbFvT23EUUjBWZwX0vT6s7T5VsPyPevaTGZbFBtzfn2G0Bn1zDyWuGJF9vT5lwhohdRjNarlKE4J86sPAhJDAeFiljQVFVm4rdRqBY7Typm3qUXCgf0O06kBthIW7xhuZgmXL+4GNu3Jd8K3CX8swWtfdPrCJVrUNA2Yiuq5GdiZsH5sxX6SD5ShYjWWrEQWrJt0gNNbN2FoelVJRnY/xJSubtPw7yTjvyfOtvEFbRL1c+KtZI5ztZFIL0M3lDKwTrcuPjMQTxmhJFQwDzV7T/xwysarEQrKaDjt1yGxAsw4CSLDaCbAcQXdJSd+pZXCsF+yChVerKMvz//1GBliX3S2raCG7RMAiM7fKW8eHaNSNtmQO1l6QGJWgY9I4blb3JI2nLZ+tdDZHEJK7EeVCUtYZAh1tGEb+cEbSD7vCLS9lllzZ2r2cVWkFsROUBzau1aFgHRpOGgduR2qxCybASq4rMBojiY0fHza7k37DCVw6JKAnchyLtMlEl75EWGYfxhmCtRrE1i9tXFPBulX4egAWYvFEtI59PyQjPHp/J+kKgVBtgxdg7Qd6GRvy2Z0KX85fAfpCxGpt3NubNKBSO7T0OUE90eUYETTvyCUhdppgld0DL+XAjwuaZGWFh4OyE5SBzWr1SEe6b0SzuIZ+w9VmNMVTb+pgsXyONmKB0YqMhrpq7eiw6zONdCxwCZ97ksj+q+6ylclH+17akoJl/RS6nWzRSrFanWPSSmy8MdJCo437qWAZaQAGltwURBcO4nWrRt9h7Wjou4FgvnpuhxEEluhyEvsc6Ct1upzHnm6w81GWy1LAulr4JMi0WpbcAzct+4Fl2VrTdaDRnEvB0nrkaaGWNoJQ4gAqlZi2oNCzDiIds1qv5WsBuD43gOzlDVKTNRePsZ8gmbK1lRSKtZ8iWNuJ46+y9BAMDmxcKyrV211KnRITMV3XnHl3JFiqyEGHpS2LeLt6HFe0pZYV0nMYeZ5Uy1qn2w6CRCcrfQi+e8jjb21TIhSRRbgXQIsZ91bcqZe6/UIHq/DEn9sBi3It0HsDN9Z31fVrPG+lNyJIA98MHI2Zk1VNRwwtLMPWAy8rtI1R4NXETcAq4AIw7Fxkl4WuijhHWcfjNqsDSzOIA7zUXVDGWWFXCy9mitamm8iYxnS+pT50DbCwEZqkgLVvRDFEGuheQhwXztlwIux+bQgtpzJA1kYjMobadhU82EMXTTuesVPMQ8KwkiZY8kh3eczok9nvc+bOtOcxWGdzwa2m6aanVbHfQZtKZmpoDpvTVSw00VuZe242h2vcMGqODj1LuKcvN5CZZZyo7IgxJMMR9lOou+oLFbCufTFbD7GNV9E6kOt1u3o+gGTg9XQwA+tEAUsnTCybPCITdHPgYk3Y1RsNaAEL2azjvmUGCj+qsVy66mkdt328AQPM00IJ1p3CM2COIsqOmkGsrsfotvSWuqFclqaxT2ybmuaiJopj4Db5Pp0cZ3cxuGoN6BhrEYhkhf1A798kLV290pd8uXJ1pMpVIwMr69HIhcLtOW9xSyiiUEH2x/e040+wd+v4iSoDNeRN6NhXZcLJIVtBWcLN6GRxeAZcVb5H32gsxwb+uBGYi1iIwRqKvfjqnAk+RnPdy1qblTx0G1mxbTBPEVliS6hg0CSotZvaW0Pv90Zywo8uSEwFCycA9zs1uXooymG7aoZp1Ay8uqcLl/XrgaucLuHxlUabgb+SgZX9OPcL80z8YD3AZktRQXT31GQ299T+qo6kU2lgiRFmMw7uHon1VqPsBWCeGCbQqq977IhAfSk8yQ7J7eOiaOghfZkCL3PF2AULWCic3piD1gHiDwNxYgP1+BO6/UF5f3TDpp+ctcVf6CmryKGZJCbK0xh2atU8xzRGJeWgGnXCCvccGT1f2H+01QMX2LUJg83sM9VuWyULIfgimGu2+mJGlq1R+F4qWifytkkPfAIsRwHLvqYCil0o/VnvqGbZ7WuTrb1AB8vWmktKFDVHbAYJZTi4FWfL77Y077pkFe7M9UPKbH6LPnu6HnxC6/K0B5600PjmYV2aZKWuQhZDeI3uSSkjASzQqjX0UQAOlmIXyJg5O7WkrQ5cequrcZx9XN+T0rzrYM018YPrbePQsAiUGXJ1n8/a4oMeW9CSAs4BljwMBNmvtP3tupVval24ZP/hTAXLD8is4ejAchy55205/dlBuoHfuaYKkwrW8jwTv2pMmI8GAyZrLRb1kVnbqvm4FQPfg07aXIYysMXOYOqfzLFbZE+8SkF9ChZUV3CS8CD0BFgaxYL0YLA85t1Qw+XMrJbcj9HuUXrXv77eF3PYVVIppG+37ttOSPU7qs2yHnWp1hR9nr2ZI1pDdTM4aYLoBjJHS/eYijViLXVTA+5syARr4+FCmmShaPpilg4qXrCTXGNQColHJIcvjB3b0hxfa8tNng+pzC7yutVwDlieOD2RR4rYRUuw2NKIUIzYB1U10qG7Ltz9UpidT7aBVSj8mQz2wE+abIoVSNrRdJz0EAIPk4ffOIpk6S2PBlhKlD0XLNJYp/HSCamGi44/so6kGpEkDHv3ism6LqiX9a9sPFK4lg7WhSzRor6QLbiOtrR1gHzeFPlx2Ek5R0hTw+QOcrmrTogYObZ1Lliq0aLL1acsaeSTnaT1EzphTxfHBN8mneGKI/y6dQ+8IVimZC3/lQzRGqw5Ljnlp1RrN9bl2kVWUCYd+ugtHumLzJNgQbuFl2d4iAC7M/esdU/f8OCT7hPWuEX3xo2DNuFSXDH8E8IV0D8MKze1OnZbB8cE6yOFS1nvbHNGAxHETuHmId2oH3RZYIrROmmLtu4kO1AkCzrJQygSoTVNmYNFwHIcntPGgwEYuB7igX0c0IgDY4LVlRjJ0dpqoGzqyc762cEqFP7QxtzkCHrWgxcCd3bcmUy6zbrY0Y9sVYvIWbVhThEk1NCxHISm6CImWq1OjoPpQ3OmwCcjUDjp4eKnSG3rVLW5CK721qzPkwFsiUo0X7ASYM2xWhgRj0bVvuvIc+UxfvE+FbX2cAqNINkAyx7q6I0gjV41B1bUZpkFgCYOgXBarcrO4POPPZq3spwnOk4T34RgJSVr+U52OM1jg0GMHtSsziO4AThoyINJfcdyaJCveEPzOBg9pRrA9pD85urcRCAZu0r0dkMf0vSDOPhkpBj0JFbWR2K4QhtY80RLmvtBue8i20kST/Gq8j5aeGVF8qwqRbJg6q5HLJOBM6unndhlofCHin33ic3qObDdRHFEW8n2kQU92lFx8vyYMAfHsoI1V7QUuMDmAflPfKAvjq21E3G0Fu4kmvi0D/29uv0guGwGr4DVdHEjYd1Xz7Qi2TEPDN9QxWpIv2RPvS8XcoBVuALyXig2RIRiVZfuoFY6npDBtdQUjYqQumsB/VC7W8+Ry9JiQ3nGlk+X9TSxLPHjVdlRsuVV7BIH3km3zb7QnoxLqVgZUWEaWHMixEQld9U0BF3SPRtYDlk3phD1BZ3E2cOZ9ZCqLMHqwUTvQJ0YefX8r9G6465SblqqjnvNZrPXCUsZZ+3YBMsOVm7RGsQzBap2W+xELVWbPtSOziPpk1CeWQ/NI/YgboSnZwiFXr4/H5WMHDJOaB1RDCZCzLGUko2RrJdBa9BJy10/YxEsG1gont7Op4NrGlQdaiT4cdMIl8SkecPXVucoqGGtZQpY9fI+K1WweEzpsv0jJ21Jozx62llwSH9zJBoBUssiOwWLYFnBurb8yHwb74GVWaBCxVMRXRb6lKp7vnK+YWLsD+q5Pj5ekVMBOXuXZ3CzcuSMFbcFT2iHgo02iXmKaKuJR/14NK/+NQcsJIGX5opVWYWKrpMRB4qVaHq83m74jp95Whw7ftv1pwtDRQsW3UA92x12xTlWwFtnb7A/Uxat5vvVn7BiZQercPXheTb+5SRdqYndniFVkZbbbjVEvw9MHGPMa9MBJwuLQEWVUF0i5EA2wMrskKevtqfHF3qDHL+ZTurkBWu+jd8PEu9kJrwPebPhIZG5hm+2ykLt6B30LcxWhR4AC2IVqoetuI0x7t5q7vNjYbQzFvjZaSu5jiO6sABY82sXHisftln0FRxGstTEC9h0N7PvpJdyUGTDqjilxaAiil6dynnYoNELS+MJ8THOCx7QQ2c2CDzyZs763D+0k4JVGliFuTaehA74NKYePx4jkIk0oB4cErTbDvR9y7YLXME5OhVU1CiKpViIoHWrpfpEYDMThUE1lTsC0+ShJ7agsLAYWPNDRG9tQqOFTqCvySU3PiirrrLbx1kX3Qv6yFYNa6WcQaANqxsOazOCOLypNtX3QRloBD7KlJAuaCXllcacuuqlNMFKBatwq/BTud4xeg83AjXUoeHDYEvrs2nuN1yojj3BwHW6R/l6QFL+8hGr3MNGFwl4x4iRb1C+zreQI7oV8o+H3qmUMAOswvLtjTzOGxdOJFpd7rdZKajLTdq4huAKJF13ua0KF0aKkYZan67jJOJZm5i5l+6IyT+nW5EgXvVMpX8yFZEMsPLkaiKa3fJWfEULI1nnd2qljs+LAsedKavw4znUU3lAFauWQ2rg5Bf1+NNq9epMG/0aQ2uFx80MK+MsyLyeMBusvFEPfX6+sKMjheJgHsHaokhJqtNtIf8XOJyCngYqRngbmJ+1GEEbqpm8Dn9ukVrv0g8h906hhJlgFfJEPXpNcUjfB9+wTnzQSB45guPr7qzFj9w9FVQUKzyI1mA2D2e+qMHyq3y9sHoMjEZOu9kOZePR5WunA6tQ+Ia8N0DRIU9WoQ30lKS+kirpua3hXv10HlDvYZv2aiIaFngQk8keXEd04LA2B/ku0p/SM1mClQ3WrbwpZvZmW6x0wczEhFJmKAKzkIaPbfTQT2PXpVw1h6JBkPpSj/VcfLnE7SXONkRAp1vswPZczbaLS9ZyXrPVUEMdj5GboFctjXg7SR0fgLBGUyVHoUy0Lnbxkw44UtxBcDPeCj0W5HSV3q4BmAqylVL2Itd3ZGM1B6zCE7nMlld2lVBHsRF+d7UtW9+8wQH7mDKrwdoa8AaLipV6mGqyEaMXzpSThtTubR7xRAvHz3nBWs5ltgYrDTXUadhPC0GSRaXsv1FMwT4MZpsrXl47743CcW9/2BvbqCw/E83nD2dc1Rqx1totXpyITmew5oOV3YWkGPi+CHW4OQ0Sh9nw2BrvcUQAMyo2248F6Fkdi95Jk5UBJyejJOn3zLMGW80VIH+dtxbO8yov2pNYC4CFjPyLedBCVoGcbyooM09HSHITDvaVts5VKA6ojBlSoLz5wjpSTKtmev9OxjOOZWQ7Av1EAbW/uiLg97w5ZGV7jsHKA1bhwnKuYo83o6EO9zxj2e/m99jZ1luCjK3I8nUvGtBHPyOD405/09aX7m2qktoAA0vSKEhqP+y/EHO8vMzG+o27FwpnB+ta4dFc3JRUASJJG+hU0aTZO+EUlGnhWE0QkBYmfBdycMp1knAJmksTVm7vpu1x8XhUO88Ko58jOXp3rhLmAQtZvdv5LPAImQRGeII6yzL3SqL/3+NHLdZbsszBydJME4hGbEgOM4Rdzs9blqDS44CWak1NJef1utMKxXzBygMWgvy9OVmQx490xR0svgwviJdngHSFWLHqORIs8yTYYGVgbcAnQTMB5EuWOjI7Oo7oeafL/8rkaDQfq2fyYJULLGTkn8nr3l8IeJBWbTM6wWpOg7ite8mWrNN73HgHnGjoDJ93kI/54bwtu7HmYj3y8GxwW8runNjqxRw6mBcs5CfyojVY2WJUPuwz2Dxgi/6Z1Sf2itnmoFer1YcBIxo6jZpyBkJj5qb1/r0VJkwjuk11PGlW88xMXcqHVU6wCnfmVxJF/9b3/ixZfUa1LhCZNk8dOWC9lfz0qQM5g1SqTfx6ol1D5HyOReBnPX6Cmb4O/uloVCrlygRt59LB/GAh2cqLFrLzlFUdcI1i5tccZZHawcAiL45Y5BdZo0/Xl+kMSzZakLyqp3V1ZmP1xNXC+YKF7Fb+VCB+ixFTuyEHa4V1BUohEsrBG/rHRPkIB/GyCDpdi/SChY/x8KE5EoRmnnXfuZMXgvxgFT6SHy3C/xg6E65qq8wXiphbvQtWY+x5A9J/EIZZrJR42NGq2y9boiNq4/2M3IKB1d3CPQCr8IPL+dEiKsHL+aQ0xvSoR+kXGXRI5gzcxmbqWKmULbJPGE/dBC8nEKHy3KoLmzcHsp1Hcxr3BcEq/OC1hdCi4R+yxZ6EDklUl2WAQ4tA4EgxpQbqabOOdWackmtMUExF6UKuTOzOIwtgtRBY+XOB3JNPiSFS5hta/KB0ZPh19i2CRWjdQOvpcTJkgyTJXi5vbTXMnbZeDKvFwCo8sRhaA288QQoXyrwvVqA+C0o8Ha2hsElWtCjR6mr1QTKhlFBE2qqWJ0u2kA4uDBa6Li2kiaNSs0cyfXQmi+RSX+DVDAPYIxEyJldSyNhQLdL3UlAZ5Svdbt9eDKuFwbq6IFqURvCbpc1bDnOTnpm2YDOfbisaWPkTwVqG4UHahBJ2kvPR2i4siNXikrWct+LDfRGCy+PhSlM55FqZZePCNaq1FAae9IS0DhlKtJrVETjt9WLhwrXCPQar8D8WRQs/aG991oc0a8AdI6KWvK5XnrIkys0Tn33Js4Ux2EbdXJuquZwb3ulKtbnjwbOBhSKfJzcWfm+e5530hlU6ocxvfSRKL4hfUs1rM9ukS0w048PZh2bb/Sw+FVoXT4HVacBCUfWVxdGi7Rw0IXNd22JFxCb4AZz+vblpb5XVGh5ZylQQM7A4WhvfkDd2PjNYSLZu75wCrXCk99hQYsqZuTN9eZV3QI9NsFaM/DpSSNye40+a9driWCF6dbVwv8DCj2X7NMIf0bDWu+6Tm/9HJVnw03JdVbNubKSdSR2+1qvnylYl3eDdU8nVacEqLC/mFM0ozQM3hi0fgeKZdRvBnwywNAJPc6yjkTIaupBpP429OgNYWLhOY7jUSny9162XSA2rkZyUMvNZXswbAYJWjyPkkcVk3qKm/cJp7/nUYKGn8+j22dDCaT4SN0ZNpXgVkFRwmHSn0bjZHXbGdUWavIXbUXfunlaszgQWfkCXzoAWHTcaEd7q1cbDth+gq83arqI5bSEeV+woWlAFLxQeBFhnVkVy3LwngKjiKzNrzhYjIt2L8mWrTMaAVHC58IDAQhzikW1wPpe6QjndvXnZ267mqODtwq0z3e7ZwML6f3HjnODyvHCEr9AD9+S6eCYVPAewSHH/XIRLVazoHkC1c+VsKnguYOGndU7CxWz1vYAKW/Y7Z77Vs4N1fsJ1766d92Ia/ZYA6xyF655cyAnOb1S7b2AR4br0VsUKZ4+XC28hsLBwPbL9FtXAszrBcweLvKMrO29JDbxWeMuBVVh+y5mujUuPnJcGnjdYhKI+euktA1d06fb5aeD5g0Xe21sFrk+cN1TnDhZ5f7cfLFyE224/eu5Q3QOwCKW5+2Dh+tFLjxZOl2W/72ARuB69uPPgzPrdcyKh9wUsqgEXHwjv2rmI/vaFa4W3EVgUrvfeb23c2L5SuEdSdU/BorzrkfupjTsXH6F/9W0IFnvjV+6PeG1cIkK1fC/v556ChbURvfvlK9sb91z9Hr23QnVfwCrQeOP2PcRrY/viXf533u5g4fsgdYIrl3buifY9es/V776CRcwX9uaPXDxPAUMiRRbHXLhwn27ifoGF8SIu/e6VcwFsY+fSe8mw/MMX7t8d3EewuL3HFv/ipZ2N0+O0fZHoHgLq2n199/cZLKKQlDTeQYht7ywsTwwnBNTyfX/r9x8sChi71Tt3CWQ7GxtzQNrZfvHik3dvc7iXH8jbfjBgsXu+JezN3UeuXEGwXdpG1w678MeXkCRduXJXrPJAP7L84N7xAwRLCNmd+YKy/PCdCw8SJnr9fz6gf1D2CvTdAAAAAElFTkSuQmCC" alt=""><div><h1>Basehor Park Pass ${P.season}</h1><div>Explorer: <b>${esc(x.name)}</b> ${x.avatar}</div></div></div>
-        <h3>Lockbox stamps</h3><div class="pp-grid">${ALLBOXES.map(b => `<div class="pp-slot${x.boxes[b.id] ? ' done' : ''}">${b.emoji}<br>${b.num}. ${b.name}${x.boxes[b.id] ? '<br>✓ ' + fmtStamp(x.boxes[b.id].at) : ''}</div>`).join('')}<div class="pp-slot">🌸<br>Bonus stamp</div></div>
-        <h3>Events</h3><div class="pp-events">${EVENTS.map(e => `<div>${x.events[e.id] ? '☑' : '☐'} ${fmtShort(e.date)} — ${e.emoji} ${esc(e.title)}</div>`).join('')}</div>
+        <h3>Lockbox stamps <small style="font-weight:600">(use the rubber stamp inside each box)</small></h3><div class="pp-grid">${ALLBOXES.map(b => `<div class="pp-slot${x.boxes[b.id] ? ' done' : ''}">${b.emoji}<br>${b.num}. ${b.name}${x.boxes[b.id] ? '<br>✓ ' + fmtStamp(x.boxes[b.id].at) : ''}</div>`).join('')}<div class="pp-slot">🌸<br>Bonus stamp</div></div>
+        <h3>Events <small style="font-weight:600">(staff initial at check-in)</small></h3><div class="pp-events">${EVENTS.map(e => `<div>${x.events[e.id] ? '☑' : '☐'} ${fmtShort(e.date)} — ${e.emoji} ${esc(e.title)}</div>`).join('')}</div>
         <p class="pp-foot">Turn the page to grow your WELL flower! 🌸</p>
       </section>
       <section class="pp-page pp-page2">
@@ -2743,20 +2905,33 @@ window.PARK_SECRETS = {
     ];
     openSheet(`<h2 id="sheetTitle">How the Park Pass works</h2>
       <div class="how-grid">${steps.map(([c, i, t, d]) => `<div class="how-step"><span class="hi" style="--c:${c}">${i}</span><p><b>${t}</b><br>${d}</p></div>`).join('')}</div>
+      <h3>What each one gets you</h3>
+      <div class="earn-table" role="table" aria-label="What events, challenges and lockboxes earn">
+        <div class="earn-row head" role="row"><span role="columnheader"></span><span role="columnheader">Flower points</span><span role="columnheader">Stamp</span><span role="columnheader">Unlocks</span></div>
+        <div class="earn-row" role="row"><b role="rowheader">📷 Go to an event</b><span role="cell"><b>+${P.points.event}</b> to <i>each</i> of its petals (usually 2)</span><span role="cell">Digital event stamp</span><span role="cell">One lockbox combo</span></div>
+        <div class="earn-row" role="row"><b role="rowheader">⭐ Do a challenge</b><span role="cell"><b>+${P.points.challenge}</b> to that box’s petal</span><span role="cell">—</span><span role="cell">That box’s combo</span></div>
+        <div class="earn-row" role="row"><b role="rowheader">🔓 Crack a lockbox</b><span role="cell"><b>+${P.points.box}</b> to that box’s petal</span><span role="cell">Digital lockbox stamp + the rubber stamp inside (for paper passes)</span><span role="cell">A secret word for the Golden Seed${P.prizes && P.prizes.box ? ` · 🎁 ${esc(P.prizes.box)}` : ''}</span></div>
+        <div class="earn-row" role="row"><b role="rowheader">🌻 Golden Seed Box</b><span role="cell">—</span><span role="cell">Digital + rubber Golden Seed stamp</span><span role="cell">The finale (opens ${fmtMD(P.finale.opens)})${P.prizes && P.prizes.golden ? ` · 🎁 ${esc(P.prizes.golden)}` : ''}</span></div>
+      </div>
+      <p class="muted" style="font-size:14px;margin-top:8px">🖐️ Rubber stamps live only inside the lockboxes. At events your stamp is digital. Using a paper pass? Ask a staff member at check-in to initial your event box.</p>
+      <h3>New every month</h3>
+      <p>A new challenge opens each month (${BOXES.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens)).map(b => `${fmtShort(b.challenge.opens).replace(/^\w+, /, '')}`).join(' · ')}), and the Golden Seed finale opens <b>${fmtMD(P.finale.opens)}</b>. Add the season to your calendar to get a reminder for each one!</p>
       <h3>How your flower grows</h3>
-      <p>Each petal is one part of being WELL. Petals fill up like water as you earn points: <b>+${P.points.event}</b> for each event check-in (for every petal it’s tagged with), <b>+${P.points.challenge}</b> for a challenge, and <b>+${P.points.box}</b> for a lockbox stamp. ${P.petalGoal} points fills a petal!</p>
+      <p>Each petal is one part of being WELL, and <b>${P.petalGoal} points fills a petal</b>. Events fill two petals at once, challenges and lockboxes fill the petal of their box. Fill all six to become a <b>Basehor WELL Star</b>!${P.prizes && P.prizes.bloom ? ` Show your full flower at the front desk for 🎁 <b>${esc(P.prizes.bloom)}</b>.` : ''}</p>
       <p class="muted">💡 Try a little of everything — the best flowers are well-rounded!</p>
       <button class="btn btn-navy btn-block" data-action="close">Let’s go! 🌸</button>`);
   }
   function challenges() {
     const x = me();
-    openSheet(`<h2 id="sheetTitle">⭐ Challenges</h2><p>Finish a challenge to find its secret word — the word unlocks that lockbox’s combo. Do them any time!</p>
-      ${BOXES.map(b => { const c = CAT[b.category]; const done = x.challenges[b.id]; return `
-        <div class="box-card" style="--c:${c.color};margin-bottom:12px">
-          <div class="box-top"><span class="box-icon">${c.emoji}</span><div><h3 class="box-title">${esc(b.challenge.title)} ${done ? '✅' : ''}</h3><p class="box-place">Unlocks the ${b.emoji} ${b.name} · +${P.points.challenge} ${c.name}</p></div></div>
-          <ol class="steps" style="--c:${c.color};margin-top:12px">${b.challenge.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+    const list = BOXES.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens));
+    openSheet(`<h2 id="sheetTitle">⭐ Challenges</h2><p>A <b>new challenge opens every month</b>! Finish one to get its secret word. The word unlocks that lockbox’s combo and adds +${P.points.challenge} to its petal.</p>
+      ${list.map(b => { const c = CAT[b.category], ch = b.challenge, done = x.challenges[b.id], open = chOpen(b); return `
+        <div class="box-card${open ? '' : ' locked'}" style="--c:${c.color};margin-bottom:12px">
+          <div class="box-top"><span class="box-icon">${open ? c.emoji : '🔒'}</span><div><h3 class="box-title">${esc(ch.title)} ${done ? '✅' : ''}</h3><p class="box-place">${open ? `Open now · unlocks the ${b.emoji} ${b.name} · +${P.points.challenge} ${c.name}` : `<b>Opens ${fmtMD(ch.opens)}</b> · unlocks the ${b.emoji} ${b.name}`}</p></div></div>
+          ${open ? `<ol class="steps" style="--c:${c.color};margin-top:12px">${ch.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
+          <p class="muted" style="margin:6px 0 0;font-size:14px">${ch.spoken ? '🗣️ A staff member tells you the word' : '🪧 The word is on a sign'}: ${esc(ch.where)}</p>` : `<p class="muted" style="margin:10px 0 0">It’s a surprise! Check back on ${fmtMD(ch.opens)}. 🎁</p>`}
         </div>`; }).join('')}
-      <button class="btn btn-navy btn-block" data-action="unlock">🔑 I found a secret word!</button>`);
+      <button class="btn btn-navy btn-block" data-action="unlock">🔑 I have a secret word!</button>`);
   }
   let installEvt = null;
   window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; });
@@ -2783,6 +2958,30 @@ window.PARK_SECRETS = {
   };
 
   /* ---------------- boot ---------------- */
+  /* If staff change a lock's combo (staff tool → new upload), every saved combo
+     quietly updates the next time the pass opens. Kids' codes stay the same. */
+  function refreshCombos() {
+    for (const x of Store.explorers()) {
+      const updates = {};
+      for (const [box, c] of Object.entries(x.combos || {})) {
+        let fresh = null;
+        if (c.via === 'words') {
+          if (BOXES.every(b => x.boxes[b.id] && x.boxes[b.id].word)) fresh = S.unmaskCombo(SEC.finale.m, BOXES.map(b => x.boxes[b.id].word).join(''));
+        } else if (c.code) {
+          const e = SEC.codes[S.hashCode(c.code)];
+          if (e && e.m && e.box === box) fresh = S.unmaskCombo(e.m, c.code);
+        }
+        if (fresh && fresh !== c.combo) updates[box] = fresh;
+      }
+      if (Object.keys(updates).length) Store.mutate(x.id, y => { for (const [box, v] of Object.entries(updates)) y.combos[box].combo = v; });
+      if (!x.combos.golden && allWords(x) && goldenOpen()) {
+        const key = BOXES.map(b => x.boxes[b.id].word).join('');
+        Store.mutate(x.id, y => { y.combos.golden = { combo: S.unmaskCombo(SEC.finale.m, key), via: 'words', at: new Date().toISOString() }; });
+        setTimeout(() => { toast(`🌻 The Golden Seed Box is open! ${x.name}’s combo is in the pass.`); confetti(); }, 900);
+      }
+    }
+  }
+
   function renderAll() {
     if (!me()) return;
     renderHeader(); renderHome(); renderPass(); renderEvents(); renderBoxList(); refreshMarkers();
@@ -2803,7 +3002,7 @@ window.PARK_SECRETS = {
     window.__parkBooted = true;
     go(location.hash.slice(1) || 'home', false);
     if (!me()) onboarding(takeURLCode);
-    else { renderAll(); takeURLCode(); }
+    else { refreshCombos(); renderAll(); takeURLCode(); }
   }
   window.addEventListener('park:save-failed', () => toast('⚠️ Your device storage is full — save a backup!'));
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});

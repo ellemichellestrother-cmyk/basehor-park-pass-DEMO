@@ -220,6 +220,27 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
   background: #FFF4D6; border: 3px dashed var(--purpose);
 }
 .nudge p { margin: 0; flex: 1; font-size: 15px; }
+#dropBanner { display: grid; gap: 10px; margin-top: 16px; }
+#dropBanner:empty { display: none; }
+#dropBanner .nudge { margin-top: 0; }
+.drop-card { display: flex; gap: 12px; align-items: center; text-align: left; width: 100%; font-size: 15px; line-height: 1.35;
+  background: #fff; border: 3px solid var(--navy); border-radius: 18px; padding: 12px 14px; box-shadow: var(--pop); color: var(--navy); }
+.drop-card.new { background: #FFF4D6; border-color: var(--rust); box-shadow: 4px 4px 0 var(--rust); animation: dropPulse 2.4s ease-in-out infinite; }
+.drop-card.gold { background: #FFF8E4; border-color: var(--gold); box-shadow: 4px 4px 0 var(--gold); }
+.drop-card.streak-card { background: #FFEDE4; border-color: var(--body-deep); box-shadow: 4px 4px 0 var(--body-deep); }
+.drop-em { font-size: 30px; flex: none; }
+@keyframes dropPulse { 50% { transform: translateY(-2px); } }
+.streak { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+@media (min-width: 620px) { .streak { grid-template-columns: repeat(10, 1fr); } }
+.streak .month { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px; border-radius: 14px; background: #fff; border: 3px solid #E6DECF; font-size: 20px; }
+.streak .month b { font-size: 12px; font-family: var(--font-tag); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.streak .month.on { border-color: var(--body); background: #FFEDE4; }
+.streak .month.on b { color: var(--navy); }
+.streak .month.now { border-style: dashed; border-color: var(--navy); }
+.streak .month.missed { opacity: .5; }
+.streak .month.future { opacity: .7; }
+.streak-total { grid-column: 1 / -1; margin: 4px 0 0; text-align: center; font-weight: 900; }
+.box-card.locked { opacity: .85; background: repeating-linear-gradient(135deg, #fff 0 14px, #FBF6EC 14px 28px); }
 .nudge .btn { min-height: 40px; padding: 6px 12px; font-size: 14px; }
 
 /* ---------------- Event cards ---------------- */
@@ -468,6 +489,12 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .how-step { display: grid; grid-template-columns: 52px 1fr; gap: 12px; align-items: center; background: #fff; border-radius: 16px; padding: 10px; }
 .how-step .hi { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; font-size: 26px; background: var(--c); }
 .how-step p { margin: 0; font-size: 15px; }
+.earn-table { display: grid; gap: 6px; font-size: 14px; }
+.earn-row { display: grid; grid-template-columns: 1.15fr 1.2fr 1fr 1.2fr; gap: 8px; background: #fff; border-radius: 12px; padding: 9px 10px; align-items: center; }
+.earn-row.head { background: none; padding: 0 10px; font-family: var(--font-tag); text-transform: uppercase; letter-spacing: .06em; font-size: 12px; color: var(--muted); }
+.earn-row > b { font-size: 14px; color: var(--navy); }
+.prize-line { background: #FFF4D6; border: 2px dashed var(--purpose); border-radius: 12px; padding: 8px 12px; }
+@media (max-width: 480px) { .earn-row { grid-template-columns: 1fr 1fr; } .earn-row.head { display: none; } .earn-row > b { grid-column: 1 / -1; } .earn-row span::before { display: block; font: 600 11px var(--font-tag); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); } .earn-row span:nth-of-type(1)::before { content: 'Flower points'; } .earn-row span:nth-of-type(2)::before { content: 'Stamp'; } .earn-row span:nth-of-type(3)::before { content: 'Unlocks'; } }
 .how-step b { font-family: var(--font-display); font-weight: 900; color: var(--navy); }
 
 /* ---------------- Toast + confetti ---------------- */
@@ -788,6 +815,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
     return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   }
   function details(e, P, siteUrl) {
+    if (e.kind) return `${e.blurb || ''}\nOpen your Basehor Park Pass to see it!` + (siteUrl ? `\n${siteUrl}` : '');
     const names = (e.cats || []).map(c => (P.categories.find(x => x.id === c) || {}).name).filter(Boolean);
     return `${e.blurb || ''}\nPetals: ${names.join(', ')}` +
       (e.rain ? `\nMake-up date: ${longDate(e.rain)}` : '') +
@@ -820,11 +848,11 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
       L.push('BEGIN:VEVENT', `UID:${e.id}-${P.season}@basehor-park-pass`, `DTSTAMP:${stamp}`);
       if (t.allDay) L.push(`DTSTART;VALUE=DATE:${t.start}`, `DTEND;VALUE=DATE:${t.end}`);
       else L.push(`DTSTART;TZID=${TZ}:${t.start}`, `DTEND;TZID=${TZ}:${t.end}`);
-      L.push(`SUMMARY:${esc(`${e.emoji} ${e.title} — Basehor Park Pass`)}`,
+      L.push(`SUMMARY:${esc(e.kind ? `${e.emoji} ${e.title}` : `${e.emoji} ${e.title} — Basehor Park Pass`)}`,
         `DESCRIPTION:${esc(details(e, P, opts.siteUrl))}`,
         `LOCATION:${esc(e.place || 'Basehor, KS')}`);
       if (opts.siteUrl) L.push(`URL:${opts.siteUrl}`);
-      L.push('BEGIN:VALARM', 'TRIGGER:-PT2H', 'ACTION:DISPLAY', `DESCRIPTION:${esc(e.title + ' today!')}`, 'END:VALARM', 'END:VEVENT');
+      L.push('BEGIN:VALARM', t.allDay ? 'TRIGGER:PT9H' : 'TRIGGER:-PT2H', 'ACTION:DISPLAY', `DESCRIPTION:${esc(e.title + ' today!')}`, 'END:VALARM', 'END:VEVENT');
     }
     L.push('END:VCALENDAR');
     return L.map(fold).join('\r\n') + '\r\n';
@@ -838,6 +866,20 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
     return 'https://calendar.google.com/calendar/render?' + q.toString();
   }
 
+  // the whole season: every event + each monthly challenge drop + the Golden Seed opening
+  function seasonItems(P) {
+    const items = [...P.events];
+    for (const b of P.boxes) if (b.challenge && b.challenge.opens) items.push({
+      id: 'drop-' + b.id, kind: 'drop', date: b.challenge.opens, time: null, emoji: '⭐', place: '', cats: [b.category],
+      title: `New Park Pass challenge: ${b.challenge.title}`,
+      blurb: `A new challenge just opened! Finish it to unlock the ${b.name} combo and grow your WELL flower.` });
+    if (P.finale && P.finale.opens) items.push({
+      id: 'golden-open', kind: 'finale', date: P.finale.opens, time: null, emoji: '🌻', place: P.finale.address || P.finale.place || '', cats: [],
+      title: 'The Golden Seed Box opens!',
+      blurb: 'Collected all six secret words? Your Golden Seed combo is now in your Park Pass. Time for the finale!' });
+    return items.sort((a, b) => a.date.localeCompare(b.date));
+  }
+
   const fileFor = id => `cal-${id}.ics`;
   const SEASON = 'cal-season.ics';
 
@@ -848,7 +890,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
   }
   const hosted = () => global.location && /^https?:$/.test(location.protocol);
 
-  global.ParkCal = { ics, google, times, fileFor, SEASON, device, hosted };
+  global.ParkCal = { ics, google, times, fileFor, SEASON, device, hosted, seasonItems };
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
@@ -1077,6 +1119,19 @@ window.PARK = {
      Leave OFF while you test the site. */
   onlyCheckInFromEventDay: false,
 
+  /* TEST MODE — true ignores every date (challenge release dates, the
+     Golden Seed opening, event-day check-ins) so staff can try everything.
+     ⚠️ Keep this false on the live site. */
+  testMode: false,
+
+  /* Prizes — leave a line blank ('') to hide it. When filled in, the app
+     shows it in "How it works", on the box screens and in the celebrations. */
+  prizes: {
+    box: '',      // e.g. 'a sticker' — kids take one from each petal lockbox they crack
+    golden: '',   // e.g. 'a Basehor WELL pin' — inside the Golden Seed Box
+    bloom: ''     // e.g. 'a free swim pass' — at the front desk for a full bloom (all six petals)
+  },
+
   petalGoal: 5,
   points: { event: 1, challenge: 1, box: 2 },
 
@@ -1092,6 +1147,11 @@ window.PARK = {
   ],
 
   /* ---------------- LOCKBOX TRAIL ----------------
+     Each challenge has an "opens" date: one new challenge drops each
+     month so families keep coming back (its word won't work before then).
+     spoken: true = staff say the word out loud instead of a public sign.
+     A box's secret word only stamps once a child has earned that box's
+     combo (from an event or the challenge).
      One box per petal + the Golden Seed finale box.
      ⚠️ Only Basehor City Park's pin is a real address. Set the
      others with the map picker in admin.html (click → copy lat/lng). */
@@ -1102,7 +1162,7 @@ window.PARK = {
       lat: 39.1484, lng: -94.9415,
       hint: 'Look for the pink petal tag near something that keeps people safe.',
       challenge: {
-        title: 'Safety Scout',
+        title: 'Safety Scout', opens: '2027-02-12', spoken: true,
         steps: [
           'Learn your home address and a grown-up’s phone number by heart.',
           'Practice your family’s meeting spot if there’s ever a fire drill at home.',
@@ -1117,13 +1177,13 @@ window.PARK = {
       lat: 39.14508, lng: -94.94736,
       hint: 'Near the playground — find the navy petal tag.',
       challenge: {
-        title: 'Kindness Quest',
+        title: 'Kindness Quest', opens: '2027-08-01', spoken: true,
         steps: [
           'Make a thank-you card for a helper: a firefighter, librarian, teacher or park worker.',
-          'Deliver it (or drop it in the Kindness Mailbox at City Hall).',
-          'The secret word is printed on the Kindness Mailbox!'
+          'Bring it to the Basehor Parks & Rec front desk (we’ll deliver it to the Kindness Mailbox).',
+          'A staff member will tell you the secret word!'
         ],
-        where: 'Kindness Mailbox at City Hall'
+        where: 'Basehor Parks & Rec front desk (staff tell you the word)'
       }
     },
     {
@@ -1132,7 +1192,7 @@ window.PARK = {
       lat: 39.1402, lng: -94.9362,
       hint: 'Where the trail meets the fitness stop — orange petal tag.',
       challenge: {
-        title: 'Move-It Mile',
+        title: 'Move-It Mile', opens: '2027-07-01',
         steps: [
           'Walk, run, skip or bike one whole mile on a Basehor park trail.',
           'Try 10 jumping jacks at every bench you pass!',
@@ -1147,13 +1207,13 @@ window.PARK = {
       lat: 39.1338, lng: -94.9441,
       hint: 'Find the yellow petal tag where people come together to help.',
       challenge: {
-        title: 'Dream Big Goal',
+        title: 'Dream Big Goal', opens: '2027-06-01', spoken: true,
         steps: [
           'Pick one goal for this summer (learn to swim, read 10 books, help a neighbor…).',
           'Write or draw it on a Goal Star card.',
-          'Pin it to the Goal Board — the secret word is at the top of the board.'
+          'Pin it to the Goal Board at Parks & Rec and show a staff member — they’ll tell you the secret word!'
         ],
-        where: 'Goal Board at Basehor Parks & Rec'
+        where: 'Goal Board at Basehor Parks & Rec (staff tell you the word)'
       }
     },
     {
@@ -1162,7 +1222,7 @@ window.PARK = {
       lat: 39.1371, lng: -94.9528,
       hint: 'Close to the trees and flowers — green petal tag.',
       challenge: {
-        title: 'Park Protector',
+        title: 'Park Protector', opens: '2027-05-01',
         steps: [
           'With a grown-up, pick up one bag of litter at any Basehor park (gloves on!).',
           'Spot 3 different kinds of trees or birds while you’re there.',
@@ -1177,7 +1237,7 @@ window.PARK = {
       lat: 39.1446, lng: -94.9318,
       hint: 'A quiet, cozy reading spot — teal petal tag.',
       challenge: {
-        title: 'Quiet Spot Quest',
+        title: 'Quiet Spot Quest', opens: '2027-09-01',
         steps: [
           'Find a quiet place outside and sit still for 2 whole minutes.',
           'Count every sound you hear. Birds? Wind? Cars? A dog?',
@@ -1195,7 +1255,8 @@ window.PARK = {
     id: 'golden', num: 7, category: null, name: 'Golden Seed Box', emoji: '🌻',
     place: 'Basehor City Park', address: '15940 Leavenworth Rd, Basehor, KS 66007',
     lat: 39.14535, lng: -94.94695,
-    hint: 'Stamp all six petal boxes. The secret words you find inside them build the Golden Seed combo!'
+    hint: 'Stamp all six petal boxes. The secret words you find inside them build the Golden Seed combo!',
+    opens: '2027-10-01'   // the finale combo is revealed from this date (words can be collected any time)
   },
 
   /* ---------------- 2027 EVENT LINEUP ----------------
@@ -1326,7 +1387,7 @@ window.PARK = {
     const inp = (group, id, cls = '') => `<input class="${cls}" data-g="${group}" data-id="${id}" value="${esc(setup[group][id] || '')}" ${cls === 'combo' ? 'inputmode="numeric" maxlength="4" placeholder="0000"' : 'placeholder="WORD"'}>`;
     $('#boxRows').innerHTML = ALL.map(b => `<tr><td><span class="pill" style="background:${color(b)}">${b.num}</span> ${b.emoji} <b>${b.name}</b><br><small class="muted">${esc(b.place)}</small></td>
       <td>${inp('combo', b.id, 'combo')}</td><td>${inp('word', b.id)}${b.id === 'golden' ? '<br><small class="muted">Its combo is revealed automatically once a kid enters all six petal-box words.</small>' : ''}</td></tr>`).join('');
-    $('#chalRows').innerHTML = P.boxes.map(b => `<tr><td>⭐ <b>${esc(b.challenge.title)}</b><br><small class="muted">${esc(b.challenge.where)}</small></td>
+    $('#chalRows').innerHTML = P.boxes.map(b => `<tr><td>⭐ <b>${esc(b.challenge.title)}</b><br><small class="muted">Opens ${esc(b.challenge.opens || '')} · ${esc(b.challenge.where)}</small></td>
       <td>${b.emoji} ${b.name}</td><td>${inp('chal', b.id)}</td></tr>`).join('');
     const firstBox = e => P.boxes.find(b => b.category === e.cats[0]);
     $('#evRows').innerHTML = [...P.events].sort((a, b) => a.date.localeCompare(b.date)).map(e => `<tr><td>${e.emoji} <b>${esc(e.title)}</b><br><small class="muted">${e.date}</small></td>
@@ -1395,7 +1456,7 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
         const site = (setup.site || (/^https?:$/.test(location.protocol) ? location.href.split(/[?#]/)[0].replace(/admin\.html$/, '') : '')).trim();
         const files = [['index.html', updated]];
         const evs = [...P.events].sort((a, b) => a.date.localeCompare(b.date));
-        files.push([ParkCal.SEASON, ParkCal.ics(evs, P, { siteUrl: site })]);
+        files.push([ParkCal.SEASON, ParkCal.ics(ParkCal.seasonItems(P), P, { siteUrl: site })]);
         for (const e of evs) files.push([ParkCal.fileFor(e.id), ParkCal.ics([e], P, { siteUrl: site, name: e.title })]);
         download(makeZip(files), 'park-pass-upload.zip');
         msg(`✅ <b>park-pass-upload.zip</b> downloaded (index.html + ${files.length - 1} calendar files). Unzip it, then on GitHub: <b>Add file → Upload files</b>, drop in everything from the folder, and commit. Phones pick it up on their next visit.`, 'ok');
@@ -1456,7 +1517,7 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
           <small>No camera? Open the Park Pass, tap <b>Unlock</b> and type: <b>${esc(setup.ev[e.id])}</b></small></div>`).join(''));
       if (kind === 'challenges') printWith(P.boxes.map(bx => `
         <div class="poster" style="--c:${color(bx)}">${head}
-          <div><div class="em">⭐</div><h1>${esc(bx.challenge.title)}</h1><p>You did it! Here’s your secret word for the <b>${bx.emoji} ${bx.name}</b>:</p></div>
+          <div><div class="em">⭐</div><h1>${esc(bx.challenge.title)}</h1><p>${bx.challenge.spoken ? '<b>STAFF CARD — keep at the desk. Say this word out loud once the challenge is done.</b><br>' : ''}You did it! Here’s your secret word for the <b>${bx.emoji} ${bx.name}</b>:</p><p><small>Post on: ${bx.challenge.opens}</small></p></div>
           <div class="word">${esc(setup.chal[bx.id])}</div>
           <div class="qr" style="transform:scale(.55);margin:-1in 0">${qrSVG(link(setup.chal[bx.id]))}</div>
           <small>Type it in the Park Pass under <b>Unlock</b> — or scan the code!</small></div>`).join(''));
@@ -1470,7 +1531,7 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
     $('#printKey').addEventListener('click', () => {
       printWith(`<div class="keysheet"><h1>🗝️ Park Pass 2027 — STAFF KEY (keep private)</h1>
         <h3>Lockboxes</h3><table><tr><th>#</th><th>Box</th><th>Combo</th><th>Word inside</th><th>Location</th></tr>${ALL.map(b => `<tr><td>${b.num}</td><td>${b.name}</td><td><b>${esc(setup.combo[b.id] || '')}</b></td><td>${esc(setup.word[b.id] || '')}</td><td>${esc(b.place)}</td></tr>`).join('')}</table>
-        <h3>Challenge words</h3><table>${P.boxes.map(b => `<tr><td>${esc(b.challenge.title)}</td><td>${b.name}</td><td><b>${esc(setup.chal[b.id] || '')}</b></td></tr>`).join('')}</table>
+        <h3>Challenge words (post each sign on its opening day)</h3><table><tr><th>Opens</th><th>Challenge</th><th>Box</th><th>Word</th><th>Word given by</th></tr>${P.boxes.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens)).map(b => `<tr><td>${b.challenge.opens}</td><td>${esc(b.challenge.title)}</td><td>${b.name}</td><td><b>${esc(setup.chal[b.id] || '')}</b></td><td>${b.challenge.spoken ? 'Staff (say it out loud)' : 'Sign'}</td></tr>`).join('')}</table>
         <h3>Event codes</h3><table>${[...P.events].sort((a, b) => a.date.localeCompare(b.date)).map(e => `<tr><td>${e.date}</td><td>${esc(e.title)}</td><td><b>${esc(setup.ev[e.id] || '')}</b></td></tr>`).join('')}</table></div>`);
     });
 

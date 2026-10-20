@@ -26,7 +26,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:ruck-2027@basehor-park-pass
-DTSTAMP:20261020T142959Z
+DTSTAMP:20261020T155517Z
 DTSTART;VALUE=DATE:20271016
 DTEND;VALUE=DATE:20271017
 SUMMARY:💀 Skeleton Ruck — Basehor Park Pass
@@ -37,7 +37,7 @@ DESCRIPTION:Pack up and march with your crew! A bone-rattling walk for ever
 LOCATION:Basehor\, KS
 URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
 BEGIN:VALARM
-TRIGGER:-PT2H
+TRIGGER:PT9H
 ACTION:DISPLAY
 DESCRIPTION:Skeleton Ruck today!
 END:VALARM
