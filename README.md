@@ -52,7 +52,7 @@ Every petal can be filled several different ways, so kids who come to a little o
 2. Sign in at **github.com** → **New repository** → name it `basehor-park-pass` → **Public** → **Create repository**.
 3. Click **uploading an existing file**, select **all the files** from the unzipped folder, drop them in → **Commit changes**. (No folders to worry about — they all sit side by side.)
 4. **Settings → Pages** → Source: **Deploy from a branch** → Branch: `main`, folder `/ (root)` → **Save**.
-5. Wait a minute, then visit `https://YOUR-USERNAME.github.io/basehor-park-pass/`.
+5. Wait a minute, then visit `https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/`.
 
 You can also just double-click `index.html` on your computer to try it — it works from a single file (the map, QR scanner and fonts need internet).
 
@@ -64,16 +64,17 @@ It shows a yellow **“Oops — the Park Pass didn’t load all the way”** box
 ## ✅ Launch checklist
 
 - [ ] **Event details** — open `index.html` in any text editor (or click it on GitHub → ✏️ pencil) and search for **`EDIT YOUR PARK PASS HERE`**. Fill in each event's `place`, and the times for Basehor's Blooming, Skeleton Ruck and Candlelight Concert (`time: null` shows “Time coming soon”). Flicks times are dusk estimates. Event descriptions are placeholders — reword anything that doesn't match the real event.
-- [ ] **Box locations** — only Basehor City Park (15940 Leavenworth Rd) is a real pin. Open **`admin.html` → Set box locations**, tap where each box goes, and paste the `lat` / `lng` into the same section. Update each box's `place`, `hint` and challenge `where`.
+- [ ] **Box locations** — only Basehor City Park (15940 Leavenworth Rd) is a real spot. Open **`admin.html` → Set box locations**: find the spot in Google Maps, copy its coordinates, paste them in, and copy the line it gives you into the same EDIT section. The preview shows how the trail map will look. Update each box's `place`, `hint` and challenge `where`.
 - [ ] **Real codes** — open **`your-site/admin.html` → Combos & codes**:
   - enter each lockbox's real combo + the secret word you'll put inside,
   - pick challenge words and event codes (🎲 fills the blanks),
   - **Save staff setup (private)** → keep that file in a staff-only folder,
-  - **Build & download updated index.html** → on GitHub, **Add file → Upload files**, drop it in, commit. It replaces the old one, and the demo codes stop working.
+  - **Build & download upload files (.zip)** → unzip it → on GitHub, **Add file → Upload files**, drop in everything from the folder, commit. That replaces `index.html` and every calendar file, and the demo codes stop working.
   - Edited events locally and not uploaded yet? Click **📂 Use a different index.html** first so the codes match.
 - [ ] **Print** (admin tab 2): event QR posters, challenge signs, secret-word cards for inside the boxes, lockbox tags. Enter your live site address first so the QR codes point to it. In the print dialog, turn on **Background graphics** for full color.
 - [ ] Set `onlyCheckInFromEventDay: true` (same EDIT section) so event codes can't be used early.
-- [ ] After changing files, bump `VERSION` in `sw.js` (e.g. `bpp27-v4`) so phones that installed the app get the update right away.
+- [ ] **Changed an event's date, time or place?** Run the admin build again (it re-makes the calendar files from your latest index.html) and upload the zip, so calendars match.
+- [ ] After changing files, bump `VERSION` in `sw.js` (e.g. `bpp27-v5`) so phones that installed the app get the update right away.
 
 > `admin.html` isn't linked from the kids' site, but it's a public URL. It never stores or uploads anything — the real combos only exist in the private setup file you save.
 
@@ -117,27 +118,33 @@ It shows a yellow **“Oops — the Park Pass didn’t load all the way”** box
 | Word inside box | Brainy Box (combo 5931) | `WONDER` |
 | Word inside box | Golden Seed Box (combo 1027 — revealed after all 6 words) | `SUNFLOWER` |
 
-Codes ignore capitals, spaces and dashes. A QR code is just your site link with `?c=CODE` on the end, e.g. `https://you.github.io/basehor-park-pass/?c=BLOOM27`.
+Codes ignore capitals, spaces and dashes. A QR code is just your site link with `?c=CODE` on the end, e.g. `https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/?c=BLOOM27`.
 
 ---
 
 ## What's in the folder
 
+Upload **everything** to the top level of your GitHub repo (no folders):
+
 ```
 index.html            ⭐ the whole Park Pass site (edit events in the "EDIT YOUR PARK PASS HERE" section)
-admin.html            staff tools: codes → updated index.html, QR posters, signs, map picker
-sw.js                 optional: offline support + faster loading
-manifest.webmanifest  optional: "add to home screen" app name & colors
-icon-192.png, icon-512.png, apple-touch-icon.png   optional: home-screen icons
-brand.jpg             optional: picture shown when the link is shared
-.nojekyll             tells GitHub Pages to serve the files as-is
+admin.html            staff tools: codes + calendars → upload zip, QR posters, signs, box locations
+cal-season.ics        whole-season calendar (families can subscribe — it updates itself)
+cal-<event>.ics       one calendar file per event (21 files total) — what "Add to my calendar" opens on iPhone
+sw.js                 offline support + faster loading
+manifest.webmanifest  "add to home screen" app name & colors
+icon-192.png, icon-512.png, apple-touch-icon.png   home-screen icons (new logo)
+brand.jpg             the Basehor WELL logo, shown when the link is shared
+.nojekyll             tells GitHub Pages to serve the files as-is (hidden file — fine to skip)
+README.md             these notes
 ```
 
 ## Good to know
 - **Saving:** progress lives in the browser's storage; photos are shrunk to ~300 KB each and kept in the browser's photo database. Clearing browser data or switching phones loses them **unless the family restores a backup file** (More → Save backup). The home screen nudges kids to back up after a few new stamps.
 - **Siblings:** one phone can hold several explorers. When a code is entered, it asks who's there so the whole crew can check in at once.
 - **Combos are scrambled:** the `park-secrets` block only stores fingerprints of the codes plus scrambled digits. Peeking at the site's source code won't reveal a combo without the matching code or word.
-- **Photo:** the splash pad picture behind the flower is built into `index.html`.
-- **Paper pass:** "Print a paper Park Pass" makes a printable sheet with stamp circles for the physical stamps inside each box.
+- **Logo & photo:** the new Basehor WELL logo (brown seal) and the sunflower photo behind the flower are built into `index.html`. Colors match the logo: Safety coral, Connection periwinkle, Body orange, Purpose gold, Environment green, Mind teal, navy and seal-brown accents.
+- **Paper pass:** "Print a paper Park Pass" prints 2 pages — page 1 has stamp circles + the event checklist; page 2 is a big WELL flower with 5 stripes per petal to color in (earned stripes print pre-colored).
 - **Calendar:** families can add one event or the whole season to their phone calendar.
-- **Map tiles** come from CARTO's free basemap (free for non-commercial use up to 75,000 map views a month — plenty for a city program). If CARTO ever refuses, the map switches to Esri and then OpenStreetMap on its own. “Open full route in Maps” opens Google Maps with every box as a stop.
+- **The map** is an illustrated trail map built into the page — no map service, no API key, nothing to break. Pins are placed from each box's real coordinates (so they sit in the right spots relative to each other), and tapping a pin opens that box with **Google Maps directions**. “Open full route in Maps” opens every box as stops; “Closest box to me” uses the phone's location.
+- **Calendar buttons** open the phone's own calendar: iPhone/iPad/Mac → Apple Calendar's “Add” screen (season → “Subscribe”, which auto-updates); Android → Google Calendar, pre-filled (season → subscribe); computers → a calendar file Outlook/Calendar opens. Each event also has an “or use Google Calendar” link.

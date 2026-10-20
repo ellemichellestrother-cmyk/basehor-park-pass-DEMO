@@ -1,0 +1,45 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Basehor Parks & Rec//Park Pass 2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Build-a-Bear Night
+X-WR-TIMEZONE:America/Chicago
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+TZNAME:CDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+TZNAME:CST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:bear-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270212T180000
+DTEND;TZID=America/Chicago:20270212T200000
+SUMMARY:🧸 Build-a-Bear Night — Basehor Park Pass
+DESCRIPTION:Stuff\, fluff and name a brand-new cuddle buddy! Every bear get
+ s a "brave buddy" promise card for when you need extra courage.\nPetals: S
+ afety\, Connection\nScan the event QR code to check in on your Park Pass!\
+ nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Build-a-Bear Night today!
+END:VALARM
+END:VEVENT
+END:VCALENDAR

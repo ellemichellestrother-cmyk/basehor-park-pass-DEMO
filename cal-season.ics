@@ -1,0 +1,386 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Basehor Parks & Rec//Park Pass 2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Basehor Park Pass 2027
+X-WR-TIMEZONE:America/Chicago
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+TZNAME:CDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+TZNAME:CST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:bear-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270212T180000
+DTEND;TZID=America/Chicago:20270212T200000
+SUMMARY:🧸 Build-a-Bear Night — Basehor Park Pass
+DESCRIPTION:Stuff\, fluff and name a brand-new cuddle buddy! Every bear get
+ s a "brave buddy" promise card for when you need extra courage.\nPetals: S
+ afety\, Connection\nScan the event QR code to check in on your Park Pass!\
+ nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Build-a-Bear Night today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:flick1-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270423T201500
+DTEND;TZID=America/Chicago:20270423T221500
+SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
+DESCRIPTION:Bring a blanket\, grab the popcorn and watch a movie under the 
+ stars with the whole town.\nPetals: Connection\, Mind\nMake-up date: Frida
+ y\, April 30\, 2027\nScan the event QR code to check in on your Park Pass!
+ \nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Friday Night Flicks today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:bloom-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;VALUE=DATE:20270501
+DTEND;VALUE=DATE:20270502
+SUMMARY:🌷 Basehor's Blooming — Basehor Park Pass
+DESCRIPTION:Kick off the Park Pass season by helping Basehor bloom! Plant\,
+  play and get your first stamps.\nPetals: Environment\, Connection\nTime c
+ oming soon — check the Park Pass site.\nScan the event QR code to check 
+ in on your Park Pass!\nhttps://ellemichellestrother-cmyk.github.io/basehor
+ -wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Basehor's Blooming today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:golfish-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270513T173000
+DTEND;TZID=America/Chicago:20270513T193000
+SUMMARY:🐟 Golfish — Basehor Park Pass
+DESCRIPTION:Swing\, cast and giggle your way through a splashy evening of f
+ ishy fun.\nPetals: Body\, Environment\nScan the event QR code to check in 
+ on your Park Pass!\nhttps://ellemichellestrother-cmyk.github.io/basehor-we
+ llness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Golfish today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:concert5-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270520T183000
+DTEND;TZID=America/Chicago:20270520T203000
+SUMMARY:🎸 3rd Thursday Concert — Basehor Park Pass
+DESCRIPTION:Live music in the park! Dance it out\, sing along and wave to y
+ our neighbors.\nPetals: Mind\, Connection\nScan the event QR code to check
+  in on your Park Pass!\nhttps://ellemichellestrother-cmyk.github.io/baseho
+ r-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:3rd Thursday Concert today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:flick2-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270521T203000
+DTEND;TZID=America/Chicago:20270521T223000
+SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
+DESCRIPTION:School’s almost out — celebrate with a movie on the big out
+ door screen.\nPetals: Connection\, Mind\nMake-up date: Friday\, May 28\, 2
+ 027\nScan the event QR code to check in on your Park Pass!\nhttps://ellemi
+ chellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Friday Night Flicks today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:whales-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270605T080000
+DTEND;TZID=America/Chicago:20270605T100000
+SUMMARY:🐳 Whales & Scales — Basehor Park Pass
+DESCRIPTION:Early birds catch the fish! A morning of big catches\, tiny cri
+ tters and water wonders.\nPetals: Environment\, Purpose\nScan the event QR
+  code to check in on your Park Pass!\nhttps://ellemichellestrother-cmyk.gi
+ thub.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Whales & Scales today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:water1-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270611T160000
+DTEND;TZID=America/Chicago:20270611T190000
+SUMMARY:💦 Water Day — Basehor Park Pass
+DESCRIPTION:Splash\, spray and slide into summer — plus quick water-safet
+ y tips from our lifeguard buddies.\nPetals: Safety\, Body\nScan the event 
+ QR code to check in on your Park Pass!\nhttps://ellemichellestrother-cmyk.
+ github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Water Day today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:concert6-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270617T183000
+DTEND;TZID=America/Chicago:20270617T203000
+SUMMARY:🎺 3rd Thursday Concert — Basehor Park Pass
+DESCRIPTION:Summer songs\, lawn chairs and happy feet. Bring your best danc
+ e moves!\nPetals: Mind\, Connection\nScan the event QR code to check in on
+  your Park Pass!\nhttps://ellemichellestrother-cmyk.github.io/basehor-well
+ ness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:3rd Thursday Concert today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:water2-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270709T160000
+DTEND;TZID=America/Chicago:20270709T190000
+SUMMARY:💦 Water Day — Basehor Park Pass
+DESCRIPTION:Beat the July heat with sprinklers\, water games and a big sogg
+ y smile.\nPetals: Safety\, Body\nScan the event QR code to check in on you
+ r Park Pass!\nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness
+ -pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Water Day today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:concert7-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270715T183000
+DTEND;TZID=America/Chicago:20270715T203000
+SUMMARY:🥁 3rd Thursday Concert — Basehor Park Pass
+DESCRIPTION:Mid-summer music night — the perfect soundtrack for a warm Ka
+ nsas evening.\nPetals: Mind\, Connection\nScan the event QR code to check 
+ in on your Park Pass!\nhttps://ellemichellestrother-cmyk.github.io/basehor
+ -wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:3rd Thursday Concert today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:water3-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270806T160000
+DTEND;TZID=America/Chicago:20270806T190000
+SUMMARY:💦 Water Day — Basehor Park Pass
+DESCRIPTION:One last big splash before school starts!\nPetals: Safety\, Bod
+ y\nScan the event QR code to check in on your Park Pass!\nhttps://ellemich
+ ellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Water Day today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:concert8-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270819T183000
+DTEND;TZID=America/Chicago:20270819T203000
+SUMMARY:🎤 3rd Thursday Concert — Basehor Park Pass
+DESCRIPTION:The summer concert finale — let’s make it loud!\nPetals: Mi
+ nd\, Connection\nScan the event QR code to check in on your Park Pass!\nht
+ tps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:3rd Thursday Concert today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:flick3-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270910T194500
+DTEND;TZID=America/Chicago:20270910T214500
+SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
+DESCRIPTION:Fall movie night! Cozy sweatshirts\, warm cocoa and a family fa
+ vorite on the big screen.\nPetals: Connection\, Mind\nMake-up date: Friday
+ \, September 17\, 2027\nScan the event QR code to check in on your Park Pa
+ ss!\nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Friday Night Flicks today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:talent-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20270918T170000
+DTEND;TZID=America/Chicago:20270918T190000
+SUMMARY:🌟 Basehor's Got Talent — Basehor Park Pass
+DESCRIPTION:Sing it\, dance it\, juggle it\, tell a joke! Cheer on Basehor
+ ’s brightest stars (maybe that’s you!).\nPetals: Purpose\, Mind\nScan 
+ the event QR code to check in on your Park Pass!\nhttps://ellemichellestro
+ ther-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Basehor's Got Talent today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:market10-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20271002T090000
+DTEND;TZID=America/Chicago:20271002T110000
+SUMMARY:🍎 Fall Market Morning — Basehor Park Pass
+DESCRIPTION:Pumpkins\, apples and local goodies — say hi to the growers a
+ nd makers in our town.\nPetals: Connection\, Environment\nScan the event Q
+ R code to check in on your Park Pass!\nhttps://ellemichellestrother-cmyk.g
+ ithub.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Fall Market Morning today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:flick4-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20271008T190000
+DTEND;TZID=America/Chicago:20271008T210000
+SUMMARY:🎬 Friday Night Flicks — Basehor Park Pass
+DESCRIPTION:Spooky-season movie night (the not-too-scary kind). Costumes we
+ lcome!\nPetals: Connection\, Mind\nMake-up date: Friday\, October 15\, 202
+ 7\nScan the event QR code to check in on your Park Pass!\nhttps://ellemich
+ ellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Friday Night Flicks today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:ruck-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;VALUE=DATE:20271016
+DTEND;VALUE=DATE:20271017
+SUMMARY:💀 Skeleton Ruck — Basehor Park Pass
+DESCRIPTION:Pack up and march with your crew! A bone-rattling walk for ever
+ y age and every pace.\nPetals: Body\, Purpose\nTime coming soon — check 
+ the Park Pass site.\nScan the event QR code to check in on your Park Pass!
+ \nhttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Skeleton Ruck today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:candle-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;VALUE=DATE:20271104
+DTEND;VALUE=DATE:20271105
+SUMMARY:🕯️ Candlelight Concert — Basehor Park Pass
+DESCRIPTION:A calm\, glowing evening of music. Breathe slow\, listen close 
+ and feel the cozy.\nPetals: Mind\, Purpose\nTime coming soon — check the
+  Park Pass site.\nScan the event QR code to check in on your Park Pass!\nh
+ ttps://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Candlelight Concert today!
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:market11-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20271113T090000
+DTEND;TZID=America/Chicago:20271113T110000
+SUMMARY:🥧 Fall Market Morning — Basehor Park Pass
+DESCRIPTION:The last market of the season — find a treat\, find a friend\
+ , finish your pass!\nPetals: Connection\, Environment\nScan the event QR c
+ ode to check in on your Park Pass!\nhttps://ellemichellestrother-cmyk.gith
+ ub.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Fall Market Morning today!
+END:VALARM
+END:VEVENT
+END:VCALENDAR

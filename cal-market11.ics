@@ -1,0 +1,45 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Basehor Parks & Rec//Park Pass 2027//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Fall Market Morning
+X-WR-TIMEZONE:America/Chicago
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VTIMEZONE
+TZID:America/Chicago
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0600
+TZOFFSETTO:-0500
+TZNAME:CDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0600
+TZNAME:CST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:market11-2027@basehor-park-pass
+DTSTAMP:20261020T142959Z
+DTSTART;TZID=America/Chicago:20271113T090000
+DTEND;TZID=America/Chicago:20271113T110000
+SUMMARY:🥧 Fall Market Morning — Basehor Park Pass
+DESCRIPTION:The last market of the season — find a treat\, find a friend\
+ , finish your pass!\nPetals: Connection\, Environment\nScan the event QR c
+ ode to check in on your Park Pass!\nhttps://ellemichellestrother-cmyk.gith
+ ub.io/basehor-wellness-pass/
+LOCATION:Basehor\, KS
+URL:https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Fall Market Morning today!
+END:VALARM
+END:VEVENT
+END:VCALENDAR
