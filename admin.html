@@ -371,10 +371,10 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .box-icon .n { position: absolute; left: -8px; top: -8px; background: var(--navy); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: grid; place-items: center; font-size: 12px; font-weight: 900; border: 2px solid #fff; }
 .box-title { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: 19px; color: var(--navy); }
 .box-place { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
-.box-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px 0 8px; padding: 10px 12px; border-radius: 14px; background: #F7F3EA; font-size: 15px; }
+.box-status { display: block; margin: 12px 0 8px; padding: 10px 12px; border-radius: 14px; background: #F7F3EA; font-size: 15px; line-height: 1.5; }
 .box-status.ready { background: #FFF4D6; }
 .box-status.done { background: #E8F6E9; }
-.box-status .combo-big { font-family: var(--font-display); font-weight: 900; font-size: 26px; letter-spacing: .3em; color: var(--navy); background: #fff; border: 3px solid var(--navy); border-radius: 12px; padding: 2px 4px 2px 12px; }
+.box-status .combo-big { display: inline-block; vertical-align: middle; margin: 2px 0 2px 6px; font-family: var(--font-display); font-weight: 900; font-size: 26px; letter-spacing: .3em; color: var(--navy); background: #fff; border: 3px solid var(--navy); border-radius: 12px; padding: 2px 4px 2px 12px; }
 .box-hint { font-size: 14px; margin: 6px 0 10px; }
 .box-btns { display: flex; flex-wrap: wrap; gap: 8px; }
 .box-btns .btn { min-height: 42px; padding: 6px 12px; font-size: 14px; flex: 1 1 140px; }
@@ -456,8 +456,8 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .msg.err { background: #FDE8E8; color: #9C2B2B; border: 2px solid #F3B5B5; }
 .msg.ok { background: #E7F6E8; color: #2F6B35; border: 2px solid #9ED1A2; }
 .steps { padding-left: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; background: #fff; padding: 10px 12px; border-radius: 14px; }
-.steps li::before { content: counter(s); width: 30px; height: 30px; border-radius: 50%; background: var(--c, var(--navy)); color: var(--navy); display: grid; place-items: center; font-weight: 900; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
+.steps li { counter-increment: s; display: block; position: relative; min-height: 50px; background: #fff; padding: 12px 12px 12px 56px; border-radius: 14px; line-height: 1.45; }
+.steps li::before { content: counter(s); position: absolute; left: 12px; top: 10px; width: 30px; height: 30px; border-radius: 50%; background: var(--c, var(--navy)); color: var(--navy); display: grid; place-items: center; font-weight: 900; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
 .who-list { display: grid; gap: 8px; margin: 10px 0; }
 .who-list label { display: flex; align-items: center; gap: 10px; background: #fff; padding: 8px 12px; border-radius: 14px; border: 3px solid var(--line); font-weight: 900; }
 .who-list input { width: 22px; height: 22px; accent-color: var(--navy); }
@@ -493,6 +493,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .earn-row { display: grid; grid-template-columns: 1.15fr 1.2fr 1fr 1.2fr; gap: 8px; background: #fff; border-radius: 12px; padding: 9px 10px; align-items: center; }
 .earn-row.head { background: none; padding: 0 10px; font-family: var(--font-tag); text-transform: uppercase; letter-spacing: .06em; font-size: 12px; color: var(--muted); }
 .earn-row > b { font-size: 14px; color: var(--navy); }
+.bonus-line { background: #EEF1FF; border: 2px dashed var(--connection); border-radius: 12px; padding: 8px 12px; margin: 8px 0 0; font-size: 14px; line-height: 1.45; }
 .prize-line { background: #FFF4D6; border: 2px dashed var(--purpose); border-radius: 12px; padding: 8px 12px; }
 @media (max-width: 480px) { .earn-row { grid-template-columns: 1fr 1fr; } .earn-row.head { display: none; } .earn-row > b { grid-column: 1 / -1; } .earn-row span::before { display: block; font: 600 11px var(--font-tag); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); } .earn-row span:nth-of-type(1)::before { content: 'Flower points'; } .earn-row span:nth-of-type(2)::before { content: 'Stamp'; } .earn-row span:nth-of-type(3)::before { content: 'Unlocks'; } }
 .how-step b { font-family: var(--font-display); font-weight: 900; color: var(--navy); }
@@ -613,6 +614,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
       <b>🔒 Staff page.</b> Everything you type here stays in <b>this browser only</b> — it is never uploaded. The real combos and words never go on GitHub; only the scrambled <code>secrets.js</code> does.
       Use <b>“Save staff setup”</b> to keep a private copy (Google Drive / shared staff folder), and don’t share it publicly.
     </div>
+    <div class="card" id="autofill" style="padding:14px 16px;margin-top:14px"></div>
 
     <div class="tabs" role="tablist">
       <button class="on" data-tab="setup">1 · Combos &amp; codes</button>
@@ -628,7 +630,8 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 
       <h2 class="section-title"><span>Challenge words</span></h2>
       <p class="section-sub">Each challenge’s secret word goes on its sign (or staff whisper it). Entering it reveals that box’s combo.</p>
-      <table><thead><tr><th>Challenge</th><th>Unlocks</th><th>Secret word</th></tr></thead><tbody id="chalRows"></tbody></table>
+      <table><thead><tr><th>Challenge</th><th>Unlocks</th><th>Secret word</th><th>🤝 Staff Bonus word</th></tr></thead><tbody id="chalRows"></tbody></table>
+      <p class="muted" style="font-size:14px">Staff Bonus words are only on the staff cards kept at the City Hall window and event check-in tables. Kids get one (+1 point) after sharing a finished challenge with staff.</p>
 
       <h2 class="section-title"><span>Event QR codes</span></h2>
       <p class="section-sub">Each event gets its own code. Its QR poster checks kids in and reveals a box combo.</p>
@@ -648,6 +651,12 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
         <label class="btn btn-ghost file-btn" style="min-height:40px">📂 Use a different index.html<input type="file" id="pickIndex" accept=".html,text/html" hidden></label>
         <p class="muted" style="font-size:13px;margin:8px 0 0">If you edited events in your index.html, choose it here so the codes match your latest lineup.</p>
       </div>
+      <div class="card" style="padding:12px 14px;margin-bottom:12px">
+        <p style="margin:0 0 8px"><b>Launch switches</b> (saved into the new index.html when you build)</p>
+        <label style="display:flex;gap:10px;align-items:center;font-weight:800;margin:6px 0"><input type="checkbox" id="swTest" style="width:22px;height:22px"> 🧪 Test mode: ignore all dates so staff can try every challenge and the finale</label>
+        <label style="display:flex;gap:10px;align-items:center;font-weight:800;margin:6px 0"><input type="checkbox" id="swEventDay" style="width:22px;height:22px"> 📅 Event codes only work from their event day on</label>
+        <p class="muted" style="font-size:13px;margin:6px 0 0">For launch: test mode <b>off</b>, event-day check-ins <b>on</b>. Your live site right now: <b id="swNow">…</b></p>
+      </div>
       <div class="btn-row">
         <button class="btn btn-navy" id="buildSecrets">⚙️ Build &amp; download upload files (.zip)</button>
         <button class="btn btn-ghost" id="printKey">🗝️ Print staff key sheet</button>
@@ -663,6 +672,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
       <div class="btn-col" style="margin-top:18px">
         <button class="btn btn-coral" data-print="events">🎬 Print event QR posters (one per page)</button>
         <button class="btn btn-sun" data-print="challenges">⭐ Print challenge signs (secret word + QR)</button>
+        <button class="btn btn-navy" data-print="bonus">🤝 Print Staff Bonus cards (City Hall window + event tables)</button>
         <button class="btn btn-green" data-print="words">🌸 Print secret word cards for inside the boxes</button>
         <button class="btn btn-teal" data-print="boxtags">🏷️ Print lockbox tags (outside the boxes)</button>
       </div>
@@ -1113,6 +1123,9 @@ window.PARK = {
   /* How many points fill one flower petal all the way.
      Event check-in = 1 point to EACH category tagged on the event.
      Challenge done  = 1 point to that box's category.
+     Staff bonus     = 1 point to that box's category (share the
+                       challenge with staff at the City Hall window
+                       or any Park Pass event, after finishing it).
      Lockbox stamped = 2 points to that box's category.          */
   /* Turn this ON for launch so event QR codes only work from the
      event day onward (stops kids checking in early if a code leaks).
@@ -1122,7 +1135,7 @@ window.PARK = {
   /* TEST MODE — true ignores every date (challenge release dates, the
      Golden Seed opening, event-day check-ins) so staff can try everything.
      ⚠️ Keep this false on the live site. */
-  testMode: false,
+  testMode: true,   // ON for pre-launch testing — the staff tool can switch it off
 
   /* Prizes — leave a line blank ('') to hide it. When filled in, the app
      shows it in "How it works", on the box screens and in the celebrations. */
@@ -1133,7 +1146,7 @@ window.PARK = {
   },
 
   petalGoal: 5,
-  points: { event: 1, challenge: 1, box: 2 },
+  points: { event: 1, challenge: 1, bonus: 1, box: 2 },
 
   /* The six petals — colors match the new Basehor WELL logo.
      deep = darker ink used for stamps, buttons and labels. */
@@ -1150,6 +1163,9 @@ window.PARK = {
      Each challenge has an "opens" date: one new challenge drops each
      month so families keep coming back (its word won't work before then).
      spoken: true = staff say the word out loud instead of a public sign.
+     bonus = the Staff Bonus: after finishing the challenge, kids share it
+     with a staff member at the City Hall window or any Park Pass event and
+     get a bonus word (+1 point). Bonus words live only on staff cards.
      A box's secret word only stamps once a child has earned that box's
      combo (from an event or the challenge).
      One box per petal + the Golden Seed finale box.
@@ -1158,17 +1174,18 @@ window.PARK = {
   boxes: [
     {
       id: 'shield', num: 1, category: 'safety', name: 'Shield Box', emoji: '🛡️',
-      place: 'Lockbox spot #1 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1484, lng: -94.9415,
       hint: 'Look for the pink petal tag near something that keeps people safe.',
       challenge: {
         title: 'Safety Scout', opens: '2027-02-12', spoken: true,
         steps: [
-          'Learn your home address and a grown-up’s phone number by heart.',
+          'Learn your home address, your grown-up’s full name and their phone number by heart.',
           'Practice your family’s meeting spot if there’s ever a fire drill at home.',
-          'Say your address & number to a Parks & Rec staff member — they’ll whisper you the secret word!'
+          'Tell a Parks & Rec staff member your address, your grown-up’s name and number — they’ll whisper you the secret word!'
         ],
-        where: 'Basehor Parks & Rec front desk or any Park Pass event'
+        where: 'Basehor Parks & Rec front desk or any Park Pass event',
+        bonus: 'Draw your family’s fire-drill meeting spot and show it to a staff member.'
       }
     },
     {
@@ -1183,12 +1200,13 @@ window.PARK = {
           'Bring it to the Basehor Parks & Rec front desk (we’ll deliver it to the Kindness Mailbox).',
           'A staff member will tell you the secret word!'
         ],
-        where: 'Basehor Parks & Rec front desk (staff tell you the word)'
+        where: 'Basehor Parks & Rec front desk (staff tell you the word)',
+        bonus: 'Read your thank-you card out loud to a staff member before it goes in the mailbox.'
       }
     },
     {
       id: 'wiggle', num: 3, category: 'body', name: 'Wiggle Box', emoji: '💪',
-      place: 'Lockbox spot #3 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1402, lng: -94.9362,
       hint: 'Where the trail meets the fitness stop — orange petal tag.',
       challenge: {
@@ -1198,12 +1216,13 @@ window.PARK = {
           'Try 10 jumping jacks at every bench you pass!',
           'The secret word is on the orange “Mile Marker” sign.'
         ],
-        where: 'Orange Mile Marker sign on the trail'
+        where: 'Orange Mile Marker sign on the trail',
+        bonus: 'Show a staff member your mile (a photo or a map) and do 10 jumping jacks together!'
       }
     },
     {
       id: 'goal', num: 4, category: 'purpose', name: 'Goal Box', emoji: '🎯',
-      place: 'Lockbox spot #4 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1338, lng: -94.9441,
       hint: 'Find the yellow petal tag where people come together to help.',
       challenge: {
@@ -1213,12 +1232,13 @@ window.PARK = {
           'Write or draw it on a Goal Star card.',
           'Pin it to the Goal Board at Parks & Rec and show a staff member — they’ll tell you the secret word!'
         ],
-        where: 'Goal Board at Basehor Parks & Rec (staff tell you the word)'
+        where: 'Goal Board at Basehor Parks & Rec (staff tell you the word)',
+        bonus: 'Come back and tell a staff member one step you’ve taken toward your goal.'
       }
     },
     {
       id: 'sprout', num: 5, category: 'environment', name: 'Sprout Box', emoji: '🌱',
-      place: 'Lockbox spot #5 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1371, lng: -94.9528,
       hint: 'Close to the trees and flowers — green petal tag.',
       challenge: {
@@ -1228,12 +1248,13 @@ window.PARK = {
           'Spot 3 different kinds of trees or birds while you’re there.',
           'The secret word is on the green “Park Protector” sign by the trash cans.'
         ],
-        where: 'Green Park Protector sign'
+        where: 'Green Park Protector sign',
+        bonus: 'Tell a staff member the 3 trees or birds you spotted (a photo or drawing counts!).'
       }
     },
     {
       id: 'brainy', num: 6, category: 'mind', name: 'Brainy Box', emoji: '🧩',
-      place: 'Lockbox spot #6 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1446, lng: -94.9318,
       hint: 'A quiet, cozy reading spot — teal petal tag.',
       challenge: {
@@ -1243,7 +1264,8 @@ window.PARK = {
           'Count every sound you hear. Birds? Wind? Cars? A dog?',
           'The secret word is on the teal “Listen Here” sign.'
         ],
-        where: 'Teal Listen Here sign'
+        where: 'Teal Listen Here sign',
+        bonus: 'Act out or describe 3 of the sounds you heard for a staff member to guess.'
       }
     }
   ],
@@ -1366,9 +1388,21 @@ window.PARK = {
     const KEY = 'bpp27-staff-setup';
     let setup = {};
     try { setup = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
-    setup.combo = setup.combo || {}; setup.word = setup.word || {}; setup.chal = setup.chal || {}; setup.ev = setup.ev || {}; setup.site = setup.site || '';
+    setup.combo = setup.combo || {}; setup.word = setup.word || {}; setup.chal = setup.chal || {}; setup.bonus = setup.bonus || {}; setup.ev = setup.ev || {}; setup.site = setup.site || '';
     const persist = () => localStorage.setItem(KEY, JSON.stringify(setup));
     $('#dataSource').textContent = source;
+    /* launch switches (start from the live index.html’s settings) */
+    setup.switches = setup.switches || {};
+    const swInit = (id, key) => { const v = key in setup.switches ? setup.switches[key] : !!P[key]; $(id).checked = v; $(id).addEventListener('change', e => { setup.switches[key] = e.target.checked; persist(); }); };
+    swInit('#swTest', 'testMode'); swInit('#swEventDay', 'onlyCheckInFromEventDay');
+    $('#swNow').textContent = `test mode ${P.testMode ? 'ON' : 'off'}, event-day check-ins ${P.onlyCheckInFromEventDay ? 'ON' : 'off'}`;
+    /* autofill banner */
+    const filled = () => ['combo', 'word', 'chal', 'bonus', 'ev'].every(g => Object.values(setup[g] || {}).filter(Boolean).length > 0);
+    $('#autofill').innerHTML = filled()
+      ? `✅ <b>Your codes are filled in</b> (loaded on this computer). Change any of them below, then build. <span class="muted">Using another computer? Load your <code>park-pass-STAFF-setup-PRIVATE.json</code> there once.</span>`
+      : `<b>📂 Autofill everything:</b> load your private <code>park-pass-STAFF-setup-PRIVATE.json</code> file and every combo, word and code fills in. This computer remembers it after that.
+         <div style="margin-top:10px"><label class="btn btn-navy file-btn">📂 Load my staff setup file<input type="file" id="loadSetup2" accept=".json" hidden></label>
+         <button class="btn btn-ghost" id="randAll2">🎲 Or make up a fresh set for me</button></div>`;
     $('#pickIndex').addEventListener('change', async e => {
       const f = e.target.files[0]; if (!f) return;
       const t = await f.text();
@@ -1388,7 +1422,7 @@ window.PARK = {
     $('#boxRows').innerHTML = ALL.map(b => `<tr><td><span class="pill" style="background:${color(b)}">${b.num}</span> ${b.emoji} <b>${b.name}</b><br><small class="muted">${esc(b.place)}</small></td>
       <td>${inp('combo', b.id, 'combo')}</td><td>${inp('word', b.id)}${b.id === 'golden' ? '<br><small class="muted">Its combo is revealed automatically once a kid enters all six petal-box words.</small>' : ''}</td></tr>`).join('');
     $('#chalRows').innerHTML = P.boxes.map(b => `<tr><td>⭐ <b>${esc(b.challenge.title)}</b><br><small class="muted">Opens ${esc(b.challenge.opens || '')} · ${esc(b.challenge.where)}</small></td>
-      <td>${b.emoji} ${b.name}</td><td>${inp('chal', b.id)}</td></tr>`).join('');
+      <td>${b.emoji} ${b.name}</td><td>${inp('chal', b.id)}</td><td>${inp('bonus', b.id)}<br><small class="muted">${esc(b.challenge.bonus || '')}</small></td></tr>`).join('');
     const firstBox = e => P.boxes.find(b => b.category === e.cats[0]);
     $('#evRows').innerHTML = [...P.events].sort((a, b) => a.date.localeCompare(b.date)).map(e => `<tr><td>${e.emoji} <b>${esc(e.title)}</b><br><small class="muted">${e.date}</small></td>
       <td>${firstBox(e).emoji} ${firstBox(e).name}</td><td>${inp('ev', e.id)}</td></tr>`).join('');
@@ -1405,27 +1439,35 @@ window.PARK = {
 
     const ABC = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
     const rnd = n => Array.from(crypto.getRandomValues(new Uint32Array(n)), x => ABC[x % ABC.length]).join('');
-    $('#randAll').addEventListener('click', () => {
-      ALL.forEach(b => { if (!setup.combo[b.id]) setup.combo[b.id] = String(crypto.getRandomValues(new Uint32Array(1))[0] % 10000).padStart(4, '0'); if (!setup.word[b.id]) setup.word[b.id] = rnd(6); });
-      P.boxes.forEach(b => { if (!setup.chal[b.id]) setup.chal[b.id] = rnd(6); });
-      P.events.forEach(e => { if (!setup.ev[e.id]) setup.ev[e.id] = e.id.replace(/\d/g, '').slice(0, 5).toUpperCase() + '-' + rnd(4); });
+    const KIDWORDS = ['ACORN','BADGER','BREEZE','BUBBLES','CANOE','CARDINAL','CLOVER','COMET','COYOTE','CRICKET','DAISY','DRAGONFLY','FIREFLY','FROGGY','GALAXY','HONEYBEE','JELLYBEAN','KITE','LADYBUG','LILYPAD','MEADOW','MOONBEAM','OTTER','PEBBLE','PINECONE','PRAIRIE','PUDDLE','RAINBOW','ROCKET','SNEAKERS','SPARKLE','SUNBEAM','SUNFLOWER','THUNDER','TRAILBLAZER','TURTLE','WHISTLE','WILLOW','ZIGZAG','BUTTERFLY','HAMMOCK','PADDLE','SPROUTLING','STARLIGHT','TREEHOUSE'];
+    function fillBlanks() {
+      const used = new Set(['combo', 'word', 'chal', 'bonus', 'ev'].flatMap(g => Object.values(setup[g] || {}).map(v => S.normalize(v))));
+      const word = () => { const pool = KIDWORDS.filter(w => !used.has(w)); const w = pool.length ? pool[crypto.getRandomValues(new Uint32Array(1))[0] % pool.length] : rnd(7); used.add(w); return w; };
+      const combo = () => { for (;;) { const c = String(crypto.getRandomValues(new Uint32Array(1))[0] % 10000).padStart(4, '0'); if (new Set(c).size >= 3 && !Object.values(setup.combo).includes(c)) return c; } };
+      ALL.forEach(b => { if (!setup.combo[b.id]) setup.combo[b.id] = combo(); if (!setup.word[b.id]) setup.word[b.id] = word(); });
+      P.boxes.forEach(b => { if (!setup.chal[b.id]) setup.chal[b.id] = word(); if (!setup.bonus[b.id]) setup.bonus[b.id] = word(); });
+      P.events.forEach(e => { if (!setup.ev[e.id]) { let c; do { c = e.title.replace(/[^A-Za-z]/g, '').slice(0, 6).toUpperCase() + '-' + rnd(4); } while (used.has(S.normalize(c))); used.add(S.normalize(c)); setup.ev[e.id] = c; } });
       persist(); $$('[data-g]').forEach(i => i.value = setup[i.dataset.g][i.dataset.id] || '');
-      msg('Filled in the blanks. Change any of them to words kids will love (FROG, SUNNY, HIGHFIVE…).', 'ok');
-    });
+      msg('✅ Filled in every blank with kid-friendly words, fresh combos and hard-to-guess event codes. Change any you like, then <b>Save staff setup</b> and build.', 'ok');
+    }
+    $('#randAll').addEventListener('click', fillBlanks);
+    const r2 = $('#randAll2'); if (r2) r2.addEventListener('click', () => { fillBlanks(); $('#autofill').innerHTML = '✅ <b>Fresh codes filled in below.</b> Save your staff setup file so you never lose them.'; });
     function msg(t, kind) { $('#setupMsg').innerHTML = `<div class="msg ${kind}">${t}</div>`; }
 
     $('#saveSetup').addEventListener('click', () => download(new Blob([JSON.stringify(setup, null, 2)], { type: 'application/json' }), 'park-pass-STAFF-setup-PRIVATE.json'));
-    $('#loadSetup').addEventListener('change', async e => {
-      try { setup = Object.assign({ combo: {}, word: {}, chal: {}, ev: {}, site: '' }, JSON.parse(await e.target.files[0].text())); persist(); location.reload(); }
+    const loadFile = async e => {
+      try { setup = Object.assign({ combo: {}, word: {}, chal: {}, bonus: {}, ev: {}, site: '' }, JSON.parse(await e.target.files[0].text())); persist(); location.reload(); }
       catch (err) { msg('That file didn’t load.', 'err'); }
-    });
+    };
+    $('#loadSetup').addEventListener('change', loadFile);
+    const l2 = $('#loadSetup2'); if (l2) l2.addEventListener('change', loadFile);
 
     function validate() {
       const problems = [], seen = {};
       $$('[data-g]').forEach(i => i.classList.remove('bad'));
       const flag = (g, id, why) => { problems.push(why); const el = document.querySelector(`[data-g="${g}"][data-id="${id}"]`); if (el) el.classList.add('bad'); };
       ALL.forEach(b => { if (!/^\d{4}$/.test(setup.combo[b.id] || '')) flag('combo', b.id, `${b.name}: combo needs 4 digits`); });
-      const codeLike = [...ALL.map(b => ['word', b.id]), ...P.boxes.map(b => ['chal', b.id]), ...P.events.map(e => ['ev', e.id])];
+      const codeLike = [...ALL.map(b => ['word', b.id]), ...P.boxes.map(b => ['chal', b.id]), ...P.boxes.map(b => ['bonus', b.id]), ...P.events.map(e => ['ev', e.id])];
       for (const [g, id] of codeLike) {
         const n = S.normalize(setup[g][id]);
         if (n.length < 3) { flag(g, id, `A code is missing or too short`); continue; }
@@ -1441,6 +1483,7 @@ window.PARK = {
       const codes = {};
       for (const e of P.events) { const code = setup.ev[e.id], box = P.boxes.find(b => b.category === e.cats[0]).id; codes[S.hashCode(code)] = { t: 'event', id: e.id, box, m: S.maskCombo(setup.combo[box], code) }; }
       for (const b of P.boxes) codes[S.hashCode(setup.chal[b.id])] = { t: 'challenge', box: b.id, m: S.maskCombo(setup.combo[b.id], setup.chal[b.id]) };
+      for (const b of P.boxes) codes[S.hashCode(setup.bonus[b.id])] = { t: 'bonus', box: b.id };
       for (const b of ALL) codes[S.hashCode(setup.word[b.id])] = { t: 'word', box: b.id };
       const finaleKey = P.boxes.map(b => S.normalize(setup.word[b.id])).join('');
       const out = `/* =========================================================
@@ -1452,7 +1495,10 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
 `;
       $('#secretsOut').hidden = false; $('#secretsOut').textContent = out;
       if (INDEX && /<script id="park-secrets">[\s\S]*?<\/script>/.test(INDEX)) {
-        const updated = INDEX.replace(/<script id="park-secrets">[\s\S]*?<\/script>/, () => '<script id="park-secrets">\n' + out + '<\/script>');
+        let updated = INDEX.replace(/<script id="park-secrets">[\s\S]*?<\/script>/, () => '<script id="park-secrets">\n' + out + '<\/script>');
+        // launch switches → park-data block
+        updated = updated.replace(/(<script id="park-data">[\s\S]*?)testMode:\s*(true|false)/, `$1testMode: ${$('#swTest').checked}`)
+                         .replace(/(<script id="park-data">[\s\S]*?)onlyCheckInFromEventDay:\s*(true|false)/, `$1onlyCheckInFromEventDay: ${$('#swEventDay').checked}`);
         const site = (setup.site || (/^https?:$/.test(location.protocol) ? location.href.split(/[?#]/)[0].replace(/admin\.html$/, '') : '')).trim();
         const files = [['index.html', updated]];
         const evs = [...P.events].sort((a, b) => a.date.localeCompare(b.date));
@@ -1521,6 +1567,11 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
           <div class="word">${esc(setup.chal[bx.id])}</div>
           <div class="qr" style="transform:scale(.55);margin:-1in 0">${qrSVG(link(setup.chal[bx.id]))}</div>
           <small>Type it in the Park Pass under <b>Unlock</b> — or scan the code!</small></div>`).join(''));
+      if (kind === 'bonus') printWith(`<div class="cards">${P.boxes.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens)).map(bx => `
+        <div class="wcard" style="--c:${color(bx)}"><div class="em">🤝</div><b>STAFF BONUS · ${esc(bx.challenge.title)}</b>
+          <span style="font-size:13px">Staff only · use from ${bx.challenge.opens}. Kid shares: ${esc(bx.challenge.bonus || '')}</span>
+          <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:6px"><div class="word" style="font-size:30px">${esc(setup.bonus[bx.id])}</div><div style="width:1.1in;height:1.1in">${qrSVG(link(setup.bonus[bx.id]))}</div></div>
+          <span style="font-size:13px">Say the word or let them scan. +1 ${esc((CAT[bx.category] || {}).name || '')} (after the challenge is done).</span></div>`).join('')}</div>`);
       if (kind === 'words') printWith(`<div class="cards">${ALL.map(bx => [1, 2].map(() => `
         <div class="wcard" style="--c:${color(bx)}"><div class="em">${bx.emoji}</div><b>You cracked the ${bx.name}!</b>
           <div class="word">${esc(setup.word[bx.id])}</div><span>Type this secret word in your Park Pass to get your digital stamp.<br>📸 Snap a picture, then lock the box & spin the dial for the next explorer!</span></div>`).join('')).join('')}</div>`);
@@ -1531,7 +1582,7 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
     $('#printKey').addEventListener('click', () => {
       printWith(`<div class="keysheet"><h1>🗝️ Park Pass 2027 — STAFF KEY (keep private)</h1>
         <h3>Lockboxes</h3><table><tr><th>#</th><th>Box</th><th>Combo</th><th>Word inside</th><th>Location</th></tr>${ALL.map(b => `<tr><td>${b.num}</td><td>${b.name}</td><td><b>${esc(setup.combo[b.id] || '')}</b></td><td>${esc(setup.word[b.id] || '')}</td><td>${esc(b.place)}</td></tr>`).join('')}</table>
-        <h3>Challenge words (post each sign on its opening day)</h3><table><tr><th>Opens</th><th>Challenge</th><th>Box</th><th>Word</th><th>Word given by</th></tr>${P.boxes.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens)).map(b => `<tr><td>${b.challenge.opens}</td><td>${esc(b.challenge.title)}</td><td>${b.name}</td><td><b>${esc(setup.chal[b.id] || '')}</b></td><td>${b.challenge.spoken ? 'Staff (say it out loud)' : 'Sign'}</td></tr>`).join('')}</table>
+        <h3>Challenge words (post each sign on its opening day)</h3><table><tr><th>Opens</th><th>Challenge</th><th>Box</th><th>Word</th><th>Word given by</th><th>Staff Bonus word</th></tr>${P.boxes.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens)).map(b => `<tr><td>${b.challenge.opens}</td><td>${esc(b.challenge.title)}</td><td>${b.name}</td><td><b>${esc(setup.chal[b.id] || '')}</b></td><td>${b.challenge.spoken ? 'Staff (say it out loud)' : 'Sign'}</td><td><b>${esc(setup.bonus[b.id] || '')}</b></td></tr>`).join('')}</table>
         <h3>Event codes</h3><table>${[...P.events].sort((a, b) => a.date.localeCompare(b.date)).map(e => `<tr><td>${e.date}</td><td>${esc(e.title)}</td><td><b>${esc(setup.ev[e.id] || '')}</b></td></tr>`).join('')}</table></div>`);
     });
 

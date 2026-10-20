@@ -379,10 +379,10 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .box-icon .n { position: absolute; left: -8px; top: -8px; background: var(--navy); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: grid; place-items: center; font-size: 12px; font-weight: 900; border: 2px solid #fff; }
 .box-title { margin: 0; font-family: var(--font-display); font-weight: 900; font-size: 19px; color: var(--navy); }
 .box-place { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
-.box-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 12px 0 8px; padding: 10px 12px; border-radius: 14px; background: #F7F3EA; font-size: 15px; }
+.box-status { display: block; margin: 12px 0 8px; padding: 10px 12px; border-radius: 14px; background: #F7F3EA; font-size: 15px; line-height: 1.5; }
 .box-status.ready { background: #FFF4D6; }
 .box-status.done { background: #E8F6E9; }
-.box-status .combo-big { font-family: var(--font-display); font-weight: 900; font-size: 26px; letter-spacing: .3em; color: var(--navy); background: #fff; border: 3px solid var(--navy); border-radius: 12px; padding: 2px 4px 2px 12px; }
+.box-status .combo-big { display: inline-block; vertical-align: middle; margin: 2px 0 2px 6px; font-family: var(--font-display); font-weight: 900; font-size: 26px; letter-spacing: .3em; color: var(--navy); background: #fff; border: 3px solid var(--navy); border-radius: 12px; padding: 2px 4px 2px 12px; }
 .box-hint { font-size: 14px; margin: 6px 0 10px; }
 .box-btns { display: flex; flex-wrap: wrap; gap: 8px; }
 .box-btns .btn { min-height: 42px; padding: 6px 12px; font-size: 14px; flex: 1 1 140px; }
@@ -464,8 +464,8 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .msg.err { background: #FDE8E8; color: #9C2B2B; border: 2px solid #F3B5B5; }
 .msg.ok { background: #E7F6E8; color: #2F6B35; border: 2px solid #9ED1A2; }
 .steps { padding-left: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
-.steps li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: start; background: #fff; padding: 10px 12px; border-radius: 14px; }
-.steps li::before { content: counter(s); width: 30px; height: 30px; border-radius: 50%; background: var(--c, var(--navy)); color: var(--navy); display: grid; place-items: center; font-weight: 900; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
+.steps li { counter-increment: s; display: block; position: relative; min-height: 50px; background: #fff; padding: 12px 12px 12px 56px; border-radius: 14px; line-height: 1.45; }
+.steps li::before { content: counter(s); position: absolute; left: 12px; top: 10px; width: 30px; height: 30px; border-radius: 50%; background: var(--c, var(--navy)); color: var(--navy); display: grid; place-items: center; font-weight: 900; box-shadow: inset 0 0 0 2px rgba(255,255,255,.6); }
 .who-list { display: grid; gap: 8px; margin: 10px 0; }
 .who-list label { display: flex; align-items: center; gap: 10px; background: #fff; padding: 8px 12px; border-radius: 14px; border: 3px solid var(--line); font-weight: 900; }
 .who-list input { width: 22px; height: 22px; accent-color: var(--navy); }
@@ -501,6 +501,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
 .earn-row { display: grid; grid-template-columns: 1.15fr 1.2fr 1fr 1.2fr; gap: 8px; background: #fff; border-radius: 12px; padding: 9px 10px; align-items: center; }
 .earn-row.head { background: none; padding: 0 10px; font-family: var(--font-tag); text-transform: uppercase; letter-spacing: .06em; font-size: 12px; color: var(--muted); }
 .earn-row > b { font-size: 14px; color: var(--navy); }
+.bonus-line { background: #EEF1FF; border: 2px dashed var(--connection); border-radius: 12px; padding: 8px 12px; margin: 8px 0 0; font-size: 14px; line-height: 1.45; }
 .prize-line { background: #FFF4D6; border: 2px dashed var(--purpose); border-radius: 12px; padding: 8px 12px; }
 @media (max-width: 480px) { .earn-row { grid-template-columns: 1fr 1fr; } .earn-row.head { display: none; } .earn-row > b { grid-column: 1 / -1; } .earn-row span::before { display: block; font: 600 11px var(--font-tag); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); } .earn-row span:nth-of-type(1)::before { content: 'Flower points'; } .earn-row span:nth-of-type(2)::before { content: 'Stamp'; } .earn-row span:nth-of-type(3)::before { content: 'Unlocks'; } }
 .how-step b { font-family: var(--font-display); font-weight: 900; color: var(--navy); }
@@ -875,6 +876,9 @@ window.PARK = {
   /* How many points fill one flower petal all the way.
      Event check-in = 1 point to EACH category tagged on the event.
      Challenge done  = 1 point to that box's category.
+     Staff bonus     = 1 point to that box's category (share the
+                       challenge with staff at the City Hall window
+                       or any Park Pass event, after finishing it).
      Lockbox stamped = 2 points to that box's category.          */
   /* Turn this ON for launch so event QR codes only work from the
      event day onward (stops kids checking in early if a code leaks).
@@ -884,7 +888,7 @@ window.PARK = {
   /* TEST MODE — true ignores every date (challenge release dates, the
      Golden Seed opening, event-day check-ins) so staff can try everything.
      ⚠️ Keep this false on the live site. */
-  testMode: false,
+  testMode: true,   // ON for pre-launch testing — the staff tool can switch it off
 
   /* Prizes — leave a line blank ('') to hide it. When filled in, the app
      shows it in "How it works", on the box screens and in the celebrations. */
@@ -895,7 +899,7 @@ window.PARK = {
   },
 
   petalGoal: 5,
-  points: { event: 1, challenge: 1, box: 2 },
+  points: { event: 1, challenge: 1, bonus: 1, box: 2 },
 
   /* The six petals — colors match the new Basehor WELL logo.
      deep = darker ink used for stamps, buttons and labels. */
@@ -912,6 +916,9 @@ window.PARK = {
      Each challenge has an "opens" date: one new challenge drops each
      month so families keep coming back (its word won't work before then).
      spoken: true = staff say the word out loud instead of a public sign.
+     bonus = the Staff Bonus: after finishing the challenge, kids share it
+     with a staff member at the City Hall window or any Park Pass event and
+     get a bonus word (+1 point). Bonus words live only on staff cards.
      A box's secret word only stamps once a child has earned that box's
      combo (from an event or the challenge).
      One box per petal + the Golden Seed finale box.
@@ -920,17 +927,18 @@ window.PARK = {
   boxes: [
     {
       id: 'shield', num: 1, category: 'safety', name: 'Shield Box', emoji: '🛡️',
-      place: 'Lockbox spot #1 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1484, lng: -94.9415,
       hint: 'Look for the pink petal tag near something that keeps people safe.',
       challenge: {
         title: 'Safety Scout', opens: '2027-02-12', spoken: true,
         steps: [
-          'Learn your home address and a grown-up’s phone number by heart.',
+          'Learn your home address, your grown-up’s full name and their phone number by heart.',
           'Practice your family’s meeting spot if there’s ever a fire drill at home.',
-          'Say your address & number to a Parks & Rec staff member — they’ll whisper you the secret word!'
+          'Tell a Parks & Rec staff member your address, your grown-up’s name and number — they’ll whisper you the secret word!'
         ],
-        where: 'Basehor Parks & Rec front desk or any Park Pass event'
+        where: 'Basehor Parks & Rec front desk or any Park Pass event',
+        bonus: 'Draw your family’s fire-drill meeting spot and show it to a staff member.'
       }
     },
     {
@@ -945,12 +953,13 @@ window.PARK = {
           'Bring it to the Basehor Parks & Rec front desk (we’ll deliver it to the Kindness Mailbox).',
           'A staff member will tell you the secret word!'
         ],
-        where: 'Basehor Parks & Rec front desk (staff tell you the word)'
+        where: 'Basehor Parks & Rec front desk (staff tell you the word)',
+        bonus: 'Read your thank-you card out loud to a staff member before it goes in the mailbox.'
       }
     },
     {
       id: 'wiggle', num: 3, category: 'body', name: 'Wiggle Box', emoji: '💪',
-      place: 'Lockbox spot #3 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1402, lng: -94.9362,
       hint: 'Where the trail meets the fitness stop — orange petal tag.',
       challenge: {
@@ -960,12 +969,13 @@ window.PARK = {
           'Try 10 jumping jacks at every bench you pass!',
           'The secret word is on the orange “Mile Marker” sign.'
         ],
-        where: 'Orange Mile Marker sign on the trail'
+        where: 'Orange Mile Marker sign on the trail',
+        bonus: 'Show a staff member your mile (a photo or a map) and do 10 jumping jacks together!'
       }
     },
     {
       id: 'goal', num: 4, category: 'purpose', name: 'Goal Box', emoji: '🎯',
-      place: 'Lockbox spot #4 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1338, lng: -94.9441,
       hint: 'Find the yellow petal tag where people come together to help.',
       challenge: {
@@ -975,12 +985,13 @@ window.PARK = {
           'Write or draw it on a Goal Star card.',
           'Pin it to the Goal Board at Parks & Rec and show a staff member — they’ll tell you the secret word!'
         ],
-        where: 'Goal Board at Basehor Parks & Rec (staff tell you the word)'
+        where: 'Goal Board at Basehor Parks & Rec (staff tell you the word)',
+        bonus: 'Come back and tell a staff member one step you’ve taken toward your goal.'
       }
     },
     {
       id: 'sprout', num: 5, category: 'environment', name: 'Sprout Box', emoji: '🌱',
-      place: 'Lockbox spot #5 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1371, lng: -94.9528,
       hint: 'Close to the trees and flowers — green petal tag.',
       challenge: {
@@ -990,12 +1001,13 @@ window.PARK = {
           'Spot 3 different kinds of trees or birds while you’re there.',
           'The secret word is on the green “Park Protector” sign by the trash cans.'
         ],
-        where: 'Green Park Protector sign'
+        where: 'Green Park Protector sign',
+        bonus: 'Tell a staff member the 3 trees or birds you spotted (a photo or drawing counts!).'
       }
     },
     {
       id: 'brainy', num: 6, category: 'mind', name: 'Brainy Box', emoji: '🧩',
-      place: 'Lockbox spot #6 (set in data.js)', address: '',
+      place: 'Location coming soon', address: '',
       lat: 39.1446, lng: -94.9318,
       hint: 'A quiet, cozy reading spot — teal petal tag.',
       challenge: {
@@ -1005,7 +1017,8 @@ window.PARK = {
           'Count every sound you hear. Birds? Wind? Cars? A dog?',
           'The secret word is on the teal “Listen Here” sign.'
         ],
-        where: 'Teal Listen Here sign'
+        where: 'Teal Listen Here sign',
+        bonus: 'Act out or describe 3 of the sounds you heard for a staff member to guess.'
       }
     }
   ],
@@ -1101,194 +1114,217 @@ window.PARK = {
 </script>
   <script id="park-secrets">
 /* =========================================================
-   Basehor Park Pass 2027 — secrets.js  (GENERATED)
-   Scrambled codes & combos. Build new ones with admin.html.
+   Basehor Park Pass 2027 — secrets.js  (GENERATED 2026-10-20)
+   Scrambled codes & combos. Rebuild with admin.html.
    Nothing here reveals a combo without the matching code.
-   ⚠️ These are DEMO codes — replace before launch!
    ========================================================= */
 window.PARK_SECRETS = {
  "codes": {
-  "1baff86f5da1212cf434df2f75f012fe048f387262bcb211baceac45cab23797": {
+  "18df19bf67c7848db3fa181d31f3e5b033bc447b18cd6cf0904b81c312aa86cb": {
    "t": "event",
    "id": "bear",
    "box": "shield",
-   "m": "0525"
+   "m": "1099"
   },
-  "4476dc42384e83b08f6160b3296b4688eb17df8545d709dad6e8e3c4b4381304": {
+  "7434326a4f490d1a78f22daa4ae34777e7ef3932b33c78fc0290a273d06ad72f": {
    "t": "event",
    "id": "flick1",
    "box": "buddy",
-   "m": "6704"
+   "m": "3831"
   },
-  "fed46ce75d8b5f511ff41c5a3e3a93e6e8e91e0c5d1c5908b123af3ce9622fae": {
+  "9ec911d3e7c2b7f41379cac123ce457d434c9434f79d10075d7c6ae0ebe424e1": {
    "t": "event",
    "id": "bloom",
    "box": "sprout",
-   "m": "1897"
+   "m": "0172"
   },
-  "231659b5628a80fcd9263e64263b92ec76e098f305bd8324c536a4c9aebd1ecb": {
+  "0ba835d2dda7b0bfef0474d51f7c9c57d01c31e293ba236e47958a9cc1d8a1a5": {
    "t": "event",
    "id": "golfish",
    "box": "wiggle",
-   "m": "1955"
+   "m": "0125"
   },
-  "0f5e4afa49faafd1dab68813b0abc2fb8ae3bec140e545001c6227f61377bbe1": {
+  "ed21470542b50149252ea7a8a702c92b842458f7b96e656c922d497477d230f4": {
    "t": "event",
    "id": "concert5",
    "box": "brainy",
-   "m": "4219"
+   "m": "5488"
   },
-  "9565486a81a33c74f58cdfcce8a49fbbc5f8ce4d4ab8d1c8d37c4b050dc0c970": {
+  "a5dbb59456cee4146b04298755488982ae3a9ba1f66e43b07c8eac2a9aefcf1f": {
    "t": "event",
    "id": "flick2",
    "box": "buddy",
-   "m": "7490"
+   "m": "3790"
   },
-  "71510a469053abdaf3cfdde45dedbaf6b3f515f7ad7a0beb194a403d4c70518c": {
+  "a3aaa67b48ce911dac8cb11fb1f2f1d7cd0ff91ce6ab32014729bcc8cbcef3d9": {
    "t": "event",
    "id": "whales",
    "box": "sprout",
-   "m": "9081"
+   "m": "9607"
   },
-  "17f80508f83a046df696f442f40e9e38cce93a9dc55c009818c00709ea1a60ec": {
+  "b5e718504733b5f316bb19b6c6fb521dca177b437f9f74d98860bfcb1a3b8c77": {
    "t": "event",
    "id": "water1",
    "box": "shield",
-   "m": "1684"
+   "m": "7041"
   },
-  "a13af72d4702322d8c0441aedeb440cc6f6fbb7f00890f2273b6faa1d6dfa053": {
+  "aef7021a7369f2254939e3c09a03ab8268cc314642963472cc93e66b16c71619": {
    "t": "event",
    "id": "concert6",
    "box": "brainy",
-   "m": "5627"
+   "m": "5201"
   },
-  "ccdfa36f1d6efe1ca637db2feeebf5447291d51cc55192e73cb8cd0bfe8fb351": {
+  "ef0c42614e3b1a9d300cdf7250443d9be60cc472f1e23e0355ce9c0637ac313c": {
    "t": "event",
    "id": "water2",
    "box": "shield",
-   "m": "8791"
+   "m": "7571"
   },
-  "b0567bb95a0fa770fa323ca6e086c6c0d2509e4b2b6c2d07240a56692614fd75": {
+  "833acc2d2f1f34706aaaf006d2a563440669dba2ed78b847360da3ee7ff31bcc": {
    "t": "event",
    "id": "concert7",
    "box": "brainy",
-   "m": "1439"
+   "m": "0200"
   },
-  "7f6beb8a2b09679fe950d4d1a6e0134b7b37cdd137eea27fb0f7c239e1c5d0c9": {
+  "f90f74cc3263309c16462b85f877cf7de3c58f641d46485e3596c1bbae455a48": {
    "t": "event",
    "id": "water3",
    "box": "shield",
-   "m": "7292"
+   "m": "2680"
   },
-  "0ab1c49de997c4991ce5cc3bcc37b81ff3945e6bc82a8957005ea65f04a8efdb": {
+  "b50e936e40df39b9ae92071cbe7bf27e7a7f935352060c88f9a51f0d37bd3242": {
    "t": "event",
    "id": "concert8",
    "box": "brainy",
-   "m": "9561"
+   "m": "5163"
   },
-  "4ce586fb2da7e081d5fce5d6238faac08981f374545ec8bd31ef6b6c1240a7f9": {
+  "bec5f4907f2dfb08ea078cab36c4e6abf450f119b2752cef7f384374615534cb": {
    "t": "event",
    "id": "flick3",
    "box": "buddy",
-   "m": "2650"
+   "m": "7123"
   },
-  "dd508473ea019668c1197ca345fceb3dceee076884282cd8c4a68c52799b42f0": {
+  "213cace8dda18efa186a43c5892912acc3bb8cdf6b211ddc7e2db83a505ccdde": {
    "t": "event",
    "id": "talent",
    "box": "goal",
-   "m": "3294"
+   "m": "1962"
   },
-  "56f9d876cec8d5bf42c3c789562af43d44783f0435136ac0d1bc9bbac61dd5c2": {
+  "a457c4b123235bc333f0601ab42150947f0ba94dae70e8cc54a1d9eec96223f2": {
    "t": "event",
    "id": "market10",
    "box": "buddy",
-   "m": "3506"
+   "m": "8017"
   },
-  "379823ab34eb821439d694effe076ad7e7fcfbc9bdf0370a42b7404ea22d7f8c": {
+  "2d87da3b9bd8aad0356253df1f8474f31e5fa7efb1e4630f3b6cc78635f7a373": {
    "t": "event",
    "id": "flick4",
    "box": "buddy",
-   "m": "3603"
+   "m": "5438"
   },
-  "5face9fb37396106be3b18a754aedc309123589ab4aa556331ee77550e86bb4c": {
+  "19c54963bc032b10ba10cdb4b33ea5d066ec59a63215ddb2662c2b517832df77": {
    "t": "event",
    "id": "ruck",
    "box": "wiggle",
-   "m": "8288"
+   "m": "4713"
   },
-  "9e868c3d85390f08ea053f70cdb39b3fc101ad08fbb00879cf1fe8bfc1b2f360": {
+  "f79088191ee472a951c8fbcb6d43ca5e6ff21ac3c65f429338e0ac236ad46f26": {
    "t": "event",
    "id": "candle",
    "box": "brainy",
-   "m": "1732"
+   "m": "6276"
   },
-  "a7d823298ee726747449ecd9abf850b98ed425e5dd80841d63000d7f2980729e": {
+  "f61e285c876ec7d2d69165f92e81780bcefedb745db42c67728c49244d0efb0e": {
    "t": "event",
    "id": "market11",
    "box": "buddy",
-   "m": "2274"
+   "m": "4434"
   },
-  "03a277ce883a37039f922c50cbb65a28a306deedc1d4da1819316df42c1ea651": {
+  "d7e64dff8c8ce6f01dee5a711abe10a7e421e83091fc290400933d7ffc8db2f8": {
    "t": "challenge",
    "box": "shield",
-   "m": "3376"
+   "m": "6165"
   },
-  "3050ad5f91dac393678daa5a9983bcbe46e858610d39b8789182d0a146b18402": {
+  "5f05a27d57e670b1806b3092876d52d50b5ee31a9b35854e82194bc471620c4d": {
    "t": "challenge",
    "box": "buddy",
-   "m": "4984"
+   "m": "0525"
   },
-  "5206ffd97adb3e24e4140b9b9ade3e7ed9ac3cf7b42a601da67a04848190dd4c": {
+  "47c6f9113c94c23c58303b555a7be50500fe0c7a70c371cab150e6ff7f3bfa7c": {
    "t": "challenge",
    "box": "wiggle",
-   "m": "4306"
+   "m": "3482"
   },
-  "ea63f498b81226fc6bcc7661fbf5044157f1354f0e91dc64a6b7e160a0fe02c8": {
+  "75e766be3bcdbdd3d79853bf6af5ea76fb420aed159d549f6427d1032d24bd39": {
    "t": "challenge",
    "box": "goal",
-   "m": "3285"
+   "m": "2771"
   },
-  "ed24685f5a900623c5031dad123a2b81004eff12db48c072deb105d210b922ef": {
+  "7dc70351417ae23c7524969dc3b5f31ff4ca33bbaee2cad23b430a591444d735": {
    "t": "challenge",
    "box": "sprout",
-   "m": "9778"
+   "m": "6607"
   },
-  "113b1c9cbd9ed1813ea179e469007b833265cf90557cc26c4d82c6299da63d8a": {
+  "581a28a0e3b65bc3447c136d1def6a62b0727dcea595c770a09f860adbe45233": {
    "t": "challenge",
    "box": "brainy",
-   "m": "8490"
+   "m": "3166"
   },
-  "cb83b38ec87277dba6fb8e3fbdf2c3c2ce977718a793d80fa8b4754572c14ad8": {
-   "t": "word",
-   "box": "golden"
+  "03436929bd4d7e876a088e82487ef8a02784a1329edb428e385ec2c3127ab15d": {
+   "t": "bonus",
+   "box": "shield"
   },
-  "32f7fd3742a582373e22e8c0e1cc6bad4b56ee5b0dcca03a8200bde29132999a": {
+  "7f7c56389bc4bfadf893e0446af0c90049c98cbfcccfa74ef02d43aa357e206e": {
+   "t": "bonus",
+   "box": "buddy"
+  },
+  "6455b10889ec198db3f701ac0bfe37f121d6eadbdd5326d1aac4d8d4584affca": {
+   "t": "bonus",
+   "box": "wiggle"
+  },
+  "b24e448b36c09853792195246b0e45cfd4aab02afee91587de834a7f32b161a8": {
+   "t": "bonus",
+   "box": "goal"
+  },
+  "54c4e4292b9bdfa9163d047529bbec49a7871d57887e84cd3082badf17f4d358": {
+   "t": "bonus",
+   "box": "sprout"
+  },
+  "ff43d94c7c91530b266f3deb47533bfc107ae0123c3b3c2b425aa55f97fbbc76": {
+   "t": "bonus",
+   "box": "brainy"
+  },
+  "c09addd1b2a2ea898d77735f0fabd0c78f587ce10a21b2de4ff27b11b29ad141": {
    "t": "word",
    "box": "shield"
   },
-  "b98960716df018bf70725386fadc4dc180c0ad73a5328f46d1c7551c43fd0694": {
+  "ce0ef0d597fa062f9cbaa553844ca0accc97ba4dc6c99251c3119443832f33b1": {
    "t": "word",
    "box": "buddy"
   },
-  "aad1ba1df15aef461e4f602396ae3ae0bfa203fe0a1b81533e4e5d7447f477db": {
+  "3d0efc72742ebf74dc9ddd3a293f1cb35ea2ed917ff8a6e4202fde70b99945cb": {
    "t": "word",
    "box": "wiggle"
   },
-  "63e735c4938d0336b3947f8306a2d8946f2e61521c53c174a44665de16b783c0": {
+  "e94c8743c80e15bc1dbc1ef1d0710b4c2161f41bd341df58df71bf67fad32980": {
    "t": "word",
    "box": "goal"
   },
-  "47cf2aa151249213cfedc7e65545222fcb63cbb9d52fccd4d59f93a9235af7cb": {
+  "201b34237ec61ff9b7d180c8c82b69e7810744bae1d43eb1f61b3ef0ee26e419": {
    "t": "word",
    "box": "sprout"
   },
-  "8e683db81f59fb43c3ffe6bccf65345b884934419d71196ff24e6d8505101b6e": {
+  "5e60b4b89919c3761ba8040a45e6448955d12df82fc2ff6ac1f462caa3e17a4f": {
    "t": "word",
    "box": "brainy"
+  },
+  "75d3668cd4f83cd91335dc7062fdd20c857f163febee79384fdda05e53ad95a6": {
+   "t": "word",
+   "box": "golden"
   }
  },
  "finale": {
-  "m": "9761"
+  "m": "3702"
  }
 };
 </script>
@@ -1311,6 +1347,7 @@ window.PARK_SECRETS = {
     events: {},      // eventId  -> { at, photo }
     combos: {},      // boxId    -> { combo, via, at }
     challenges: {},  // boxId    -> { at }
+    bonus: {},       // boxId    -> { at }   (Staff Bonus)
     boxes: {}        // boxId    -> { at, word, photo }
   });
 
@@ -1409,7 +1446,7 @@ window.PARK_SECRETS = {
       const x = state.explorers.find(e => e.id === id); if (!x) return;
       const all = await photoAll().catch(() => []);
       for (const p of all) if (p.explorerId === id) await photoDel(p.id);
-      Object.assign(x, { events: {}, combos: {}, challenges: {}, boxes: {} }); touch();
+      Object.assign(x, { events: {}, combos: {}, challenges: {}, bonus: {}, boxes: {} }); touch();
     },
     mutate(id, fn) { const x = state.explorers.find(e => e.id === id); if (x) { fn(x); touch(); } },
 
@@ -1988,6 +2025,7 @@ window.PARK_SECRETS = {
     for (const e of EVENTS) if (x.events[e.id]) for (const c of e.cats) s[c] += P.points.event;
     for (const b of BOXES) {
       if (x.challenges[b.id]) s[b.category] += P.points.challenge;
+      if (x.bonus && x.bonus[b.id]) s[b.category] += P.points.bonus;
       if (x.boxes[b.id]) s[b.category] += P.points.box;
     }
     return s;
@@ -2151,7 +2189,7 @@ window.PARK_SECRETS = {
   })();
   function activeMonths(x) {
     const set = new Set();
-    for (const v of [...Object.values(x.events), ...Object.values(x.challenges), ...Object.values(x.boxes)]) if (v && v.at) {
+    for (const v of [...Object.values(x.events), ...Object.values(x.challenges), ...Object.values(x.bonus || {}), ...Object.values(x.boxes)]) if (v && v.at) {
       const d = new Date(v.at); set.add(`${d.getFullYear()}-${pad2(d.getMonth() + 1)}`);
     }
     return set;
@@ -2332,6 +2370,7 @@ window.PARK_SECRETS = {
         ${box.emoji} <b>${box.name}</b> stamp · +${P.points.box} ${x.boxes[box.id] ? '✅' : ''}
       </div>
       <div class="box-status ${x.challenges[box.id] ? 'done' : ''}">⭐ <b>${box.challenge.title}</b> challenge · +${P.points.challenge} ${x.challenges[box.id] ? '✅' : chOpen(box) ? '' : `· opens ${fmtMD(box.challenge.opens)}`}</div>
+      ${box.challenge.bonus ? `<div class="box-status ${x.bonus && x.bonus[box.id] ? 'done' : ''}">🤝 <b>Staff Bonus</b> (share the challenge with staff) · +${P.points.bonus} ${x.bonus && x.bonus[box.id] ? '✅' : ''}</div>` : ''}
       ${evs.map(e => `<div class="box-status ${x.events[e.id] ? 'done' : ''}" role="button" tabindex="0" data-ev="${e.id}" style="cursor:pointer">${e.emoji} <b>${esc(e.title)}</b> · ${fmtShort(e.date)} · +${P.points.event} ${x.events[e.id] ? '✅' : ''}</div>`).join('')}
       <div class="btn-col" style="margin-top:12px"><button class="btn btn-navy" id="pBox">${box.emoji} Open the ${box.name}</button></div>`,
       { onMount: root => { bindEventCards(root); $('#pBox', root).addEventListener('click', () => openBox(box.id)); } });
@@ -2428,6 +2467,7 @@ window.PARK_SECRETS = {
         <h3>⭐ Challenge: ${esc(ch.title)}</h3>
         <ol class="steps" style="--c:${c}">${ch.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
         <p class="muted">Where to find the secret word: <b>${esc(ch.where)}</b></p>
+        ${ch.bonus ? `<p class="bonus-line">🤝 <b>Staff Bonus +${P.points.bonus}:</b> ${esc(ch.bonus)} At the City Hall window or any Park Pass event.</p>` : ''}
         <button class="btn btn-navy btn-block" data-action="unlock">🔑 I have a code or secret word</button>` : ''}
       <div class="btn-col" style="margin-top:12px">
         ${done ? `<button class="btn btn-coral" id="boxAddPhoto">📸 ${done.photo ? 'Change' : 'Add'} my box photo</button>` : ''}
@@ -2578,6 +2618,11 @@ window.PARK_SECRETS = {
       const b = BOX[entry.box];
       if (!chOpen(b)) return onError(`⭐ The <b>${esc(b.challenge.title)}</b> challenge opens <b>${fmtMD(b.challenge.opens)}</b>. Save that word and come back then!`);
     }
+    if (entry.t === 'bonus') {
+      const b = BOX[entry.box];
+      if (!chOpen(b)) return onError(`⭐ The <b>${esc(b.challenge.title)}</b> challenge opens <b>${fmtMD(b.challenge.opens)}</b>.`);
+      if (!Store.explorers().some(x => x.challenges[b.id])) return onError(`🤝 That’s the <b>${esc(b.challenge.title)}</b> Staff Bonus! Finish the challenge first, then the bonus word adds +${P.points.bonus}.`);
+    }
     if (entry.t === 'word') {
       const b = BOX[entry.box];
       if (b.id === 'golden' && !goldenOpen()) return onError(`🌻 The Golden Seed Box opens <b>${fmtMD(P.finale.opens)}</b>. Keep collecting your six secret words!`);
@@ -2593,7 +2638,7 @@ window.PARK_SECRETS = {
   function pickWho(entry, code) {
     const all = Store.explorers();
     if (all.length < 2) return applyCode(entry, code, [me().id]);
-    const label = entry.t === 'event' ? `checking in to ${esc(EV[entry.id].title)}` : entry.t === 'word' ? `stamping the ${BOX[entry.box].name}` : `finishing the ${esc(BOX[entry.box].challenge.title)} challenge`;
+    const label = entry.t === 'event' ? `checking in to ${esc(EV[entry.id].title)}` : entry.t === 'word' ? `stamping the ${BOX[entry.box].name}` : entry.t === 'bonus' ? `getting the ${esc(BOX[entry.box].challenge.title)} Staff Bonus` : `finishing the ${esc(BOX[entry.box].challenge.title)} challenge`;
     openSheet(`<h2 id="sheetTitle">Who’s here?</h2><p>Who is ${label}?</p>
       <div class="who-list">${all.map(x => `<label><input type="checkbox" value="${x.id}" ${x.id === me().id ? 'checked' : ''}> <span class="avatar">${x.avatar}</span> ${esc(x.name)}</label>`).join('')}</div>
       <button class="btn btn-navy btn-block" id="whoGo">✨ Go!</button>`, {
@@ -2615,6 +2660,12 @@ window.PARK_SECRETS = {
         }
         if (entry.t === 'challenge') {
           if (x.challenges[entry.box]) r.already = true; else x.challenges[entry.box] = { at: now };
+        }
+        if (entry.t === 'bonus') {
+          if (!x.challenges[entry.box]) { r.locked = true; return; }   // finish the challenge first
+          x.bonus = x.bonus || {};
+          if (x.bonus[entry.box]) r.already = true; else x.bonus[entry.box] = { at: now };
+          return;
         }
         if ((entry.t === 'event' || entry.t === 'challenge') && !x.combos[entry.box]) {
           x.combos[entry.box] = { combo: S.unmaskCombo(entry.m, code), via: entry.t, at: now, code: S.normalize(code) };
@@ -2639,7 +2690,8 @@ window.PARK_SECRETS = {
     renderAll();
     const ok = results.filter(r => !r.locked);
     if (!ok.length) {
-      openSheet(`<h2 id="sheetTitle">Almost!</h2><p>🔑 ${results.map(r => esc(r.x.name)).join(' & ')} need to unlock the <b>${BOX[entry.box].name}</b> combo first, then this word will stamp the pass.</p><button class="btn btn-navy btn-block" data-action="close">OK</button>`);
+      const who = results.map(r => esc(r.x.name)).join(' & ');
+      openSheet(`<h2 id="sheetTitle">Almost!</h2><p>${entry.t === 'bonus' ? `🤝 ${who} need to finish the <b>${esc(BOX[entry.box].challenge.title)}</b> challenge first, then this Staff Bonus adds +${P.points.bonus}.` : `🔑 ${who} need to unlock the <b>${BOX[entry.box].name}</b> combo first, then this word will stamp the pass.`}</p><button class="btn btn-navy btn-block" data-action="close">OK</button>`);
       return;
     }
     celebrate(entry, ok.map(r => r.x.id), ok, results.filter(r => r.locked));
@@ -2655,6 +2707,11 @@ window.PARK_SECRETS = {
       head = `<div style="font-size:72px;line-height:1" class="lock-anim">${e.emoji}</div><h2 id="sheetTitle" style="margin-right:0">${allAlready ? 'Already checked in!' : 'You’re checked in!'}</h2>
         <p class="lead">${names} ${allAlready ? 'already got' : 'just earned'} the <b>${esc(e.title)}</b> stamp!</p>`;
       pts = e.cats.map(c => [c, P.points.event]);
+    } else if (entry.t === 'bonus') {
+      const b = BOX[entry.box];
+      head = `<div style="font-size:72px;line-height:1" class="lock-anim">🤝</div><h2 id="sheetTitle" style="margin-right:0">${allAlready ? 'Bonus already earned!' : 'STAFF BONUS!'}</h2>
+        <p class="lead">${names} shared <b>${esc(b.challenge.title)}</b> with our staff. High five! 🙌</p>`;
+      pts = [[b.category, P.points.bonus]];
     } else if (entry.t === 'challenge') {
       const b = BOX[entry.box];
       head = `<div style="font-size:72px;line-height:1" class="lock-anim">⭐</div><h2 id="sheetTitle" style="margin-right:0">${allAlready ? 'Challenge already done!' : 'Challenge complete!'}</h2>
@@ -2688,8 +2745,9 @@ window.PARK_SECRETS = {
         <p style="margin:0;font-size:18px"><b>🌻 ALL SIX SECRET WORDS COLLECTED!</b></p>
         <p style="margin:8px 0 0">The Golden Seed Box opens <b>${fmtMD(P.finale.opens)}</b>. Your combo will appear in your pass that day. Get ready for the finale!</p></div>`;
     }
-    if (skipped.length) comboHTML += `<p class="muted" style="margin-top:10px">🔑 ${skipped.map(r => esc(r.x.name)).join(' & ')} still need${skipped.length > 1 ? '' : 's'} this box’s combo before the word counts.</p>`;
-    const canPhoto = !allAlready && entry.t !== 'challenge';
+    if (skipped.length) comboHTML += `<p class="muted" style="margin-top:10px">${entry.t === 'bonus' ? '🤝' : '🔑'} ${skipped.map(r => esc(r.x.name)).join(' & ')} still need${skipped.length > 1 ? '' : 's'} ${entry.t === 'bonus' ? 'to finish this challenge first' : 'this box’s combo before the word counts'}.</p>`;
+    if (entry.t === 'challenge' && !allAlready && BOX[entry.box].challenge.bonus) comboHTML += `<p class="bonus-line">🤝 <b>Staff Bonus +${P.points.bonus}:</b> ${esc(BOX[entry.box].challenge.bonus)} Find us at the City Hall window or any Park Pass event!</p>`;
+    const canPhoto = !allAlready && entry.t !== 'challenge' && entry.t !== 'bonus';
     const kind = entry.t === 'event' ? 'event' : 'box', ref = entry.t === 'event' ? entry.id : entry.box;
     openSheet(`<div class="unlock-reveal">${head}${ptsHTML}${comboHTML}</div>
       <div class="btn-col" style="margin-top:16px">
@@ -2885,6 +2943,7 @@ window.PARK_SECRETS = {
         <div class="pp-key">
           <span>📷 Event check-in <b>+${P.points.event}</b> to each petal it's tagged with</span>
           <span>⭐ Challenge <b>+${P.points.challenge}</b></span>
+          <span>🤝 Staff Bonus <b>+${P.points.bonus}</b></span>
           <span>🔓 Lockbox stamp <b>+${P.points.box}</b></span>
         </div>
         <div class="pp-tally">${CATS.map(c => `<div style="--c:${c.color}"><b>${c.emoji} ${c.name}</b><span>${Math.min(P.petalGoal, sc[c.id])} / ${P.petalGoal}</span></div>`).join('')}</div>
@@ -2910,6 +2969,7 @@ window.PARK_SECRETS = {
         <div class="earn-row head" role="row"><span role="columnheader"></span><span role="columnheader">Flower points</span><span role="columnheader">Stamp</span><span role="columnheader">Unlocks</span></div>
         <div class="earn-row" role="row"><b role="rowheader">📷 Go to an event</b><span role="cell"><b>+${P.points.event}</b> to <i>each</i> of its petals (usually 2)</span><span role="cell">Digital event stamp</span><span role="cell">One lockbox combo</span></div>
         <div class="earn-row" role="row"><b role="rowheader">⭐ Do a challenge</b><span role="cell"><b>+${P.points.challenge}</b> to that box’s petal</span><span role="cell">—</span><span role="cell">That box’s combo</span></div>
+        <div class="earn-row" role="row"><b role="rowheader">🤝 Staff Bonus</b><span role="cell"><b>+${P.points.bonus}</b> more to that petal</span><span role="cell">—</span><span role="cell">A high five! Share your challenge with staff at the City Hall window or any event</span></div>
         <div class="earn-row" role="row"><b role="rowheader">🔓 Crack a lockbox</b><span role="cell"><b>+${P.points.box}</b> to that box’s petal</span><span role="cell">Digital lockbox stamp + the rubber stamp inside (for paper passes)</span><span role="cell">A secret word for the Golden Seed${P.prizes && P.prizes.box ? ` · 🎁 ${esc(P.prizes.box)}` : ''}</span></div>
         <div class="earn-row" role="row"><b role="rowheader">🌻 Golden Seed Box</b><span role="cell">—</span><span role="cell">Digital + rubber Golden Seed stamp</span><span role="cell">The finale (opens ${fmtMD(P.finale.opens)})${P.prizes && P.prizes.golden ? ` · 🎁 ${esc(P.prizes.golden)}` : ''}</span></div>
       </div>
@@ -2924,12 +2984,13 @@ window.PARK_SECRETS = {
   function challenges() {
     const x = me();
     const list = BOXES.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens));
-    openSheet(`<h2 id="sheetTitle">⭐ Challenges</h2><p>A <b>new challenge opens every month</b>! Finish one to get its secret word. The word unlocks that lockbox’s combo and adds +${P.points.challenge} to its petal.</p>
+    openSheet(`<h2 id="sheetTitle">⭐ Challenges</h2><p>A <b>new challenge opens every month</b>! Finish one to get its secret word. The word unlocks that lockbox’s combo and adds +${P.points.challenge} to its petal. Then share it with our staff for a <b>🤝 Staff Bonus +${P.points.bonus}</b>!</p>
       ${list.map(b => { const c = CAT[b.category], ch = b.challenge, done = x.challenges[b.id], open = chOpen(b); return `
         <div class="box-card${open ? '' : ' locked'}" style="--c:${c.color};margin-bottom:12px">
           <div class="box-top"><span class="box-icon">${open ? c.emoji : '🔒'}</span><div><h3 class="box-title">${esc(ch.title)} ${done ? '✅' : ''}</h3><p class="box-place">${open ? `Open now · unlocks the ${b.emoji} ${b.name} · +${P.points.challenge} ${c.name}` : `<b>Opens ${fmtMD(ch.opens)}</b> · unlocks the ${b.emoji} ${b.name}`}</p></div></div>
           ${open ? `<ol class="steps" style="--c:${c.color};margin-top:12px">${ch.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ol>
-          <p class="muted" style="margin:6px 0 0;font-size:14px">${ch.spoken ? '🗣️ A staff member tells you the word' : '🪧 The word is on a sign'}: ${esc(ch.where)}</p>` : `<p class="muted" style="margin:10px 0 0">It’s a surprise! Check back on ${fmtMD(ch.opens)}. 🎁</p>`}
+          <p class="muted" style="margin:6px 0 0;font-size:14px">${ch.spoken ? '🗣️ A staff member tells you the word' : '🪧 The word is on a sign'}: ${esc(ch.where)}</p>
+          ${ch.bonus ? `<p class="bonus-line">🤝 <b>Staff Bonus +${P.points.bonus}${x.bonus && x.bonus[b.id] ? ' ✅' : ''}:</b> ${esc(ch.bonus)} At the City Hall window or any Park Pass event.</p>` : ''}` : `<p class="muted" style="margin:10px 0 0">It’s a surprise! Check back on ${fmtMD(ch.opens)}. 🎁</p>`}
         </div>`; }).join('')}
       <button class="btn btn-navy btn-block" data-action="unlock">🔑 I have a secret word!</button>`);
   }

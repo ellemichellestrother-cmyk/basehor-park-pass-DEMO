@@ -65,15 +65,14 @@ It shows a yellow **“Oops — the Park Pass didn’t load all the way”** box
 
 - [ ] **Event details** — open `index.html` in any text editor (or click it on GitHub → ✏️ pencil) and search for **`EDIT YOUR PARK PASS HERE`**. Fill in each event's `place`, and the times for Basehor's Blooming, Skeleton Ruck and Candlelight Concert (`time: null` shows “Time coming soon”). Flicks times are dusk estimates. Event descriptions are placeholders — reword anything that doesn't match the real event.
 - [ ] **Box locations** — only Basehor City Park (15940 Leavenworth Rd) is a real spot. Open **`admin.html` → Set box locations**: find the spot in Google Maps, copy its coordinates, paste them in, and copy the line it gives you into the same EDIT section. The preview shows how the trail map will look. Update each box's `place`, `hint` and challenge `where`.
-- [ ] **Real codes** — open **`your-site/admin.html` → Combos & codes**:
-  - enter each lockbox's real combo + the secret word you'll put inside,
-  - pick challenge words and event codes (🎲 fills the blanks),
+- [ ] **Codes** — a full real set is already built in. To review or change them, open **`your-site/admin.html`**, load your private setup file (everything autofills), edit, then:
+  - set each physical lock to its combo and put that box's word card inside,
   - **Save staff setup (private)** → keep that file in a staff-only folder,
-  - **Build & download upload files (.zip)** → unzip it → on GitHub, **Add file → Upload files**, drop in everything from the folder, commit. That replaces `index.html` and every calendar file, and the demo codes stop working.
+  - **Build & download upload files (.zip)** → unzip it → on GitHub, **Add file → Upload files**, drop in everything from the folder, commit. That replaces `index.html` and every calendar file.
   - Edited events locally and not uploaded yet? Click **📂 Use a different index.html** first so the codes match.
 - [ ] **Print** (admin tab 2): event QR posters, challenge signs, secret-word cards for inside the boxes, lockbox tags. Enter your live site address first so the QR codes point to it. In the print dialog, turn on **Background graphics** for full color.
 - [ ] **Prizes** — once chosen, type them into `prizes` in the EDIT section (`box`, `golden`, `bloom`). Blank ones stay hidden; filled ones show in “How it works”, on the box screens and in the stamp celebration.
-- [ ] Set `onlyCheckInFromEventDay: true` (same EDIT section) so event codes can't be used early.
+- [ ] **Launch switches** (staff tool → Build): turn **test mode OFF** and **event-day check-ins ON**, build, and upload. (Test mode is ON right now so staff can try everything.)
 - [ ] **Changed an event's date, time or place?** Run the admin build again (it re-makes the calendar files from your latest index.html) and upload the zip, so calendars match.
 - [ ] After changing files, bump `VERSION` in `sw.js` (e.g. `bpp27-v5`) so phones that installed the app get the update right away.
 
@@ -81,47 +80,11 @@ It shows a yellow **“Oops — the Park Pass didn’t load all the way”** box
 
 ---
 
-## 🧪 Demo codes (built into the current secrets.js — replace before launch!)
+## 🔑 Codes are private
 
-| Type | For | Code |
-|---|---|---|
-| Event QR | Build-a-Bear Night (2027-02-12) | `BEAR27` |
-| Event QR | Friday Night Flicks (2027-04-23) | `FLICK127` |
-| Event QR | Basehor's Blooming (2027-05-01) | `BLOOM27` |
-| Event QR | Golfish (2027-05-13) | `GOLFISH27` |
-| Event QR | 3rd Thursday Concert (2027-05-20) | `CONCERT527` |
-| Event QR | Friday Night Flicks (2027-05-21) | `FLICK227` |
-| Event QR | Whales & Scales (2027-06-05) | `WHALES27` |
-| Event QR | Water Day (2027-06-11) | `WATER127` |
-| Event QR | 3rd Thursday Concert (2027-06-17) | `CONCERT627` |
-| Event QR | Water Day (2027-07-09) | `WATER227` |
-| Event QR | 3rd Thursday Concert (2027-07-15) | `CONCERT727` |
-| Event QR | Water Day (2027-08-06) | `WATER327` |
-| Event QR | 3rd Thursday Concert (2027-08-19) | `CONCERT827` |
-| Event QR | Friday Night Flicks (2027-09-10) | `FLICK327` |
-| Event QR | Basehor's Got Talent (2027-09-18) | `TALENT27` |
-| Event QR | Fall Market Morning (2027-10-02) | `MARKET1027` |
-| Event QR | Friday Night Flicks (2027-10-08) | `FLICK427` |
-| Event QR | Skeleton Ruck (2027-10-16) | `RUCK27` |
-| Event QR | Candlelight Concert (2027-11-04) | `CANDLE27` |
-| Event QR | Fall Market Morning (2027-11-13) | `MARKET1127` |
-| Challenge word | Shield Box – Safety Scout | `SHIELDUP` |
-| Challenge word | Buddy Box – Kindness Quest | `HIGHFIVE` |
-| Challenge word | Wiggle Box – Move-It Mile | `WIGGLE` |
-| Challenge word | Goal Box – Dream Big Goal | `DREAMBIG` |
-| Challenge word | Sprout Box – Park Protector | `SPROUT` |
-| Challenge word | Brainy Box – Quiet Spot Quest | `LISTEN` |
-| Word inside box | Shield Box (combo 2417) | `HELMET` |
-| Word inside box | Buddy Box (combo 8053) | `FRIENDS` |
-| Word inside box | Wiggle Box (combo 3196) | `JUMP` |
-| Word inside box | Goal Box (combo 7720) | `STARS` |
-| Word inside box | Sprout Box (combo 4688) | `ACORN` |
-| Word inside box | Brainy Box (combo 5931) | `WONDER` |
-| Word inside box | Golden Seed Box (combo 1027 — revealed after all 6 words) | `SUNFLOWER` |
+The real combos, words and event codes are **not** in this repo. Only scrambled fingerprints are inside `index.html`. They live in the private staff setup file (`park-pass-STAFF-setup-PRIVATE.json`) and the printed staff key. Load that file into `admin.html` once and every code autofills. **Never upload the setup file or the staff key to GitHub.**
 
-Codes ignore capitals, spaces and dashes. A QR code is just your site link with `?c=CODE` on the end, e.g. `https://ellemichellestrother-cmyk.github.io/basehor-wellness-pass/?c=BLOOM27`.
-
----
+A QR code is just the site link with `?c=CODE` on the end. The staff tool prints all of them for you.
 
 ## 🗓️ Season rollout (keeps families coming back)
 
@@ -140,7 +103,24 @@ Codes ignore capitals, spaces and dashes. A QR code is just your site link with 
 - **Earn the combo first.** A lockbox's secret word only stamps the pass once that child has unlocked the box's combo (from an event or the challenge). A photo of a word card can't be used to skip the trail.
 - **Golden Seed finale opens Oct 1** (`finale.opens`). Kids can collect all six words any time, but the finale combo appears in their pass on that date, with a celebration.
 - **Reminders:** the Home screen announces each new challenge and counts down to the next one. The pass shows a **season streak** (one Park Pass thing per month lights that month up). The subscribable season calendar includes every challenge drop and the finale, so families get a phone reminder each month.
-- **Test mode:** set `testMode: true` to ignore every date while staff try things out. A red "Test mode is on" banner shows on Home. **Set it back to `false` before launch.**
+- **Test mode (ON right now):** ignores every date so staff can try every challenge and the finale. A red “Test mode is on” banner shows on Home. Switch it off in the staff tool's **Launch switches** before launch.
+
+## 🤝 Staff Bonus (kids come talk to us)
+
+Every challenge has a **Staff Bonus worth +1 more point**. After finishing a challenge, a child shares it with a staff member **at the City Hall window or at any Park Pass event**, and staff give them the bonus word (say it, or let them scan the card).
+
+| Challenge | What the child shares with staff |
+|---|---|
+| Safety Scout | Their drawing of the family fire-drill meeting spot |
+| Park Protector | The 3 trees or birds they spotted (photo or drawing counts) |
+| Dream Big Goal | One step they’ve taken toward their goal |
+| Move-It Mile | Their mile (photo or map) + 10 jumping jacks together |
+| Kindness Quest | Reading their thank-you card out loud |
+| Quiet Spot Quest | Acting out 3 sounds they heard for staff to guess |
+
+- The bonus word only counts **after** that challenge is done, and only from the challenge’s opening date.
+- Bonus words exist only on the **Staff Bonus cards** (staff tool → Print). Keep a set at the City Hall window and at every event check-in table.
+- Safety Scout now asks kids to learn their address, **their grown-up’s full name** and phone number, and tell staff all three.
 
 ## 🖐️ Stamps: what you need
 
