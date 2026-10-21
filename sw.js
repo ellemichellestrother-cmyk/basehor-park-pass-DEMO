@@ -1,6 +1,6 @@
 /* Basehor Park Pass — offline helper.
    Bump VERSION whenever you change files so phones get the update. */
-const VERSION = 'bpp27-v8';
+const VERSION = 'bpp27-v11';
 const SHELL = ['./', './index.html'];
 
 self.addEventListener('install', e => {
@@ -14,6 +14,7 @@ self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
   if (url.hostname.includes('tile.openstreetmap.org')) return; // let map tiles load normally
+  if (/\.(mp4|vtt)$/.test(url.pathname)) return; // stream the how-to video straight from the site
   e.respondWith(
     fetch(e.request).then(res => {
       if (res.ok && (url.origin === location.origin || /cdnjs|jsdelivr|fonts\.(googleapis|gstatic)/.test(url.hostname))) {

@@ -105,6 +105,29 @@ A QR code is just the site link with `?c=CODE` on the end. The staff tool prints
 - **Reminders:** the Home screen announces each new challenge and counts down to the next one. The pass shows a **season streak** (one Park Pass thing per month lights that month up). The subscribable season calendar includes every challenge drop and the finale, so families get a phone reminder each month.
 - **Test mode (ON right now):** ignores every date so staff can try every challenge and the finale. A red “Test mode is on” banner shows on Home. Switch it off in the staff tool's **Launch switches** before launch.
 
+## 🗂️ Bottom menu
+
+**Home · Events · Challenges · 📷 Unlock · Lockboxes · More.** Each activity has its own tab with its own stamps: event stamps on **Events**, challenge stamps on **Challenges**, lockbox stamps (and the map) on **Lockboxes**. The season streak is on Home; the photo album, backup and printables are under More.
+
+## 🎁 Mystery challenges (inside the lockboxes)
+
+Each petal lockbox holds a **mystery challenge card** (staff tool → Print → *mystery challenge cards*). The task is on the front; fold the card backward and laminate so the **mystery word is on the back**. Kids do the task right there, flip the card, and type the word for **+2 points** (it only counts after they’ve stamped that box). The app keeps the task a surprise until the word is typed. Edit the tasks in `js/data.js` (`mystery:` on each box) and the words in the staff tool.
+
+## 🌳 “While you’re here” prompts
+
+Each box has `setting: 'park'` or `'cityhall'`. When a family opens a box, and right after they stamp it, the app lists the open challenges they can do at that spot, the mystery card, and a packing list. The Lockboxes tab has a **“Heading out to a lockbox?”** planner, and each challenge shows where it can be done (🌳 Park · 🏛️ City Hall · 🏠 Home).
+
+## 🙋 Help for families (step-by-step guides)
+
+- **❓ Help button** at the top of every screen opens a plain-language *How to play* guide: a glossary, the four ways to earn points, a worked example, and common questions.
+- **Every challenge has its own step-by-step page**: what you need, how long it takes, numbered steps, where the secret word comes from, how to type it in, the Staff Bonus, a tip for grown-ups, and a progress checklist.
+- **Every lockbox shows a checklist** (combo → open box → challenge → Staff Bonus) so families can see what's done and what's next.
+- **Clearer messages**: if a word is typed too early, the app explains why and offers a button to the right steps.
+- **Video guide (5 min)**: `howto.mp4` (the 5-minute full guide) plays inside the Help guide and from More → *Watch the video guide*. Captions are on screen (plus `howto.vtt` for screen readers). The same file can be posted on Facebook/Instagram.
+- **Text size**: More tab → Text size → Normal, Large or Extra large (remembered on that phone).
+- **Large-print handout**: More tab → *Print the large-print How to Play guide* (11 pages: the guide plus one page per challenge). Keep copies at the City Hall window and event check-in tables.
+- Fill in `help` in `js/data.js` (hours, phone, email) to show them on every help page; blank lines are hidden.
+
 ## 🤝 Staff Bonus (kids come talk to us)
 
 Every challenge has a **Staff Bonus worth +1 more point**. After finishing a challenge, a child shares it with a staff member **at the City Hall window or at any Park Pass event**, and staff give them the bonus word (say it, or let them scan the card).

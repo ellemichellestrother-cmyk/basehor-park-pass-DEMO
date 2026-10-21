@@ -548,6 +548,81 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
   .stats b { font-size: 22px; }
 }
 
+/* ---------- help, guides, text size ---------- */
+.top-actions { display: flex; align-items: center; gap: 8px; }
+.help-btn { display: flex; align-items: center; gap: 4px; background: #FFF4D6; border: 3px solid var(--navy); border-radius: 999px; padding: 6px 12px; font-weight: 900; font-size: 15px; box-shadow: 3px 3px 0 var(--navy); color: var(--navy); }
+.help-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--navy); }
+@media (max-width: 480px) { .help-btn span { display: none; } .help-btn { padding: 4px 8px; font-size: 14px; } .top-actions { gap: 6px; } .explorer-chip { max-width: 34vw; } .topbar .brand, .topbar [class*=brand] { min-width: 0; flex-shrink: 1; } }
+.text-size { grid-template-columns: repeat(3, 1fr); }
+.text-size button { line-height: 1.1; padding: 10px 4px; }
+.text-size small { font-size: 12px; font-weight: 800; }
+html[data-text="large"] :is(main, .sheet-body, .toast) { zoom: 1.12; }
+html[data-text="xl"] :is(main, .sheet-body, .toast) { zoom: 1.24; }
+.guide h3 { display: flex; align-items: center; gap: 8px; margin-top: 22px; }
+.guide p, .guide li { font-size: 16px; line-height: 1.55; }
+.guide .lead { font-size: 18px; }
+.gloss { display: grid; gap: 8px; }
+.gloss div { background: #fff; border-radius: 14px; padding: 10px 12px; font-size: 15px; line-height: 1.45; }
+.gloss b { color: var(--navy); }
+.path { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 6px; }
+.path li { display: block; background: #fff; border-radius: 12px; padding: 9px 12px 9px 42px; position: relative; font-size: 15px; line-height: 1.45; }
+.path li::before { content: '⬜'; position: absolute; left: 12px; top: 9px; }
+.path li.done { background: #E8F6E9; }
+.path li.done::before { content: '✅'; }
+.path li.locked { opacity: .75; }
+.path li.locked::before { content: '🔒'; }
+.callout { background: #EAF5FF; border: 2px solid #9DB6D6; border-radius: 14px; padding: 10px 14px; font-size: 15px; line-height: 1.5; margin: 10px 0; }
+.callout.warm { background: #FFF4D6; border-color: var(--purpose); }
+.need { margin: 6px 0; padding-left: 22px; }
+.need li { margin: 4px 0; }
+.howto { counter-reset: h; list-style: none; padding: 0; display: grid; gap: 6px; }
+.howto li { counter-increment: h; position: relative; background: #fff; border-radius: 12px; padding: 9px 12px 9px 46px; font-size: 15px; line-height: 1.45; }
+.howto li::before { content: counter(h); position: absolute; left: 12px; top: 8px; width: 24px; height: 24px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 900; }
+.faq details { background: #fff; border-radius: 14px; padding: 10px 14px; margin: 8px 0; }
+.faq summary { font-weight: 900; cursor: pointer; font-size: 16px; color: var(--navy); }
+.faq details p { margin: 8px 0 2px; }
+.msg .link-btn { display: inline-block; margin-top: 6px; }
+.ch-guide-btn { margin-top: 10px; }
+@media print {
+  #printPass .guide-print { font-size: 14pt; line-height: 1.4; color: #142F55; }
+  #printPass .guide-print :is(p, li, div, b, i, span, summary, .lead) { font-size: 14pt !important; line-height: 1.4; }
+  #printPass .guide-print .gloss > div, #printPass .guide-print .callout { padding: 6px 10px; margin: 5px 0; border: 1px solid #bbb; border-radius: 8px; background: none; break-inside: avoid; }
+  #printPass .guide-print .howto li, #printPass .guide-print .faq p { break-inside: avoid; }
+  #printPass .guide-print .ch-page :is(p, li) { font-size: 13pt !important; line-height: 1.35; }
+  #printPass .guide-print .ch-page h3 { margin: 8px 0 2px; }
+  #printPass .guide-print ul, #printPass .guide-print ol { margin: 4px 0; padding-left: 26px; }
+  #printPass .guide-print h1 { font-size: 26pt; margin: 0 0 6px; }
+  #printPass .guide-print h2 { font-size: 18pt; margin: 16px 0 6px; border-bottom: 3px solid #142F55; padding-bottom: 3px; }
+  #printPass .guide-print h3 { font-size: 15pt !important; margin: 10px 0 3px; break-after: avoid; }
+  #printPass .guide-print li { margin: 3px 0; }
+  #printPass .guide-print .pb { break-before: page; page-break-before: always; }
+  #printPass .guide-print table { border-collapse: collapse; width: 100%; font-size: 13pt; }
+  #printPass .guide-print td, #printPass .guide-print th { border: 1px solid #999; padding: 5px 8px; text-align: left; vertical-align: top; }
+  html[data-text] :is(main, .sheet-body, .toast) { zoom: 1 !important; }
+}
+@media (max-width: 390px) { .brand-main { font-size: 16px; white-space: nowrap; } .brand img { width: 38px; height: 38px; } .brand { gap: 7px; } }
+
+.howto-video { display: flex; justify-content: center; margin: 6px 0 4px; }
+.howto-video video { width: min(100%, 340px); aspect-ratio: 9 / 16; max-height: 68vh; border-radius: 22px; border: 4px solid var(--navy); box-shadow: 4px 4px 0 var(--gold); background: var(--navy); object-fit: contain; }
+@media print { .howto-video { display: none; } }
+.ch-check { list-style: none; margin: 10px 0 4px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; font-weight: 800; }
+.ch-check li::before { content: '⬜ '; }
+.ch-check li.done::before { content: '✅ '; }
+.box-card.featured { border-width: 4px; box-shadow: 5px 5px 0 var(--c); }
+.ch-stats { margin-top: 4px; }
+.tabbar button span:last-child { white-space: nowrap; }
+@media (max-width: 380px) { .tabbar button { font-size: 10px; } }
+.here-card { text-align: left; background: #F2F8EF; border: 3px dashed var(--env); border-radius: 18px; padding: 12px 14px; margin: 14px 0; }
+.here-card.trip { background: #FFF8E4; border-color: var(--purpose); }
+.here-card h3 { margin: 0 0 4px; font-family: var(--font-display); font-weight: 900; color: var(--navy); font-size: 18px; }
+.here-list { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.here-list li { display: block; background: #fff; border-radius: 12px; padding: 8px 10px; line-height: 1.4; font-size: 15px; }
+.here-list li.done { background: #E8F4E6; }
+.here-list .link-btn { display: inline; padding: 0; margin-left: 4px; }
+.pack { margin: 10px 0 0; font-size: 15px; line-height: 1.45; }
+.where-row { margin: 6px 0 0; font-size: 14px; font-weight: 800; color: var(--muted); }
+.where-tag { display: inline-block; background: #EEF1FF; border: 2px solid var(--navy); border-radius: 999px; padding: 1px 9px; margin: 2px 4px 0 0; color: var(--navy); font-size: 13px; }
+
 </style>
   <style>
     main { max-width: 1040px; padding-bottom: 60px; }
@@ -593,6 +668,10 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
       .cards { display: grid; grid-template-columns: 1fr 1fr; gap: .25in; }
       .wcard { border: 4px dashed var(--c); border-radius: 22px; padding: .25in; text-align: center; height: 3.2in; display: flex; flex-direction: column; justify-content: center; break-inside: avoid; color: #142F55; }
       .wcard .em { font-size: 44px; }
+      .wcard.mcard { height: 6.3in; justify-content: space-between; padding: .2in; }
+      .mfront, .mback { display: flex; flex-direction: column; align-items: center; gap: 4px; height: 2.8in; justify-content: center; }
+      .mback { transform: rotate(180deg); }
+      .mfold { border-top: 2px dashed #142F55; font-size: 12px; padding-top: 2px; color: #142F55; }
       .wcard b { font-family: Montserrat, sans-serif; font-weight: 900; font-size: 22px; }
       .wcard .word { font-family: Montserrat, sans-serif; font-weight: 900; font-size: 40px; letter-spacing: .1em; margin: 8px 0; }
       .keysheet { font-family: Nunito, sans-serif; color: #000; }
@@ -626,7 +705,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
     <section data-panel="setup" class="panel">
       <h2 class="section-title"><span>Lockboxes</span></h2>
       <p class="section-sub">Set each physical lockbox to this combo, and put a card with the secret word inside (print those in step 2).</p>
-      <table><thead><tr><th>Box</th><th>Lock combo</th><th>Secret word inside the box</th></tr></thead><tbody id="boxRows"></tbody></table>
+      <table><thead><tr><th>Box</th><th>Lock combo</th><th>Secret word inside the box</th><th>🎁 Mystery word (+2)</th></tr></thead><tbody id="boxRows"></tbody></table>
 
       <h2 class="section-title"><span>Challenge words</span></h2>
       <p class="section-sub">Each challenge’s secret word goes on its sign (or staff whisper it). Entering it reveals that box’s combo.</p>
@@ -674,6 +753,7 @@ main { max-width: 860px; margin: 0 auto; padding: 18px 16px calc(var(--tabbar-h)
         <button class="btn btn-sun" data-print="challenges">⭐ Print challenge signs (secret word + QR)</button>
         <button class="btn btn-navy" data-print="bonus">🤝 Print Staff Bonus cards (City Hall window + event tables)</button>
         <button class="btn btn-green" data-print="words">🌸 Print secret word cards for inside the boxes</button>
+        <button class="btn btn-sun" data-print="mystery">🎁 Print mystery challenge cards (fold-over, for inside the boxes)</button>
         <button class="btn btn-teal" data-print="boxtags">🏷️ Print lockbox tags (outside the boxes)</button>
       </div>
       <p class="muted" style="margin-top:14px">Tip: laminate posters you’ll reuse. Event codes are best printed fresh for each event day.</p>
@@ -1146,7 +1226,7 @@ window.PARK = {
   },
 
   petalGoal: 5,
-  points: { event: 1, challenge: 1, bonus: 1, box: 2 },
+  points: { event: 1, challenge: 1, bonus: 1, box: 2, mystery: 2 },
 
   /* The six petals — colors match the new Basehor WELL logo.
      deep = darker ink used for stamps, buttons and labels. */
@@ -1177,6 +1257,8 @@ window.PARK = {
       place: 'Location coming soon', address: '',
       lat: 39.1484, lng: -94.9415,
       hint: 'Look for the pink petal tag near something that keeps people safe.',
+      setting: 'park',   // 'park' or 'cityhall' — where the box is (used for “While you’re here” tips)
+      mystery: { title: 'Safety Spotter', task: 'Find 3 things right here that help keep people safe (a sign, a railing, a light, a crosswalk…). Point to each one and tell your grown-up how it helps.' },   // printed on the mystery card inside the box
       challenge: {
         title: 'Safety Scout', opens: '2027-02-12', spoken: true,
         steps: [
@@ -1193,6 +1275,8 @@ window.PARK = {
       place: 'Basehor City Park', address: '15940 Leavenworth Rd, Basehor, KS 66007',
       lat: 39.14508, lng: -94.94736,
       hint: 'Near the playground — find the navy petal tag.',
+      setting: 'park',   // 'park' or 'cityhall' — where the box is (used for “While you’re here” tips)
+      mystery: { title: 'High-Five Hunt', task: 'Give 5 high-fives: to your grown-up, a friend, and even a tree! Then say one kind thing to someone who came with you.' },   // printed on the mystery card inside the box
       challenge: {
         title: 'Kindness Quest', opens: '2027-08-01', spoken: true,
         steps: [
@@ -1209,6 +1293,8 @@ window.PARK = {
       place: 'Location coming soon', address: '',
       lat: 39.1402, lng: -94.9362,
       hint: 'Where the trail meets the fitness stop — orange petal tag.',
+      setting: 'park',   // 'park' or 'cityhall' — where the box is (used for “While you’re here” tips)
+      mystery: { title: 'Animal Moves', task: 'Hop like a frog 10 times, waddle like a penguin for 10 steps, then stretch up tall like a giraffe and count to 10.' },   // printed on the mystery card inside the box
       challenge: {
         title: 'Move-It Mile', opens: '2027-07-01',
         steps: [
@@ -1225,6 +1311,8 @@ window.PARK = {
       place: 'Location coming soon', address: '',
       lat: 39.1338, lng: -94.9441,
       hint: 'Find the yellow petal tag where people come together to help.',
+      setting: 'park',   // 'park' or 'cityhall' — where the box is (used for “While you’re here” tips)
+      mystery: { title: 'Tiny Goal', task: 'Pick a goal you can do right now, like 25 steps without stopping or finding 5 different leaves. Say it out loud, then do it!' },   // printed on the mystery card inside the box
       challenge: {
         title: 'Dream Big Goal', opens: '2027-06-01', spoken: true,
         steps: [
@@ -1241,6 +1329,8 @@ window.PARK = {
       place: 'Location coming soon', address: '',
       lat: 39.1371, lng: -94.9528,
       hint: 'Close to the trees and flowers — green petal tag.',
+      setting: 'park',   // 'park' or 'cityhall' — where the box is (used for “While you’re here” tips)
+      mystery: { title: 'Nature Bingo', task: 'Find something soft, something rough, something green and something that moves. Look only, don’t pick!' },   // printed on the mystery card inside the box
       challenge: {
         title: 'Park Protector', opens: '2027-05-01',
         steps: [
@@ -1257,6 +1347,8 @@ window.PARK = {
       place: 'Location coming soon', address: '',
       lat: 39.1446, lng: -94.9318,
       hint: 'A quiet, cozy reading spot — teal petal tag.',
+      setting: 'park',   // 'park' or 'cityhall' — where the box is (used for “While you’re here” tips)
+      mystery: { title: 'Cloud Calm', task: 'Take 5 slow balloon breaths (in through your nose, out through your mouth). Then name 3 colors and 2 sounds around you.' },   // printed on the mystery card inside the box
       challenge: {
         title: 'Quiet Spot Quest', opens: '2027-09-01',
         steps: [
@@ -1269,6 +1361,110 @@ window.PARK = {
       }
     }
   ],
+
+  /* ---------------- HELP & STEP-BY-STEP GUIDES ----------------
+     Shown in the app's "How to play" guide and on each challenge's
+     step-by-step page. Write it like you're explaining it to a
+     grandparent helping a 7-year-old. Blank '' lines are hidden.  */
+  help: {
+    where: 'the City Hall window or the check-in table at any Park Pass event',
+    hours: '',      // e.g. 'Mon–Fri, 8 AM–5 PM'
+    phone: '',      // e.g. '(913) 555-0123'
+    email: ''       // e.g. 'parks@cityofbasehor.org'
+  },
+
+  challengeGuides: {
+    shield: { doAt: ['home', 'cityhall'],
+      time: 'About 15 minutes at home, then a quick visit',
+      about: 'Kids learn the three things that help a grown-up or a first responder get them home safely: their home address, their grown-up’s full name, and their grown-up’s phone number.',
+      need: ['Paper and a pencil to practice', 'Crayons or markers (for the Staff Bonus drawing)'],
+      steps: [
+        'At home, write your home address on paper: house number, street name, city (Basehor) and state (Kansas).',
+        'Under it, write your grown-up’s first AND last name.',
+        'Then write your grown-up’s phone number, including the area code.',
+        'Practice saying all three out loud until you can do it without looking. Try it at dinner, in the car or before bed.',
+        'With your family, pick a fire-drill meeting spot outside your home (like the mailbox or a big tree) and walk to it together.',
+        'Visit a staff member at the City Hall window or any Park Pass event. Say your address, your grown-up’s name and their phone number. No peeking!',
+        'The staff member tells you the secret word out loud. Type it into your Park Pass (see “How to type in a word” below).'
+      ],
+      wordFrom: 'A staff member says it out loud after you tell them your address, your grown-up’s name and their phone number.',
+      grownups: 'It’s OK if it isn’t perfect. Staff will help kids practice. If your child isn’t comfortable saying your number out loud, they can show it written down.'
+    },
+    sprout: { doAt: ['park'],
+      time: 'About 30–45 minutes at a park',
+      about: 'Kids help keep Basehor’s parks clean and practice noticing nature.',
+      need: ['Gloves', 'A trash bag', 'A grown-up', 'A phone camera, or paper and a pencil to draw (optional)'],
+      steps: [
+        'With a grown-up, go to any Basehor park.',
+        'Put on gloves and fill one bag with litter. Never touch anything sharp like glass or needles. Tell a grown-up instead.',
+        'Tie the bag and put it in a park trash can.',
+        'Look around and spot 3 different kinds of trees or birds. Take a photo or draw them. (Keep these for the Staff Bonus!)',
+        'Find the green “Park Protector” sign near the trash cans. The secret word is printed on it.',
+        'Type the word into your Park Pass.'
+      ],
+      wordFrom: 'Printed on the green “Park Protector” sign at the park.',
+      grownups: 'Any amount of litter counts. A small grocery bag is plenty for little ones.'
+    },
+    goal: { doAt: ['cityhall'],
+      time: 'About 10 minutes at Parks & Rec',
+      about: 'Kids choose one goal for the summer and share it, then come back later to tell us how it’s going.',
+      need: ['Nothing to bring! Goal Star cards and pencils are at Basehor Parks & Rec.'],
+      steps: [
+        'Think about one thing you want to do this summer: learn to swim, read 10 books, ride without training wheels, help a neighbor…',
+        'Visit Basehor Parks & Rec and ask for a Goal Star card.',
+        'Write or draw your goal on the star. Add your first name.',
+        'Pin your star to the Goal Board.',
+        'Show a staff member your star. They’ll tell you the secret word.',
+        'Type the word into your Park Pass.'
+      ],
+      wordFrom: 'A staff member says it after you pin your Goal Star to the Goal Board.',
+      grownups: 'Small goals are great goals. The Staff Bonus comes later, when your child comes back to tell us one step they’ve taken.'
+    },
+    wiggle: { doAt: ['park'],
+      time: 'About 20–30 minutes on a trail',
+      about: 'Kids move their bodies for one whole mile on a Basehor park trail.',
+      need: ['Comfortable shoes', 'A water bottle', 'A grown-up', 'A phone or watch to time or track it (optional)'],
+      steps: [
+        'With a grown-up, pick a Basehor park trail.',
+        'Walk, run, skip or bike one mile. Not sure how far that is? It’s roughly 20 minutes of steady walking.',
+        'Do 10 jumping jacks at every bench you pass!',
+        'Find the orange “Mile Marker” sign on the trail. The secret word is printed on it.',
+        'Type the word into your Park Pass.'
+      ],
+      wordFrom: 'Printed on the orange “Mile Marker” sign on the trail.',
+      grownups: 'Go at your child’s pace. Stops and snack breaks are part of it. Strollers and bikes count too.'
+    },
+    buddy: { doAt: ['home', 'cityhall'],
+      time: 'About 20 minutes at home, then a quick visit',
+      about: 'Kids say thank you to someone who helps our community.',
+      need: ['Paper or card stock', 'Crayons or markers', 'An envelope (optional)'],
+      steps: [
+        'Think of a helper in Basehor: a firefighter, police officer, librarian, teacher, nurse, park worker, mail carrier or a kind neighbor.',
+        'Make a thank-you card. Write who it’s for, why you’re thankful, and sign your first name.',
+        'Decorate it however you like!',
+        'Bring the card to the Basehor Parks & Rec front desk or the City Hall window.',
+        'Give it to a staff member. We’ll make sure it gets to your helper.',
+        'The staff member tells you the secret word. Type it into your Park Pass.'
+      ],
+      wordFrom: 'A staff member says it when you hand in your thank-you card.',
+      grownups: 'You can do the Staff Bonus in the same visit: your child reads the card out loud to the staff member before handing it in.'
+    },
+    brainy: { doAt: ['park', 'home'],
+      time: 'About 10 minutes outside',
+      about: 'Kids slow down, listen closely and notice the world around them.',
+      need: ['A timer (a phone or watch)', 'A quiet spot outside', 'Paper and a pencil (optional)'],
+      steps: [
+        'Find a quiet place outside: a park bench, your backyard or a trail.',
+        'Set a timer for 2 minutes. Sit still and close your eyes if you like.',
+        'Count every sound you hear: birds, wind, cars, a dog, leaves…',
+        'Remember (or write down) your 3 favorite sounds. You’ll act them out for the Staff Bonus!',
+        'Find the teal “Listen Here” sign. The secret word is printed on it.',
+        'Type the word into your Park Pass.'
+      ],
+      wordFrom: 'Printed on the teal “Listen Here” sign.',
+      grownups: 'Two minutes is a long time for little ones. It’s fine to start with 30 seconds and work up.'
+    }
+  },
 
   /* The one road drawn on the illustrated map (Basehor City Park sits on it). */
   mapRoad: { lat: 39.14508, name: 'Leavenworth Rd' },
@@ -1388,7 +1584,7 @@ window.PARK = {
     const KEY = 'bpp27-staff-setup';
     let setup = {};
     try { setup = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
-    setup.combo = setup.combo || {}; setup.word = setup.word || {}; setup.chal = setup.chal || {}; setup.bonus = setup.bonus || {}; setup.ev = setup.ev || {}; setup.site = setup.site || '';
+    setup.combo = setup.combo || {}; setup.word = setup.word || {}; setup.chal = setup.chal || {}; setup.bonus = setup.bonus || {}; setup.mystery = setup.mystery || {}; setup.ev = setup.ev || {}; setup.site = setup.site || '';
     const persist = () => localStorage.setItem(KEY, JSON.stringify(setup));
     $('#dataSource').textContent = source;
     /* launch switches (start from the live index.html’s settings) */
@@ -1397,7 +1593,7 @@ window.PARK = {
     swInit('#swTest', 'testMode'); swInit('#swEventDay', 'onlyCheckInFromEventDay');
     $('#swNow').textContent = `test mode ${P.testMode ? 'ON' : 'off'}, event-day check-ins ${P.onlyCheckInFromEventDay ? 'ON' : 'off'}`;
     /* autofill banner */
-    const filled = () => ['combo', 'word', 'chal', 'bonus', 'ev'].every(g => Object.values(setup[g] || {}).filter(Boolean).length > 0);
+    const filled = () => ['combo', 'word', 'chal', 'bonus', 'mystery', 'ev'].every(g => Object.values(setup[g] || {}).filter(Boolean).length > 0);
     $('#autofill').innerHTML = filled()
       ? `✅ <b>Your codes are filled in</b> (loaded on this computer). Change any of them below, then build. <span class="muted">Using another computer? Load your <code>park-pass-STAFF-setup-PRIVATE.json</code> there once.</span>`
       : `<b>📂 Autofill everything:</b> load your private <code>park-pass-STAFF-setup-PRIVATE.json</code> file and every combo, word and code fills in. This computer remembers it after that.
@@ -1420,7 +1616,8 @@ window.PARK = {
     /* tables */
     const inp = (group, id, cls = '') => `<input class="${cls}" data-g="${group}" data-id="${id}" value="${esc(setup[group][id] || '')}" ${cls === 'combo' ? 'inputmode="numeric" maxlength="4" placeholder="0000"' : 'placeholder="WORD"'}>`;
     $('#boxRows').innerHTML = ALL.map(b => `<tr><td><span class="pill" style="background:${color(b)}">${b.num}</span> ${b.emoji} <b>${b.name}</b><br><small class="muted">${esc(b.place)}</small></td>
-      <td>${inp('combo', b.id, 'combo')}</td><td>${inp('word', b.id)}${b.id === 'golden' ? '<br><small class="muted">Its combo is revealed automatically once a kid enters all six petal-box words.</small>' : ''}</td></tr>`).join('');
+      <td>${inp('combo', b.id, 'combo')}</td><td>${inp('word', b.id)}${b.id === 'golden' ? '<br><small class="muted">Its combo is revealed automatically once a kid enters all six petal-box words.</small>' : ''}</td>
+      <td>${b.mystery ? `${inp('mystery', b.id)}<br><small class="muted">🎁 ${esc(b.mystery.title)}: ${esc(b.mystery.task)}</small>` : '<small class="muted">—</small>'}</td></tr>`).join('');
     $('#chalRows').innerHTML = P.boxes.map(b => `<tr><td>⭐ <b>${esc(b.challenge.title)}</b><br><small class="muted">Opens ${esc(b.challenge.opens || '')} · ${esc(b.challenge.where)}</small></td>
       <td>${b.emoji} ${b.name}</td><td>${inp('chal', b.id)}</td><td>${inp('bonus', b.id)}<br><small class="muted">${esc(b.challenge.bonus || '')}</small></td></tr>`).join('');
     const firstBox = e => P.boxes.find(b => b.category === e.cats[0]);
@@ -1441,11 +1638,11 @@ window.PARK = {
     const rnd = n => Array.from(crypto.getRandomValues(new Uint32Array(n)), x => ABC[x % ABC.length]).join('');
     const KIDWORDS = ['ACORN','BADGER','BREEZE','BUBBLES','CANOE','CARDINAL','CLOVER','COMET','COYOTE','CRICKET','DAISY','DRAGONFLY','FIREFLY','FROGGY','GALAXY','HONEYBEE','JELLYBEAN','KITE','LADYBUG','LILYPAD','MEADOW','MOONBEAM','OTTER','PEBBLE','PINECONE','PRAIRIE','PUDDLE','RAINBOW','ROCKET','SNEAKERS','SPARKLE','SUNBEAM','SUNFLOWER','THUNDER','TRAILBLAZER','TURTLE','WHISTLE','WILLOW','ZIGZAG','BUTTERFLY','HAMMOCK','PADDLE','SPROUTLING','STARLIGHT','TREEHOUSE'];
     function fillBlanks() {
-      const used = new Set(['combo', 'word', 'chal', 'bonus', 'ev'].flatMap(g => Object.values(setup[g] || {}).map(v => S.normalize(v))));
+      const used = new Set(['combo', 'word', 'chal', 'bonus', 'mystery', 'ev'].flatMap(g => Object.values(setup[g] || {}).map(v => S.normalize(v))));
       const word = () => { const pool = KIDWORDS.filter(w => !used.has(w)); const w = pool.length ? pool[crypto.getRandomValues(new Uint32Array(1))[0] % pool.length] : rnd(7); used.add(w); return w; };
       const combo = () => { for (;;) { const c = String(crypto.getRandomValues(new Uint32Array(1))[0] % 10000).padStart(4, '0'); if (new Set(c).size >= 3 && !Object.values(setup.combo).includes(c)) return c; } };
       ALL.forEach(b => { if (!setup.combo[b.id]) setup.combo[b.id] = combo(); if (!setup.word[b.id]) setup.word[b.id] = word(); });
-      P.boxes.forEach(b => { if (!setup.chal[b.id]) setup.chal[b.id] = word(); if (!setup.bonus[b.id]) setup.bonus[b.id] = word(); });
+      P.boxes.forEach(b => { if (!setup.chal[b.id]) setup.chal[b.id] = word(); if (!setup.bonus[b.id]) setup.bonus[b.id] = word(); if (b.mystery && !setup.mystery[b.id]) setup.mystery[b.id] = word(); });
       P.events.forEach(e => { if (!setup.ev[e.id]) { let c; do { c = e.title.replace(/[^A-Za-z]/g, '').slice(0, 6).toUpperCase() + '-' + rnd(4); } while (used.has(S.normalize(c))); used.add(S.normalize(c)); setup.ev[e.id] = c; } });
       persist(); $$('[data-g]').forEach(i => i.value = setup[i.dataset.g][i.dataset.id] || '');
       msg('✅ Filled in every blank with kid-friendly words, fresh combos and hard-to-guess event codes. Change any you like, then <b>Save staff setup</b> and build.', 'ok');
@@ -1456,7 +1653,7 @@ window.PARK = {
 
     $('#saveSetup').addEventListener('click', () => download(new Blob([JSON.stringify(setup, null, 2)], { type: 'application/json' }), 'park-pass-STAFF-setup-PRIVATE.json'));
     const loadFile = async e => {
-      try { setup = Object.assign({ combo: {}, word: {}, chal: {}, bonus: {}, ev: {}, site: '' }, JSON.parse(await e.target.files[0].text())); persist(); location.reload(); }
+      try { setup = Object.assign({ combo: {}, word: {}, chal: {}, bonus: {}, mystery: {}, ev: {}, site: '' }, JSON.parse(await e.target.files[0].text())); persist(); location.reload(); }
       catch (err) { msg('That file didn’t load.', 'err'); }
     };
     $('#loadSetup').addEventListener('change', loadFile);
@@ -1467,7 +1664,7 @@ window.PARK = {
       $$('[data-g]').forEach(i => i.classList.remove('bad'));
       const flag = (g, id, why) => { problems.push(why); const el = document.querySelector(`[data-g="${g}"][data-id="${id}"]`); if (el) el.classList.add('bad'); };
       ALL.forEach(b => { if (!/^\d{4}$/.test(setup.combo[b.id] || '')) flag('combo', b.id, `${b.name}: combo needs 4 digits`); });
-      const codeLike = [...ALL.map(b => ['word', b.id]), ...P.boxes.map(b => ['chal', b.id]), ...P.boxes.map(b => ['bonus', b.id]), ...P.events.map(e => ['ev', e.id])];
+      const codeLike = [...ALL.map(b => ['word', b.id]), ...P.boxes.map(b => ['chal', b.id]), ...P.boxes.map(b => ['bonus', b.id]), ...P.boxes.filter(b => b.mystery).map(b => ['mystery', b.id]), ...P.events.map(e => ['ev', e.id])];
       for (const [g, id] of codeLike) {
         const n = S.normalize(setup[g][id]);
         if (n.length < 3) { flag(g, id, `A code is missing or too short`); continue; }
@@ -1484,6 +1681,7 @@ window.PARK = {
       for (const e of P.events) { const code = setup.ev[e.id], box = P.boxes.find(b => b.category === e.cats[0]).id; codes[S.hashCode(code)] = { t: 'event', id: e.id, box, m: S.maskCombo(setup.combo[box], code) }; }
       for (const b of P.boxes) codes[S.hashCode(setup.chal[b.id])] = { t: 'challenge', box: b.id, m: S.maskCombo(setup.combo[b.id], setup.chal[b.id]) };
       for (const b of P.boxes) codes[S.hashCode(setup.bonus[b.id])] = { t: 'bonus', box: b.id };
+      for (const b of P.boxes) if (b.mystery && setup.mystery[b.id]) codes[S.hashCode(setup.mystery[b.id])] = { t: 'mystery', box: b.id };
       for (const b of ALL) codes[S.hashCode(setup.word[b.id])] = { t: 'word', box: b.id };
       const finaleKey = P.boxes.map(b => S.normalize(setup.word[b.id])).join('');
       const out = `/* =========================================================
@@ -1575,13 +1773,21 @@ window.PARK_SECRETS = ${JSON.stringify({ codes, finale: { m: S.maskCombo(setup.c
       if (kind === 'words') printWith(`<div class="cards">${ALL.map(bx => [1, 2].map(() => `
         <div class="wcard" style="--c:${color(bx)}"><div class="em">${bx.emoji}</div><b>You cracked the ${bx.name}!</b>
           <div class="word">${esc(setup.word[bx.id])}</div><span>Type this secret word in your Park Pass to get your digital stamp.<br>📸 Snap a picture, then lock the box & spin the dial for the next explorer!</span></div>`).join('')).join('')}</div>`);
+      if (kind === 'mystery') printWith(`<div class="cards">${P.boxes.filter(bx => bx.mystery).map(bx => [1, 2].map(() => `
+        <div class="wcard mcard" style="--c:${color(bx)}">
+          <div class="mfront"><div class="em">🎁</div><b>MYSTERY CHALLENGE · ${bx.emoji} ${bx.name}</b>
+            <div style="font-size:22px;font-weight:900;margin:6px 0">${esc(bx.mystery.title)}</div>
+            <span style="font-size:15px">${esc(bx.mystery.task)}</span>
+            <span style="font-size:13px;margin-top:6px">✋ Do it first, then flip the card over!</span></div>
+          <div class="mfold">fold backward along this line, then laminate</div>
+          <div class="mback"><span>Your mystery word:</span><div class="word">${esc(setup.mystery[bx.id])}</div><span>Type it in your Park Pass for <b>+2</b>! Please leave this card in the box. 💛</span></div></div>`).join('')).join('')}</div>`);
       if (kind === 'boxtags') printWith(`<div class="cards">${ALL.map(bx => `
         <div class="wcard" style="--c:${color(bx)}"><div class="em">${bx.emoji}</div><b>${bx.num}. ${bx.name}</b>
           <div style="font-size:18px;margin:8px 0">🔒 Basehor Park Pass lockbox</div><span>Find the combo by checking in at a Park Pass event or doing the challenge.<br><b>Please be gentle & put everything back! 💛</b></span></div>`).join('')}</div>`);
     }));
     $('#printKey').addEventListener('click', () => {
       printWith(`<div class="keysheet"><h1>🗝️ Park Pass 2027 — STAFF KEY (keep private)</h1>
-        <h3>Lockboxes</h3><table><tr><th>#</th><th>Box</th><th>Combo</th><th>Word inside</th><th>Location</th></tr>${ALL.map(b => `<tr><td>${b.num}</td><td>${b.name}</td><td><b>${esc(setup.combo[b.id] || '')}</b></td><td>${esc(setup.word[b.id] || '')}</td><td>${esc(b.place)}</td></tr>`).join('')}</table>
+        <h3>Lockboxes</h3><table><tr><th>#</th><th>Box</th><th>Combo</th><th>Word inside</th><th>🎁 Mystery word</th><th>Location</th></tr>${ALL.map(b => `<tr><td>${b.num}</td><td>${b.name}</td><td><b>${esc(setup.combo[b.id] || '')}</b></td><td>${esc(setup.word[b.id] || '')}</td><td>${b.mystery ? `<b>${esc(setup.mystery[b.id] || '')}</b> <small>(${esc(b.mystery.title)})</small>` : '—'}</td><td>${esc(b.place)}</td></tr>`).join('')}</table>
         <h3>Challenge words (post each sign on its opening day)</h3><table><tr><th>Opens</th><th>Challenge</th><th>Box</th><th>Word</th><th>Word given by</th><th>Staff Bonus word</th></tr>${P.boxes.slice().sort((a, b) => a.challenge.opens.localeCompare(b.challenge.opens)).map(b => `<tr><td>${b.challenge.opens}</td><td>${esc(b.challenge.title)}</td><td>${b.name}</td><td><b>${esc(setup.chal[b.id] || '')}</b></td><td>${b.challenge.spoken ? 'Staff (say it out loud)' : 'Sign'}</td><td><b>${esc(setup.bonus[b.id] || '')}</b></td></tr>`).join('')}</table>
         <h3>Event codes</h3><table>${[...P.events].sort((a, b) => a.date.localeCompare(b.date)).map(e => `<tr><td>${e.date}</td><td>${esc(e.title)}</td><td><b>${esc(setup.ev[e.id] || '')}</b></td></tr>`).join('')}</table></div>`);
     });
